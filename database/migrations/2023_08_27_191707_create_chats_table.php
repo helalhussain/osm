@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('teacher_id')->constrained('teachers')->cascadeOnDelete();
             $table->string('message');
             $table->string('chat_type');
+            $table->string('file')->nullable();
             $table->timestamps();
         });
     }

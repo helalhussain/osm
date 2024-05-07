@@ -5,62 +5,61 @@ namespace App\Http\Controllers\Student;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Student;
+use App\Models\Course;
 
 class ProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //
-    }
+    // public function index(){
+    //    
+    //     return view('student.profile.show',compact('courses'));
+    // }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+     public function show()
+     {
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+         return view('student.profile.show');
+     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Student $student)
+ /**
+  * Show the form for editing the specified resource.
+  */
+    public function edit()
     {
+
         return view('student.profile.edit');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+ /**
+  * Update the specified resource in storage.
+  */
+    public function password()
     {
-        //
+        return view('student.profile.password');
     }
+ public function update(Request $request)
+ {
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+
+     $request->validate([
+         'name'  => ['required','string','max:20'],
+         // 'email' => ['required','email','string','unique:admins,email,'.auth()->id()],
+         'image' => ['nullable','image',image_allowed_extensions(),'max:512']
+     ]);
+
+     $user = User::find(auth()->id());
+
+     $user->update([
+         'name'  => $request->name,
+         'image'  => $request->hasFile('image') ? file_upload($request->image, 'user', $user->image) : $user->image
+     ]);
+
+     return response()->json([
+         'message' => 'Student updated successfully'
+     ]);
+}
 }

@@ -33,16 +33,6 @@
                     <div class="card">
                         <div class="btn-toolbar p-3" role="toolbar">
 
-                            <div class="btn-group me-2 mb-2 mb-sm-0">
-                                <button type="button" class="btn btn-primary waves-light waves-effect dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                    More <i class="mdi mdi-dots-vertical ms-2"></i>
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">Mark as Unread</a>
-                                    <a class="dropdown-item" href="#">Mark as Important</a>
-
-                                </div>
-                            </div>
                         </div>
 
 

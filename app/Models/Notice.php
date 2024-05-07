@@ -9,14 +9,10 @@ class Notice extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'title',
-        'description',
-        'details'
-    ];
+    protected $guarded = ['id'];
 
-    public function cls()
+    public function classroom()
     {
-        return $this->belongsTo(Cls::class);
+        return $this->belongsTo(Classroom::class);
     }
 }

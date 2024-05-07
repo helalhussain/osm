@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
-use App\Models\Student;
+use App\Models\User;
+
 
 class StudentController extends Controller
 {
@@ -15,7 +17,7 @@ class StudentController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            return DataTables::eloquent(Student::query())
+            return DataTables::eloquent(User::query())
                 ->addIndexColumn()
                 ->addColumn('action', fn () => '')
                 ->toJson();
@@ -66,11 +68,7 @@ class StudentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Student $student)
+    public function destroy(User $user)
     {
-        $student->delete();
-        return response()->json([
-            'message' => 'Student deleted successful'
-        ]);
     }
 }

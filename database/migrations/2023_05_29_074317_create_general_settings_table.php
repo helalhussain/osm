@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('site_name', 40)->default('OSMS');
             $table->string('currency_text', 10)->default('GBP');
             $table->string('currency_symbol', 5)->default('£');
+            $table->string('tution_fee',100)->default('550');
             $table->string('timezone', 50)->nullable();
             $table->string('logo')->nullable();
             $table->string('dark_logo')->nullable();

@@ -20,8 +20,8 @@
                         Compose
                     </a>
                     <div class="mail-list mt-4">
-                        <a href="{{ route('administator.student-message.index') }}" class="{{ Request::is('administator.student-message.index') ? '':'active'; }}"><i class="mdi mdi-email-outline me-2"></i> Inbox <span class="ms-1 float-end">({{ $m_count->count() }})</span></a>
-                        <a href="{{ route('administator.student-message.send') }}" class="{{ Request::is('administator.student-message.send') ? 'active':'' }}" ><i class="mdi mdi-email-check-outline me-2 "></i>Sent <span class="ms-1 float-end">({{ $m_student_count->count() }})</span></a>
+                        <a href="{{ route('administator.student-message.index') }}" class="{{ Request::is('administator.student-message.index') ? '':'active'; }}"><i class="mdi mdi-email-outline me-2"></i> Inbox <span class="ms-1 float-end"></span></a>
+                        <a href="{{ route('administator.student-message.send') }}" class="{{ Request::is('administator.student-message.send') ? 'active':'' }}" ><i class="mdi mdi-email-check-outline me-2 "></i>Sent <span class="ms-1 float-end"></span></a>
                     </div>
                 </div>
                 <!-- End Left sidebar -->
@@ -34,14 +34,7 @@
                         <div class="btn-toolbar p-3" role="toolbar">
 
                             <div class="btn-group me-2 mb-2 mb-sm-0">
-                                <button type="button" class="btn btn-primary waves-light waves-effect dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                    More <i class="mdi mdi-dots-vertical ms-2"></i>
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">Mark as Unread</a>
-                                    <a class="dropdown-item" href="#">Mark as Important</a>
 
-                                </div>
                             </div>
                         </div>
 
@@ -62,16 +55,21 @@
 
     </div>
     <div class="col-mail col-mail-2">
-        <a href="#" class="subject"> <span class="teaser">{{ $message->message }}</span>
+        <a href="{{ route('administator.student-message.show',$message->id) }}" class="subject"> <span class="teaser">{{ $message->message }}</span>
         </a>
 
-        <div class="date">
+        {{-- <div class="date">
 
-            <a href="{{ route('administator.student-message.destroy',$message->id) }}" id="deleteBtn">
-                <i class="fas fa-trash-alt"></i>
-            </a>
+            <form action="{{ route('administator.student-message.destroy',$message->id) }}" method="POST">
+                @csrf
+            @method('DELETE')
+                <button type="submit" style="border:none;background:none
+                ">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+              </form>
 
-        </div>
+        </div> --}}
     </div>
 
 </li>

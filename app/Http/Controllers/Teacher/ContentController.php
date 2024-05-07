@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Course;
 use App\Models\Content;
+use App\Models\Classroom;
 use Yajra\DataTables\Facades\DataTables;
 
 
@@ -16,7 +18,7 @@ class ContentController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            return DataTables::eloquent(Content::query())
+            return DataTables::eloquent(Content::query()->select('id','title','description')->where('teacher_id','=',auth()->user()->id))
                 ->addIndexColumn()
                 ->addColumn('action', fn () => '')
                 ->toJson();
@@ -29,7 +31,8 @@ class ContentController extends Controller
      */
     public function create(Content $content)
     {
-        return view('teacher.content.form');
+        $classrooms = Classroom::all();
+        return view('teacher.content.form',compact('classrooms'));
     }
 
     /**
@@ -38,13 +41,28 @@ class ContentController extends Controller
     public function store(Request $request,Content $content)
     {
         $request->validate([
+            'class' => 'required',
             'title' => 'required',
         ]);
 
-        $store = new Content();
-        $store->title = $request->title;
-        $store->description = $request->description;
-        $store->save();
+        if($request->file==null){
+            $store = new Content();
+            $store->classroom_id = $request->class;
+            $store->teacher_id = auth()->user()->id;
+            $store->title = $request->title;
+            $store->description = $request->description;
+            $store->save();
+        }else{
+            $store = new Content();
+            $store->classroom_id = $request->class;
+            $store->teacher_id = auth()->user()->id;
+            $store->title = $request->title;
+            $store->description = $request->description;
+            $store->file = file_upload($request->file, 'content');
+            $store->save();
+
+        }
+
         return response()->json([
             'message' => 'Content added successfully'
         ]);
@@ -53,9 +71,10 @@ class ContentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Content $content)
     {
-        //
+        $classes = Classroom::all();
+        return view('teacher.content.show',compact('content'));
     }
 
     /**
@@ -63,7 +82,8 @@ class ContentController extends Controller
      */
     public function edit(Content $content)
     {
-        return view('teacher.content.form',compact('content'));
+        $classrooms = Classroom::all();
+        return view('teacher.content.form',compact('content','classrooms'));
     }
 
     /**
@@ -73,12 +93,25 @@ class ContentController extends Controller
     {
 
         $request->validate([
+            'class' => 'required',
             'title' => 'required|max:150',
         ]);
-        $content->update([
+        if($request->file==null){
+            $content->update([
+                'classroom_id'=>$request->class,
                 'title'=>$request->title,
-                'description'=>$request->description
+                'description'=>$request->description,
+                
         ]);
+        }else{
+            $content->update([
+                'classroom_id'=>$request->class,
+                'title'=>$request->title,
+                'description'=>$request->description,
+                'file'=>file_upload($request->file, 'content')
+        ]);
+        }
+
         return response()->json(['message' => 'Content updated successfully']);
     }
 

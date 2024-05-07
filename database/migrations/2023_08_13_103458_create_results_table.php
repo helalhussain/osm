@@ -13,9 +13,13 @@ return new class extends Migration
     {
         Schema::create('results', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('classroom_id')->refers('id')->on('classrooms')->onDelete('cascade');
+            $table->foreignId('teacher_id')->refers('id')->on('teachers')->onDelete('cascade');
+            $table->foreignId('administator_id')->refers('id')->on('administators')->onDelete('cascade');
             $table->string('title');
             $table->text('description')->nullable();
-            $table->string('details')->nullable();
+            $table->string('file')->nullable();
+            $table->string('request')->default('requested');
             $table->boolean('status')->default(true)->comment('0: disabled, 1: active');
             $table->timestamps();
         });

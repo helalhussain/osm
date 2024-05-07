@@ -1,24 +1,4 @@
-{{-- <x-admin.modal
-    enctype="multipart/form-data"
-    :title="isset($teacher) ? 'Update Teacher' : 'Add New Teacher'"
-    :action="isset($teacher) ? route('administator.teacher.update', $teacher->id) : route('administator.teacher.store')"
-    :button="isset($teacher) ? 'Update' : 'Submit'"
->
-    @isset($teacher)
-        @method('PUT')
-    @endisset
-    <x-admin.form-group label="name" placeholder="Enter teacher name" :value="$teacher->name ?? ''" />
-    <x-admin.form-group label="email" placeholder="Enter teacher email" :value="$teacher->email ?? ''" />
-        <x-admin.form-group label="subject" :required="false" isType="select" class="select2" column="">
-            <option value="">Select Subject</option>
-            @foreach ($subjects as $subject)
-            <option value="{{ $subject->id }}">{{ $subject->name }}</option>
-            @endforeach
-        </x-admin.form-group>
-        <x-admin.form-group label="password" placeholder="Enter password" :value="$teacher->password ?? ''" />
-        <x-admin.form-group label="password_confirmation" placeholder="Enter confirm password" />
 
-</x-admin.modal> --}}
 @extends('layouts.administator.app')
 
 @section('administator_content')

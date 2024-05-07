@@ -9,13 +9,18 @@ class Course extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['id'];
 
-    public function subject()
+    public function section()
     {
-        return $this->belongsTo(Subject::class);
+        return $this->belongsTo(Section::class);
     }
-    public function teacher()
+    public function classroom()
     {
-        return $this->belongsTo(Teacher::class);
+        return $this->belongsTo(Classroom::class);
+    }
+    public function subjects()
+    {
+        return $this->belongsToMany(Subject::class);
     }
 }

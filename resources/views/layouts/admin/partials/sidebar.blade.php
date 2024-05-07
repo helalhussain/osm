@@ -29,7 +29,8 @@
 
                         <li>
                             <a href="{{ route('admin.dashboard') }}" class="waves-effect">
-                                <i class="dripicons-home"></i><span class="badge rounded-pill bg-info float-end">3</span>
+                                <i class="dripicons-home"></i>
+                                {{-- <span class="badge rounded-pill bg-info float-end">3</span> --}}
                                 <span>Dashboard</span>
                             </a>
                         </li>
@@ -42,7 +43,7 @@
                             <ul class="sub-menu" aria-expanded="false">
                                 <li><a href="{{ route('admin.administator.index') }}">Administator</a></li>
                                 <li><a href="{{ route('admin.teacher.index') }}">Teacher</a></li>
-                                <li><a href="{{ route('admin.student.index') }}">Student</a></li>
+                                <li><a href="{{ route('admin.user.index') }}">Student</a></li>
                             </ul>
                         </li>
 
@@ -54,9 +55,13 @@
                             <ul class="sub-menu" aria-expanded="false">
 
                                 <li><a href="{{ route('admin.notice.index') }}">Notice</a></li>
+                                {{-- <li><a href="{{ route('admin.subject.index') }}">Subject</a></li>
+                                <li><a href="{{ route('admin.section.index') }}">Section</a></li> --}}
+                                {{-- <li><a href="{{ route('admin.class.index') }}">Class</a></li> --}}
+
                             </ul>
                         </li>
-                        <li>
+                        {{-- <li>
                             <a href="javascript: void(0);" class="has-arrow waves-effect">
                                 <i class="dripicons-mail"></i>
                                 <span>Message</span>
@@ -64,9 +69,20 @@
                             <ul class="sub-menu" aria-expanded="false">
                                 <li><a href="{{ route('admin.message.index') }}">Inbox</a></li>
                                 <li><a href="{{ route('admin.setting.logo.icon') }}">Outbox</a></li>
-                                {{-- <li><a href="{{ route('admin.setting.index') }}">Setting</a></li> --}}
+
                             </ul>
-                        </li>
+                        </li> --}}
+                        {{-- <li>
+                            <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                <i class="dripicons-user"></i>
+                                <span>Result</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{{ route('admin.result.index') }}">Result</a></li>
+                                <li><a href="{{ route('admin.certificate.index') }}">Cirtificate</a></li>
+
+                            </ul>
+                        </li> --}}
                         <li>
                             <a href="javascript: void(0);" class="has-arrow waves-effect">
                                 <i class="mdi mdi-cog-outline"></i>
@@ -75,7 +91,7 @@
                             <ul class="sub-menu" aria-expanded="false">
                                 <li><a href="{{ route('admin.setting.setting') }}">General Setting</a></li>
                                 <li><a href="{{ route('admin.setting.logo.icon') }}">Logo Icon</a></li>
-                                {{-- <li><a href="{{ route('admin.setting.index') }}">Setting</a></li> --}}
+
                             </ul>
                         </li>
 

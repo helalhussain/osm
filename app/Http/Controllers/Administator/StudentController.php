@@ -17,7 +17,7 @@ class StudentController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            return DataTables::eloquent(Student::query())
+            return DataTables::eloquent(User::query())
                 ->addIndexColumn()
                 ->addColumn('action', fn () => '')
                 ->toJson();

@@ -34,49 +34,57 @@
                             </a>
                         </li>
 
-                        <li>
+                        {{-- <li>
                             <a href="javascript: void(0);" class="has-arrow waves-effect">
                                 <i class="dripicons-user"></i>
                                 <span>Users</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="{{ route('teacher.student.index') }}">Student</a></li>
+                                <li><a href="{{ route('teacher.user.index') }}">Student</a></li>
                             </ul>
-                        </li>
+                        </li> --}}
 
                         <li>
                             <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                <i class="dripicons-user"></i>
+                                <i class="dripicons-home"></i>
                                 <span>School</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="#">Live class</a></li>
-                                <li><a href="#">Quiz</a></li>
+                                <li><a href="{{ route('teacher.notice.index') }}">Notice</a></li>
+                                <li><a href="{{ route('teacher.content.index') }}">Content</a></li>
+                                <li><a href="{{ route('teacher.quiz.index') }}">Quiz</a></li>
+                                <li><a href="{{ route('teacher.result.index') }}">Result</a></li>
+                                <li><a href="{{ route('teacher.certificate.index') }}">Certificate</a></li>
+
                             </ul>
                         </li>
-                        <li>
+                             <li>
                             <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                <i class="dripicons-mail"></i>
+                                <i class="dripicons-message"></i>
+                                <span>Meeting</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{{ route('teacher.zoom.index') }}">Meeting</a></li>
+                            </ul>
+                        </li>
+                        {{-- <li>
+                            <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                <i class="dripicons-message"></i>
                                 <span>Message</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
                                 <li><a href="{{ route('teacher.message.index') }}">Admininistator</a></li>
                             </ul>
-                        </li>
-                        <li>
-                            <a href="{{ route('teacher.content.index') }}" class="waves-effect">
-                                <i class="dripicons-user"></i>
-                                <span>Content</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('teacher.notice.index') }}" class="waves-effect">
-                                <i class="dripicons-to-do"></i>
-                                <span>Notice</span>
-                            </a>
-                        </li>
+                        </li> --}}
 
+                        <li>
+                            <a href="{{ route('teacher.chat.index') }}" class="waves-effect">
+                                <i class="dripicons-message"></i>
+                                <span>Chats</span>
+                            </a>
+                        </li>
                     </ul>
+
                 </div>
                 <!-- Sidebar -->
             </div>

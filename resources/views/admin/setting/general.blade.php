@@ -21,6 +21,7 @@
                 </x-admin.form-group>
                 <x-admin.form-group label="currency_text" value="{{ $setting->currency_text }}" column="col-lg-6" />
                 <x-admin.form-group label="curreny_symbol" value="{{ $setting->currency_symbol }}" column="col-lg-6" />
+                    <x-admin.form-group label="tution_fee" value="{{ $setting->tution_fee }}" column="col-lg-6" />
 
                 <div class="col-12 mt-4">
                     <x-admin.submit-button text="Update" class="w-10" />

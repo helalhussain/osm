@@ -20,30 +20,32 @@ class ProfileController extends Controller
         return view('student.profile.index');
     }
 
-    public function edit(): View
-    {
-
-        // return view('profile.edit', [
-        //     'user' => $request->user(),
-        // ]);
-        return view('student.profile.edit');
-    }
+    // public function edit(): View
+    // {
+    //     return view('profile.edit', [
+    //         'user' => $request->user(),
+    //     ]);
+    //     return view('student.profile.edit');
+    // }
 
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
-    {
-        $request->user()->fill($request->validated());
+    // public function update(ProfileUpdateRequest $request): RedirectResponse
+    // {
+    //     $request->user()->fill($request->validated());
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
+    //     if ($request->user()->isDirty('email')) {
+    //         $request->user()->email_verified_at = null;
+    //     }
 
-        $request->user()->save();
+    //     $request->user()->save();
+    //     return response()->json([
+    //         'message' => 'Profile update successfully'
+    //     ]);
+    //     return Redirect::route('profile.index')->with('status', 'profile-updated');
+    // }
 
-        return Redirect::route('profile.index')->with('status', 'profile-updated');
-    }
     // public function update(ProfileUpdateRequest $request): JsonResponse
     // {
     //     $request->user()->fill($request->validated());
@@ -57,27 +59,72 @@ class ProfileController extends Controller
     //     return response()->json(['message' => translate('updated_message', ['text' => 'Profile'])]);
     // }
 
-    // public function update(Request $request, User $user)
+    // public function update(Request $request)
     // {
     //     $request->validate([
-    //         'student_id'=>'required',
+
     //         'name' => 'required',
-    //         'email' =>'required|email',
+
 
     //     ]);
     //     // dd($request->all());
     //     $user->update([
     //             'name'=>$request->name,
-    //             'email'=>$request->email,
-    //             'phone'=>$request->phone,
-    //             'dob'=>$request->dob,
-    //             'gender'=>$request->gender
     //     ]);
     //     return response()->json(['message' => 'Profile updated successfully']);
     // }
     /**
      * Delete the user's account.
      */
+    public function show()
+     {
+         return view('student.profile.show');
+     }
+
+
+    /**
+     * Show the form for editing the specified resource.
+    */
+        public function edit()
+        {
+
+            return view('student.profile.edit');
+        }
+
+        /**
+         * Update the specified resource in storage.
+        */
+            public function password()
+            {
+                return view('student.profile.password');
+            }
+
+        public function update(Request $request)
+        {
+            $request->validate([
+                'name'  => ['required','string','max:20'],
+                // 'email' => ['required','email','string','unique:admins,email,'.auth()->id()],
+                'image' => ['nullable','image',image_allowed_extensions(),'max:512']
+            ]);
+
+            $user = User::find(auth()->id());
+
+            $user->update([
+                'name'  => $request->name,
+                'phone'  => $request->phone,
+                'dob'=>$request->date,
+                'gender'  => $request->gender,
+                'address'  => $request->address,
+                'image'  => $request->hasFile('image') ? file_upload($request->image, 'user', $user->image) : $user->image
+            ]);
+
+            return response()->json([
+                'message' => 'Student updated successfully'
+            ]);
+        }
+
+
+
     public function destroy(Request $request): RedirectResponse
     {
         $request->validateWithBag('userDeletion', [

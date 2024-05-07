@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Nikolag\Square\Traits\HasCustomers;
 
 class User extends Authenticatable
 {
@@ -17,12 +18,8 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
 
+    protected $guarded = ['id'];
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -41,7 +38,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
+    public function classroom()
+    {
+        return $this->belongsTo(Classroom::class);
+    }
+    public function certificate()
+    {
+        return $this->hasOne(Certificate::class);
+    }
+    public function section()
+    {
+        return $this->belongsTo(Section::class);
+    }
     public function message()
     {
         return $this->hasOne(Message::class);

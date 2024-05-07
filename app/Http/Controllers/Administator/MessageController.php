@@ -15,20 +15,13 @@ class MessageController extends Controller
      */
     public function index()
     {
-        $messages = Message::where('m_type','=','administator')->paginate(9);
+        $messages = Message::where('m_type','=','student')->paginate(9);
         $m_count = Message::where('m_type','=','administator')->get();
         $m_student_count = Message::where('m_type','=','student')->get();
 
         return view('administator.message.index',compact('messages','m_count','m_student_count'));
     }
-    public function send()
-    {
-        $messages = Message::where('m_type','=','student')->paginate(9);
-        $m_administator_count = Message::where('m_type','=','administator')->get();
-        $m_count = Message::where('m_type','=','student')->get();
 
-        return view('administator.message.send',compact('messages','m_count','m_administator_count'));
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -36,7 +29,9 @@ class MessageController extends Controller
     public function create()
     {
         $students = User::all();
-        return view('administator.message.compose',compact('students'));
+        $m_count = Message::where('m_type','=','administator')->get();
+        $m_student_count = Message::where('m_type','=','student')->get();
+        return view('administator.message.compose',compact('students','m_count','m_student_count'));
     }
 
 
@@ -47,29 +42,37 @@ class MessageController extends Controller
     {
         $request->validate([
             'email'=>'required',
-            'elm1'=>'required'
+            'description'=>'required'
         ]);
+        if($request->file==null){
+            $file = null;
+        }else{
+            $file = file_upload($request->file, 'message');
+        }
 
         $store = new Message();
         $store->user_id = $request->email;
         $store->administator_id = auth()->user()->id;
         $store->subject= $request->subject;
-        $store->message = $request->elm1;
-        $store->image = file_upload($request->image, 'message');
+        $store->message = $request->description;
+        $store->file = $file;
         $store->m_type = 'administator';
         $store->save();
-        return response()->json([
-            'message' => 'Notice added successfully'
-        ]);
+        // return response()->json([
+        //     'message' => 'Message send successfully'
+        // ]);
+        return redirect()->route('administator.student-message.send');
 
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Message $message)
+    public function show(Message $student_message)
     {
-        return view('administator.message.show',compact('message'));
+        $m_administator_count = Message::where('m_type','=','administator')->get();
+        $m_count = Message::where('m_type','=','student')->get();
+        return view('administator.message.show',compact('student_message','m_count','m_administator_count'));
     }
 
     /**
@@ -91,14 +94,19 @@ class MessageController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Message $message)
+    public function destroy(Message $student_message)
     {
-        $message->delete();
-        return response([
-            'message'=>'Message deleted succssful'
-        ]);
+        $delete = $student_message->Delete();
+        return redirect()->back();
+    }
 
 
-    // return redirect()->back();
+    public function send()
+    {
+        $messages = Message::where('m_type','=','administator')->paginate(9);
+        $m_count = Message::where('m_type','=','administator')->get();
+        $m_student_count = Message::where('m_type','=','student')->get();
+
+        return view('administator.message.send',compact('messages','m_count','m_student_count'));
     }
 }

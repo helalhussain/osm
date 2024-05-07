@@ -9,8 +9,10 @@ class Content extends Model
 {
     use HasFactory;
 
-    protected $fillable =[
-        'title',
-        'description'
-    ];
+    protected $guarded = ['id'];
+
+    public function classroom()
+    {
+        return $this->belongsTo(Classroom::class);
+    }
 }

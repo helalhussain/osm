@@ -5,10 +5,9 @@ namespace App\Http\Controllers\Administator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
-use App\Models\Group;
 use App\Models\Section;
 use App\Models\Course;
-use App\Models\Cls;
+
 
 class SectionController extends Controller
 {
@@ -23,9 +22,7 @@ class SectionController extends Controller
                 ->addColumn('action', fn () => '')
                 ->toJson();
         }
-        $sections = Section::all();
-        return view('administator.cls.index',compact('sections'));
-
+        return view('administator.section.index');
     }
 
     /**
@@ -33,10 +30,9 @@ class SectionController extends Controller
      */
     public function create(Section $section)
     {
-        $groups = Group::all();
-        $clses = Cls::all();
-        return view('administator.cls.section.form',compact('groups','clses'));
+        return view('administator.section.form');
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -44,15 +40,14 @@ class SectionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-
+            'title'=>'required'
         ]);
         $store = new Section();
-        $store->cls_id = $request->class;
-        $store->group_id = $request->group;
-        // $store->title = $request->title;
+        $store->title = $request->title;
+
         $store->save();
         return response()->json([
-            'message' => 'Class group added successfully'
+            'message' => 'Section added successfully'
         ]);
     }
 
@@ -61,32 +56,40 @@ class SectionController extends Controller
      */
     public function show(string $id)
     {
-        $sections = Section::all();
-        $courses= Course::all();
-        return view('administator.cls.section.show',compact('courses','sections'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Section $section)
     {
-        //
+        return view('administator.section.form',compact('section'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Section $section)
     {
-        //
+        $request->validate([
+            'title' => 'required|max:150',
+        ]);
+        $section->update([
+                'title'=>$request->title,
+
+        ]);
+        return response()->json(['message' => 'Section updated successfully']);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Section $section)
     {
-        //
+        $section->delete();
+        return response([
+            'message'=>'Section deleted succssful'
+        ]);
     }
 }

@@ -8,14 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class Section extends Model
 {
     use HasFactory;
-    public function cls()
+    protected $guarded = ['id'];
+    // public function cls()
+    // {
+    //     return $this->belongsToMany(Cls::class,'id');
+    // }
+
+
+    public function course()
     {
-        return $this->belongsToMany(Cls::class,'id');
+        return $this->hasOne(Course::class);
+    }
+    public function users()
+    {
+        return $this->hasOne(User::class);
     }
 
-    public function group()
-    {
-        return $this->belongsTo(Group::class);
-    }
 
 }

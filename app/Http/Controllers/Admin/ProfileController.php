@@ -11,11 +11,15 @@ class ProfileController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function index(){
+        return view('admin.profile.password');
+    }
 
     public function show()
         {
             return view('admin.profile.show');
         }
+
 
 
     /**
@@ -30,10 +34,7 @@ class ProfileController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function password()
-    {
-        return view('admin.profile.password');
-    }
+
     public function update(Request $request)
     {
 

@@ -8,20 +8,21 @@
         @method('PUT')
     @endisset
     <x-admin.form-group label="class" :required="false" isType="select" class="select2" column="">
-        <option value="">Select Class</option>
-        @foreach ($clses as $clse)
-        <option value="{{ $clse->id }}">{{ $clse->title }}</option>
+        <option value="{{ $notice->classroom_id ?? '' }}">{{ $notice->classroom->title ?? 'Select Class' }}</option>
+        @foreach ($classes as $class)
+        <option value="{{ $class->id }}">{{ $class->title }}</option>
         @endforeach
     </x-admin.form-group>
     <x-admin.form-group label="title" placeholder="Enter notice title" :value="$notice->title ?? ''" />
-    <x-admin.form-group label="description" placeholder="Enter notice description" :value="$notice->description ?? ''" />
+    {{-- <x-admin.form-group label="description" placeholder="Enter notice description" :value="$notice->description ?? ''" /> --}}
+        <x-admin.form-group label="description" placeholder="Description" :required="false" isType="textarea">
+            {{ $notice->description ?? ''}}
+        </x-admin.form-group>
         <x-admin.form-group
-        label="image"
+        label="file"
         type="file"
-        accept="image/*"
+        accept=""
 
     />
-
-
 
 </x-admin.modal>

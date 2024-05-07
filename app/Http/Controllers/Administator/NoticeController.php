@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Administator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
-use App\Models\Cls;
+use App\Models\Classroom;
 use App\Models\Notice;
 
 class NoticeController extends Controller
@@ -29,8 +29,8 @@ class NoticeController extends Controller
      */
     public function create(Notice $notice)
     {
-        $clses = Cls::all();
-        return view('administator.notice.form',compact('clses'));
+        $classes = Classroom::all();
+        return view('administator.notice.form',compact('classes'));
     }
 
     /**
@@ -39,13 +39,23 @@ class NoticeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'class' => 'required',
             'title' => 'required',
         ]);
 
+        if($request->file==null){
+            $file = null;
+        }else{
+            $file = file_upload($request->file, 'notice');
+        }
+
         $store = new Notice();
+        $store->classroom_id = $request->class;
+        $store->administator_id = auth()->user()->id;
+        $store->user_type = "administator";
         $store->title = $request->title;
         $store->description = $request->description;
-        $store->image = file_upload($request->image, 'notice');
+        $store->file =  $file;
         $store->save();
         return response()->json([
             'message' => 'Notice added successfully'
@@ -55,9 +65,10 @@ class NoticeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Notice $notice)
     {
-        //
+        $classes = Classroom::all();
+        return view('administator.notice.show',compact('notice','classes'));
     }
 
     /**
@@ -65,7 +76,8 @@ class NoticeController extends Controller
      */
     public function edit(Notice $notice)
     {
-        return view('administator.notice.form',compact('notice'));
+        $classes =Classroom::all();
+        return view('administator.notice.form',compact('notice','classes'));
     }
 
     /**
@@ -74,13 +86,22 @@ class NoticeController extends Controller
     public function update(Request $request, Notice $notice)
     {
         $request->validate([
+            'class' => 'required',
             'title' => 'required',
 
         ]);
+        if($request->file==null){
+            $file = null;
+        }else{
+            $file = file_upload($request->file, 'notice');
+        }
         $notice->update([
-                'title'=>$request->title,
-                'description'=>$request->description
-        ]);
+            'classroom_id'=>$request->class,
+            'title'=>$request->title,
+            'description'=>$request->description,
+            'file'=>$file
+
+    ]);
         return response()->json(['message' => 'Notice updated successfully']);
     }
 

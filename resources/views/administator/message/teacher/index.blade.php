@@ -20,8 +20,8 @@
                         Compose
                     </a>
                     <div class="mail-list mt-4">
-                        <a href="{{ route('administator.teacher-message.index') }}" class="{{ Request::is('administator.teacher-message.index') ? '':'active'; }}"><i class="mdi mdi-email-outline me-2"></i> Inbox <span class="ms-1 float-end">(1)</span></a>
-                        <a href="{{ route('administator.teacher-message.send') }}" class="{{ Request::is('administator.teacher-message.send') ? 'active':'' }}" ><i class="mdi mdi-email-check-outline me-2 "></i>Sent <span class="ms-1 float-end">(1)</span></a>
+                        <a href="{{ route('administator.teacher-message.index') }}" class="{{ Request::is('administator.teacher-message.index') ? '':'active'; }}"><i class="mdi mdi-email-outline me-2"></i> Inbox <span class="ms-1 float-end"></span></a>
+                        <a href="{{ route('administator.teacher-message.send') }}" class="{{ Request::is('administator.teacher-message.send') ? 'active':'' }}" ><i class="mdi mdi-email-check-outline me-2 "></i>Sent <span class="ms-1 float-end"></span></a>
                     </div>
                 </div>
                 <!-- End Left sidebar -->

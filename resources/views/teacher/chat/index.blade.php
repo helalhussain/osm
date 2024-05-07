@@ -24,7 +24,7 @@
                     </div>
 
                     <div class="chat-leftsidebar-nav">
-                        <ul class="nav nav-pills nav-justified">
+                        {{-- <ul class="nav nav-pills nav-justified">
                             <li class="nav-item">
                                 <a href="#chat" data-bs-toggle="tab" aria-expanded="true" class="nav-link active">
                                     <span>Chat</span>
@@ -32,15 +32,15 @@
                             </li>
                             <li class="nav-item">
                                 <a href="#group" data-bs-toggle="tab" aria-expanded="false" class="nav-link">
-                                    {{-- <span>Group</span> --}}
+                                    <span>Group</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="#contact" data-bs-toggle="tab" aria-expanded="false" class="nav-link">
-                                    {{-- <span>Contacts</span> --}}
+                                    <span>Contacts</span>
                                 </a>
                             </li>
-                        </ul>
+                        </ul> --}}
 
 
                         <div class="tab-content py-4">
@@ -56,40 +56,19 @@
                                                         <i class="mdi mdi-circle text-success font-size-10"></i>
                                                     </div>
                                                     <div class="align-self-center me-3">
-                                                        <img src="{{ asset('admin') }}/assets/images/users/avatar-2.jpg" class="rounded-circle avatar-xs" alt="">
+                                                        {{-- <img src="{{ asset('admin') }}/assets/images/users/avatar-2.jpg" class="rounded-circle avatar-xs" alt=""> --}}
+                                                        <img src="{{ uploaded_file($chat->image) }}" class="rounded-circle avatar-xs" alt="">
                                                     </div>
 
                                                     <div class="media-body overflow-hidden">
                                                         <h5 class="text-truncate font-size-14 mb-1">{{ $chat->name }}</h5>
                                                         <p class="text-truncate mb-0">ID: {{ $chat->student_id }}</p>
                                                     </div>
-                                                    <div class="font-size-11">05 min</div>
+                                                    {{-- <div class="font-size-11">05 min</div> --}}
                                                 </div>
                                             </a>
                                         </li>
                                         @endforeach
-
-                                        <li>
-                                            <a href="#">
-                                                <div class="media">
-                                                    <div class="align-self-center me-3">
-                                                        <i class="mdi mdi-circle text-success font-size-10"></i>
-                                                    </div>
-                                                    <div class="avatar-xs align-self-center me-3">
-                                                        <span class="avatar-title rounded-circle bg-soft-primary text-primary">
-                                                            K
-                                                        </span>
-                                                    </div>
-                                                    <div class="media-body overflow-hidden">
-                                                        <h5 class="text-truncate font-size-14 mb-1">Keith Gonzales</h5>
-                                                        <p class="text-truncate mb-0">This theme is awesome!</p>
-                                                    </div>
-                                                    <div class="font-size-11">24 min</div>
-                                                </div>
-                                            </a>
-                                        </li>
-
-
 
                                     </ul>
                                 </div>
@@ -375,7 +354,7 @@
                 </div>
             </div>
 
-            <div class="w-100 user-chat">
+            {{-- <div class="w-100 user-chat">
                 <div class="card">
                     <div class="p-4 border-bottom ">
                         <div class="row">
@@ -415,7 +394,7 @@
 
 
                 </div>
-            </div>
+            </div> --}}
 
         </div>
         <!-- end row -->

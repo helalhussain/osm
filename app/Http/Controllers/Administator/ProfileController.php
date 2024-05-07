@@ -29,10 +29,10 @@ public function edit()
 /**
  * Update the specified resource in storage.
  */
-public function password()
-{
-    return view('administator.profile.password');
-}
+// public function password()
+// {
+//     return view('administator.profile.password');
+// }
 public function update(Request $request)
 {
 

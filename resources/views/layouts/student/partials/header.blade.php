@@ -1,544 +1,237 @@
-        <!-- Navbar -->
+<div id="layout-wrapper">
 
-        <nav class="layout-navbar navbar navbar-expand-xl align-items-center bg-navbar-theme" id="layout-navbar">
-          <div class="container">
-            <div class="navbar-brand app-brand demo d-none d-xl-flex py-0 me-4">
-              <a href="{{ route('dashboard') }}" class="app-brand-link gap-2">
-                <span class="app-brand-logo demo">
-                  {{-- <svg width="32" height="22" viewBox="0 0 32 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M0.00172773 0V6.85398C0.00172773 6.85398 -0.133178 9.01207 1.98092 10.8388L13.6912 21.9964L19.7809 21.9181L18.8042 9.88248L16.4951 7.17289L9.23799 0H0.00172773Z"
-                      fill="#7367F0"
-                    />
-                    <path
-                      opacity="0.06"
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M7.69824 16.4364L12.5199 3.23696L16.5541 7.25596L7.69824 16.4364Z"
-                      fill="#161616"
-                    />
-                    <path
-                      opacity="0.06"
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M8.07751 15.9175L13.9419 4.63989L16.5849 7.28475L8.07751 15.9175Z"
-                      fill="#161616"
-                    />
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M7.77295 16.3566L23.6563 0H32V6.88383C32 6.88383 31.8262 9.17836 30.6591 10.4057L19.7824 22H13.6938L7.77295 16.3566Z"
-                      fill="#7367F0"
-                    />
-                  </svg> --}}
 
-                </span>
-                <span class="app-brand-text demo menu-text fw-bold">
-                    <img src="{{ uploaded_file($logoIcon->logo) }}" alt="" height="35">
-                </span>
-              </a>
+<header id="page-topbar">
+    <div class="navbar-header">
+        <div class="d-flex">
+            <!-- LOGO -->
+            <div class="navbar-brand-box">
+                <a href="{{ route('dashboard') }}" class="logo logo-dark">
+                    <span class="logo-sm">
+                        <img src="{{ uploaded_file($logoIcon->dark_logo) }}" alt="" height="22">
+                    </span>
+                    <span class="logo-lg">
+                        <img src="{{ uploaded_file($logoIcon->logo) }}" alt="" height="20">
+                    </span>
+                </a>
 
-              <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-xl-none">
-                <i class="ti ti-x ti-sm align-middle"></i>
-              </a>
+                <a href="{{ route('dashboard') }}" class="logo logo-light">
+                    <span class="logo-sm">
+                        <img src="{{ uploaded_file($logoIcon->dark_logo) }}" alt="" height="22">
+                    </span>
+                    <span class="logo-lg">
+                        <img src="{{ uploaded_file($logoIcon->logo) }}" alt="" height="20">
+                    </span>
+                </a>
             </div>
 
-            <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-              <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-                <i class="ti ti-menu-2 ti-sm"></i>
-              </a>
+            <button type="button" class="btn btn-sm px-3 font-size-24 d-lg-none header-item waves-effect waves-light" data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
+                <i class="mdi mdi-menu"></i>
+            </button>
+
+            <div class="topbar-social-icon me-3 d-none d-md-block">
+                <ul class="list-inline title-tooltip m-0">
+                    {{-- <li class="list-inline-item">
+                        <a href="email-inbox.html" data-toggle="tooltip" data-placement="top" title="Email">
+                         <i class="mdi mdi-email-outline"></i>
+                        </a>
+                    </li>
+
+                    <li class="list-inline-item">
+                        <a href="chat.html" data-toggle="tooltip" data-placement="top" title="Chat">
+                         <i class="mdi mdi-tooltip-outline"></i>
+                        </a>
+                    </li> --}}
+
+                </ul>
             </div>
 
-            <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-              <ul class="navbar-nav flex-row align-items-center ms-auto">
-                <!-- Language -->
-                {{-- <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
-                  <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                    <i class="fi fi-us fis rounded-circle me-1 fs-3"></i>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                      <a class="dropdown-item" href="javascript:void(0);" data-language="en">
-                        <i class="fi fi-us fis rounded-circle me-1 fs-3"></i>
-                        <span class="align-middle">English</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="javascript:void(0);" data-language="fr">
-                        <i class="fi fi-fr fis rounded-circle me-1 fs-3"></i>
-                        <span class="align-middle">French</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="javascript:void(0);" data-language="de">
-                        <i class="fi fi-de fis rounded-circle me-1 fs-3"></i>
-                        <span class="align-middle">German</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="javascript:void(0);" data-language="pt">
-                        <i class="fi fi-pt fis rounded-circle me-1 fs-3"></i>
-                        <span class="align-middle">Portuguese</span>
-                      </a>
-                    </li>
-                  </ul>
-                </li> --}}
-                <!--/ Language -->
 
 
-@empty(auth()->user()->name)
-                <!-- Login & Register -->
-                <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
-                    <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                      {{-- <i class="fi fi-us fis rounded-circle me-1 fs-3"></i> --}}
-                      Auth
+
+        </div>
+
+        <!-- Search input -->
+        {{-- <div class="search-wrap" id="search-wrap">
+            <div class="search-bar">
+                <input class="search-input form-control" placeholder="Search" />
+                <a href="#" class="close-search toggle-search" data-target="#search-wrap">
+                    <i class="mdi mdi-close-circle"></i>
+                </a>
+            </div>
+        </div> --}}
+
+        <div class="d-flex">
+
+            {{-- <div class="dropdown d-none d-lg-inline-block">
+                <button type="button" class="btn header-item toggle-search noti-icon waves-effect" data-target="#search-wrap">
+                    <i class="mdi mdi-magnify"></i>
+                </button>
+            </div> --}}
+
+
+            {{-- <div class="dropdown d-none d-md-block ms-2">
+                <button type="button" class="btn header-item waves-effect" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img class="me-2" src="{{ asset('/admin') }}/assets/images/flags/us.jpg" alt="Header Language" height="16"> English <span class="mdi mdi-chevron-down"></span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-end">
+
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <img src="{{ asset('/admin') }}/assets/images/flags/germany.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> German </span>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                      <li>
-                        <a class="dropdown-item" href="{{ route('login') }}">
-                          {{-- <i class="fi fi-us fis rounded-circle me-1 fs-3"></i> --}}
-                          <span class="align-middle">Login</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="{{ route('register') }}" data-language="fr">
-                          {{-- <i class="fi fi-fr fis rounded-circle me-1 fs-3"></i> --}}
-                          <span class="align-middle">Register</span>
-                        </a>
-                      </li>
 
-                      </li>
-                    </ul>
-                  </li>
-                  <!--/ Login & Register -->
-@endempty
-
-
-
-
-
-                <!-- Style Switcher -->
-                <li class="nav-item me-2 me-xl-0">
-                  <a class="nav-link style-switcher-toggle hide-arrow" href="javascript:void(0);">
-                    <i class="ti ti-md"></i>
-                  </a>
-                </li>
-                <!--/ Style Switcher -->
-
-                <!-- Quick links  -->
-                <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown me-2 me-xl-0">
-                  <a
-                    class="nav-link dropdown-toggle hide-arrow"
-                    href="javascript:void(0);"
-                    data-bs-toggle="dropdown"
-                    data-bs-auto-close="outside"
-                    aria-expanded="false"
-                  >
-                    <i class="ti ti-layout-grid-add ti-md"></i>
-                  </a>
-                  <div class="dropdown-menu dropdown-menu-end py-0">
-                    <div class="dropdown-menu-header border-bottom">
-                      <div class="dropdown-header d-flex align-items-center py-3">
-                        <h5 class="text-body mb-0 me-auto">Shortcuts</h5>
-                        <a
-                          href="javascript:void(0)"
-                          class="dropdown-shortcuts-add text-body"
-                          data-bs-toggle="tooltip"
-                          data-bs-placement="top"
-                          title="Add shortcuts"
-                          ><i class="ti ti-sm ti-apps"></i
-                        ></a>
-                      </div>
-                    </div>
-                    <div class="dropdown-shortcuts-list scrollable-container">
-                      <div class="row row-bordered overflow-visible g-0">
-                        <div class="dropdown-shortcuts-item col">
-                          <span class="dropdown-shortcuts-icon rounded-circle mb-2">
-                            <i class="ti ti-calendar fs-4"></i>
-                          </span>
-                          <a href="app-calendar.html" class="stretched-link">Calendar</a>
-                          <small class="text-muted mb-0">Appointments</small>
-                        </div>
-                        <div class="dropdown-shortcuts-item col">
-                          <span class="dropdown-shortcuts-icon rounded-circle mb-2">
-                            <i class="ti ti-file-invoice fs-4"></i>
-                          </span>
-                          <a href="app-invoice-list.html" class="stretched-link">Invoice App</a>
-                          <small class="text-muted mb-0">Manage Accounts</small>
-                        </div>
-                      </div>
-                      <div class="row row-bordered overflow-visible g-0">
-                        <div class="dropdown-shortcuts-item col">
-                          <span class="dropdown-shortcuts-icon rounded-circle mb-2">
-                            <i class="ti ti-users fs-4"></i>
-                          </span>
-                          <a href="app-user-list.html" class="stretched-link">User App</a>
-                          <small class="text-muted mb-0">Manage Users</small>
-                        </div>
-                        <div class="dropdown-shortcuts-item col">
-                          <span class="dropdown-shortcuts-icon rounded-circle mb-2">
-                            <i class="ti ti-lock fs-4"></i>
-                          </span>
-                          <a href="app-access-roles.html" class="stretched-link">Role Management</a>
-                          <small class="text-muted mb-0">Permission</small>
-                        </div>
-                      </div>
-                      <div class="row row-bordered overflow-visible g-0">
-                        <div class="dropdown-shortcuts-item col">
-                          <span class="dropdown-shortcuts-icon rounded-circle mb-2">
-                            <i class="ti ti-chart-bar fs-4"></i>
-                          </span>
-                          <a href="index.html" class="stretched-link">Dashboard</a>
-                          <small class="text-muted mb-0">User Profile</small>
-                        </div>
-                        <div class="dropdown-shortcuts-item col">
-                          <span class="dropdown-shortcuts-icon rounded-circle mb-2">
-                            <i class="ti ti-settings fs-4"></i>
-                          </span>
-                          <a href="pages-account-settings-account.html" class="stretched-link">Setting</a>
-                          <small class="text-muted mb-0">Account Settings</small>
-                        </div>
-                      </div>
-                      <div class="row row-bordered overflow-visible g-0">
-                        <div class="dropdown-shortcuts-item col">
-                          <span class="dropdown-shortcuts-icon rounded-circle mb-2">
-                            <i class="ti ti-help fs-4"></i>
-                          </span>
-                          <a href="pages-help-center-landing.html" class="stretched-link">Help Center</a>
-                          <small class="text-muted mb-0">FAQs & Articles</small>
-                        </div>
-                        <div class="dropdown-shortcuts-item col">
-                          <span class="dropdown-shortcuts-icon rounded-circle mb-2">
-                            <i class="ti ti-square fs-4"></i>
-                          </span>
-                          <a href="modal-examples.html" class="stretched-link">Modals</a>
-                          <small class="text-muted mb-0">Useful Popups</small>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <!-- Quick links -->
-
-                <!-- Notification -->
-                {{-- <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
-                  <a
-                    class="nav-link dropdown-toggle hide-arrow"
-                    href="javascript:void(0);"
-                    data-bs-toggle="dropdown"
-                    data-bs-auto-close="outside"
-                    aria-expanded="false"
-                  >
-                    <i class="ti ti-bell ti-md"></i>
-                    <span class="badge bg-danger rounded-pill badge-notifications">5</span>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end py-0">
-                    <li class="dropdown-menu-header border-bottom">
-                      <div class="dropdown-header d-flex align-items-center py-3">
-                        <h5 class="text-body mb-0 me-auto">Notification</h5>
-                        <a
-                          href="javascript:void(0)"
-                          class="dropdown-notifications-all text-body"
-                          data-bs-toggle="tooltip"
-                          data-bs-placement="top"
-                          title="Mark all as read"
-                          ><i class="ti ti-mail-opened fs-4"></i
-                        ></a>
-                      </div>
-                    </li>
-                    <li class="dropdown-notifications-list scrollable-container">
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <img src="../../assets/img/avatars/1.png" alt class="h-auto rounded-circle" />
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <h6 class="mb-1">Congratulation Lettie 🎉</h6>
-                              <p class="mb-0">Won the monthly best seller gold badge</p>
-                              <small class="text-muted">1h ago</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                ><span class="badge badge-dot"></span
-                              ></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                ><span class="ti ti-x"></span
-                              ></a>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <span class="avatar-initial rounded-circle bg-label-danger">CF</span>
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <h6 class="mb-1">Charles Franklin</h6>
-                              <p class="mb-0">Accepted your connection</p>
-                              <small class="text-muted">12hr ago</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                ><span class="badge badge-dot"></span
-                              ></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                ><span class="ti ti-x"></span
-                              ></a>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <img src="../../assets/img/avatars/2.png" alt class="h-auto rounded-circle" />
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <h6 class="mb-1">New Message ✉️</h6>
-                              <p class="mb-0">You have new message from Natalie</p>
-                              <small class="text-muted">1h ago</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                ><span class="badge badge-dot"></span
-                              ></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                ><span class="ti ti-x"></span
-                              ></a>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <span class="avatar-initial rounded-circle bg-label-success"
-                                  ><i class="ti ti-shopping-cart"></i
-                                ></span>
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <h6 class="mb-1">Whoo! You have new order 🛒</h6>
-                              <p class="mb-0">ACME Inc. made new order $1,154</p>
-                              <small class="text-muted">1 day ago</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                ><span class="badge badge-dot"></span
-                              ></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                ><span class="ti ti-x"></span
-                              ></a>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <img src="../../assets/img/avatars/9.png" alt class="h-auto rounded-circle" />
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <h6 class="mb-1">Application has been approved 🚀</h6>
-                              <p class="mb-0">Your ABC project application has been approved.</p>
-                              <small class="text-muted">2 days ago</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                ><span class="badge badge-dot"></span
-                              ></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                ><span class="ti ti-x"></span
-                              ></a>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <span class="avatar-initial rounded-circle bg-label-success"
-                                  ><i class="ti ti-chart-pie"></i
-                                ></span>
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <h6 class="mb-1">Monthly report is generated</h6>
-                              <p class="mb-0">July monthly financial report is generated</p>
-                              <small class="text-muted">3 days ago</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                ><span class="badge badge-dot"></span
-                              ></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                ><span class="ti ti-x"></span
-                              ></a>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <img src="../../assets/img/avatars/5.png" alt class="h-auto rounded-circle" />
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <h6 class="mb-1">Send connection request</h6>
-                              <p class="mb-0">Peter sent you connection request</p>
-                              <small class="text-muted">4 days ago</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                ><span class="badge badge-dot"></span
-                              ></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                ><span class="ti ti-x"></span
-                              ></a>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <img src="../../assets/img/avatars/6.png" alt class="h-auto rounded-circle" />
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <h6 class="mb-1">New message from Jane</h6>
-                              <p class="mb-0">Your have new message from Jane</p>
-                              <small class="text-muted">5 days ago</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                ><span class="badge badge-dot"></span
-                              ></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                ><span class="ti ti-x"></span
-                              ></a>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <span class="avatar-initial rounded-circle bg-label-warning"
-                                  ><i class="ti ti-alert-triangle"></i
-                                ></span>
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <h6 class="mb-1">CPU is running high</h6>
-                              <p class="mb-0">CPU Utilization Percent is currently at 88.63%,</p>
-                              <small class="text-muted">5 days ago</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                ><span class="badge badge-dot"></span
-                              ></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                ><span class="ti ti-x"></span
-                              ></a>
-                            </div>
-                          </div>
-                        </li>
-                      </ul>
-                    </li>
-                    <li class="dropdown-menu-footer border-top">
-                      <a
-                        href="javascript:void(0);"
-                        class="dropdown-item d-flex justify-content-center text-primary p-2 h-px-40 mb-1 align-items-center"
-                      >
-                        View all notifications
-                      </a>
-                    </li>
-                  </ul>
-                </li> --}}
-                <!--/ Notification -->
-
-@isset(auth()->user()->name)
-                <!-- User -->
-                <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                    <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                      <div class="avatar avatar-online">
-                        <img src="{{ asset('teacher') }}/assets/img/avatars/1.png" alt class="h-auto rounded-circle" />
-                      </div>
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <img src="{{ asset('/admin') }}/assets/images/flags/italy.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> Italian </span>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                      <li>
-                        <a class="dropdown-item" href="{{ route('profile.index') }}">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar avatar-online">
-                                <img src="{{ asset('teacher') }}/assets/img/avatars/1.png" alt class="h-auto rounded-circle" />
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <span class="fw-semibold d-block">{{ auth()->user()->name }}</span>
-                              <small class="text-muted">Student</small>
-                            </div>
-                          </div>
-                        </a>
-                      </li>
-                      <li>
-                        <div class="dropdown-divider"></div>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="{{ route('profile.index') }}">
-                          <i class="ti ti-user-check me-2 ti-sm"></i>
-                          <span class="align-middle">My Profile</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="pages-account-settings-account.html">
-                          <i class="ti ti-settings me-2 ti-sm"></i>
-                          <span class="align-middle">Settings</span>
-                        </a>
-                      </li>
 
-                      <li>
-                        <div class="dropdown-divider"></div>
-                      </li>
-                      <li>
-                          <form method="POST" action="{{ route('logout') }}">
-                              @csrf
-                        <button class="dropdown-item">
-                          <i class="ti ti-logout me-2 ti-sm"></i>
-                          <span class="align-middle">Log Out</span>
-                        </button>
-                          </form>
-                      </li>
-                    </ul>
-                  </li>
-                  <!--/ User -->
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <img src="{{ asset('/admin') }}/assets/images/flags/french.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> French </span>
+                    </a>
 
-@endisset
-              </ul>
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <img src="{{ asset('/admin') }}/assets/images/flags/spain.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> Spanish </span>
+                    </a>
+
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <img src="{{ asset('/admin') }}/assets/images/flags/russia.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> Russian </span>
+                    </a>
+                </div>
+            </div> --}}
+
+            {{-- <div class="dropdown d-none d-lg-inline-block ms-1">
+                <button type="button" class="btn header-item noti-icon waves-effect" data-toggle="fullscreen">
+                    <i class="mdi mdi-fullscreen"></i>
+                </button>
+            </div> --}}
+
+
+
+            {{-- <div class="dropdown d-inline-block">
+                <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown"
+                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="mdi mdi-bell-outline bx-tada"></i>
+                    <span class="badge bg-danger rounded-pill">3</span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                    aria-labelledby="page-header-notifications-dropdown">
+                    <div class="p-3">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h6 class="m-0"> Notifications </h6>
+                            </div>
+                            <div class="col-auto">
+                                <a href="#!" class="small"> View All</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-simplebar style="max-height: 230px;">
+                        <a href="" class="text-reset notification-item">
+                            <div class="media">
+                                <div class="avatar-xs me-3">
+                                    <span class="avatar-title bg-primary rounded-circle font-size-16">
+                                        <i class="mdi mdi-cart text-white"></i>
+                                    </span>
+                                </div>
+                                <div class="media-body">
+                                    <h6 class="mt-0 mb-1">Your order is placed</h6>
+                                    <div class="font-size-13 text-muted">
+                                        <p class="mb-1">If several languages coalesce the grammar</p>
+                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> 3 min ago</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="" class="text-reset notification-item">
+                            <div class="media">
+                                <img src="{{ asset('/admin') }}/assets/images/users/avatar-3.jpg"
+                                    class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                <div class="media-body">
+                                    <h6 class="mt-0 mb-1">James Lemire</h6>
+                                    <div class="font-size-13 text-muted">
+                                        <p class="mb-1">It will seem like simplified English.</p>
+                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> 1 hours ago</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="" class="text-reset notification-item">
+                            <div class="media">
+                                <div class="avatar-xs me-3">
+                                    <span class="avatar-title bg-success rounded-circle font-size-16">
+                                        <i class="mdi mdi-check text-white"></i>
+                                    </span>
+                                </div>
+                                <div class="media-body">
+                                    <h6 class="mt-0 mb-1">Your item is shipped</h6>
+                                    <div class="font-size-13 text-muted">
+                                        <p class="mb-1">If several languages coalesce the grammar</p>
+                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> 3 min ago</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="" class="text-reset notification-item">
+                            <div class="media">
+                                <img src="{{ asset('/admin') }}/assets/images/users/avatar-4.jpg"
+                                    class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                <div class="media-body">
+                                    <h6 class="mt-0 mb-1">Salena Layfield</h6>
+                                    <div class="font-size-13 text-muted">
+                                        <p class="mb-1">As a skeptical Cambridge friend of mine occidental.</p>
+                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> 1 hours ago</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="p-2 border-top">
+                        <a class="btn btn-sm btn-link font-size-14 w-100 text-center" href="javascript:void(0)">
+                            <i class="mdi mdi-arrow-right-circle me-1"></i> View More..
+                        </a>
+                    </div>
+                </div>
+            </div> --}}
+
+            <div class="dropdown d-inline-block">
+
+                <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
+                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                @if(auth()->user()->image !="")
+                <img class="rounded-circle header-profile-user" src="{{ uploaded_file(auth()->user()->image) }}"
+                alt="Header Avatar">
+                @else
+                <img class="rounded-circle header-profile-user" src="{{ asset('images/defult/user.png') }}"
+                alt="Header Avatar">
+                @endif
+                <span class="d-none d-xl-inline-block ms-1">{{ auth()->user()->name }}</span>
+                <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+            </button>
+                <div class="dropdown-menu dropdown-menu-end">
+                    <!-- item-->
+                    <a class="dropdown-item" href="{{ route('profile.show') }}"><i class="mdi mdi-account-circle-outline font-size-16 align-middle me-1"></i> Profile</a>
+                    <a class="dropdown-item d-block" href="#"><span class="badge badge-success float-end">11</span><i class="mdi mdi-cog-outline font-size-16 align-middle me-1"></i> Settings</a>
+
+                    <div class="dropdown-divider"></div>
+
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                    <button type="submit" class="dropdown-item text-danger" href="#"><i class="mdi mdi-power font-size-16 align-middle me-1 text-danger"></i> Logout</button>
+                    </form>
+                </div>
             </div>
 
-            <!-- Search Small Screens -->
-            <div class="navbar-search-wrapper search-input-wrapper container-xxl d-none">
-              <input
-                type="text"
-                class="form-control search-input border-0"
-                placeholder="Search..."
-                aria-label="Search..."
-              />
-              <i class="ti ti-x ti-sm search-toggler cursor-pointer"></i>
+            <div class="dropdown d-inline-block">
+                <button type="button" class="btn header-item noti-icon right-bar-toggle waves-effect">
+                    <i class="mdi mdi-cog-outline font-size-20"></i>
+                </button>
             </div>
-          </div>
-        </nav>
 
-        <!-- / Navbar -->
+        </div>
+    </div>
+</header>

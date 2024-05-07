@@ -3,7 +3,7 @@
 
 @section('admin_content')
 
-<x-admin.page-title dashboard_title="Admin" title="Administator" page_name="All Administator">
+<x-admin.page-title dashboard_title="Admin" title="Admin" page_name="Administator">
     <a href="{{ route('admin.administator.create') }}" class="btn btn-success" id="addBtn">Add administator</a>
 </x-admin.page-title>
 

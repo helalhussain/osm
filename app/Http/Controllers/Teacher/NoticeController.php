@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Teacher;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Notice;
+use App\Models\Classroom;
+
 use Yajra\DataTables\Facades\DataTables;
 
 class NoticeController extends Controller
@@ -15,7 +17,7 @@ class NoticeController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            return DataTables::eloquent(Notice::query())
+            return DataTables::eloquent(Notice::query()->select('id','title','description')->where('teacher_id','=',auth()->user()->id))
                 ->addIndexColumn()
                 ->addColumn('action', fn () => '')
                 ->toJson();
@@ -28,7 +30,8 @@ class NoticeController extends Controller
      */
     public function create(Notice $notice)
     {
-        return view('teacher.notice.form');
+        $classrooms = Classroom::all();
+        return view('teacher.notice.form',compact('classrooms'));
     }
 
     /**
@@ -37,13 +40,33 @@ class NoticeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'class' => 'required',
             'title' => 'required',
+
         ]);
 
-        $store = new Notice();
-        $store->title = $request->title;
-        $store->description = $request->description;
-        $store->save();
+        if($request->file == null){
+            $store = new Notice();
+            $store->classroom_id = $request->class;
+            $store->teacher_id = auth()->user()->id;
+            $store->user_type = "teacher";
+            $store->title = $request->title;
+            $store->description = $request->description;
+            // $store->dateline = $request->dateline;
+            $store->save();
+        }else{
+            $store = new Notice();
+            $store->classroom_id = $request->class;
+            $store->teacher_id = auth()->user()->id;
+            $store->user_type = "teacher";
+            $store->title = $request->title;
+            $store->description = $request->description;
+            $store->file =  file_upload($request->file, 'notice');;
+            $store->save();
+
+        }
+
+
         return response()->json([
             'message' => 'Notice added successfully'
         ]);
@@ -52,9 +75,10 @@ class NoticeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Notice $notice)
     {
-        //
+        $classes = Classroom::all();
+        return view('teacher.notice.show',compact('notice','classes'));
     }
 
     /**
@@ -62,7 +86,8 @@ class NoticeController extends Controller
      */
     public function edit(Notice $notice)
     {
-        return view('teacher.notice.form',compact('notice'));
+        $classrooms = Classroom::all();
+        return view('teacher.notice.form',compact('notice','classrooms'));
     }
 
     /**
@@ -73,12 +98,27 @@ class NoticeController extends Controller
     {
 
         $request->validate([
-            'title' => 'required|max:150',
+            'class' => 'required',
+            'title' => 'required',
+
         ]);
-        $notice->update([
+        if($request->file==null){
+            $notice->update([
+                'classroom_id'=>$request->class,
                 'title'=>$request->title,
-                'description'=>$request->description
-        ]);
+                'description'=>$request->description,
+
+            ]);
+        }else{
+            $notice->update([
+                'classroom_id'=>$request->class,
+                'title'=>$request->title,
+                'description'=>$request->description,
+                'file'=>file_upload($request->file, 'notice')
+
+            ]);
+        }
+
         return response()->json(['message' => 'Notice updated successfully']);
     }
 

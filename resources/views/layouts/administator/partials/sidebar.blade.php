@@ -29,7 +29,8 @@
 
                         <li>
                             <a href="{{ route('administator.dashboard') }}" class="waves-effect">
-                                <i class="dripicons-home"></i><span class="badge rounded-pill bg-info float-end">3</span>
+                                <i class="dripicons-home"></i>
+                                {{-- <span class="badge rounded-pill bg-info float-end">3</span> --}}
                                 <span>Dashboard</span>
                             </a>
                         </li>
@@ -41,7 +42,7 @@
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
                                 <li><a href="{{ route('administator.teacher.index') }}">Teacher</a></li>
-                                <li><a href="{{ route('administator.student.index') }}">Student</a></li>
+                                <li><a href="{{ route('administator.user.index') }}">Student</a></li>
                             </ul>
                         </li>
 
@@ -52,22 +53,20 @@
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
                                 <li><a href="{{ route('administator.subject.index') }}">Subject</a></li>
-                                <li><a href="{{ route('administator.group.index') }}">Group</a></li>
-                                <li><a href="{{ route('administator.class.index') }}">Class</a></li>
+                                <li><a href="{{ route('administator.section.index') }}">Section</a></li>
+                                <li><a href="{{ route('administator.classroom.index') }}">Class</a></li>
+                                <li><a href="{{ route('administator.course.index') }}">Course</a></li>
                                 <li><a href="{{ route('administator.notice.index') }}">Notice</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                <i class="dripicons-mail"></i>
+                            <a href="{{ route('administator.student-message.index') }}" class="waves-effect">
+                                <i class="dripicons-message"></i>
+
                                 <span>Message</span>
                             </a>
-                            <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="{{ route('administator.student-message.index') }}">Student</a></li>
-                                <li><a href="{{ route('administator.teacher-message.index') }}">Teacher</a></li>
-                                {{-- <li><a href="{{ route('admin.setting.index') }}">Setting</a></li> --}}
-                            </ul>
                         </li>
+
                         <li>
                             <a href="javascript: void(0);" class="has-arrow waves-effect">
                                 <i class="dripicons-user"></i>
@@ -75,7 +74,7 @@
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
                                 <li><a href="{{ route('administator.result.index') }}">Result</a></li>
-                                <li><a href="{{ route('administator.class.index') }}">Cirtificate</a></li>
+                                <li><a href="{{ route('administator.certificate.index') }}">Cirtificate</a></li>
 
                             </ul>
                         </li>

@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Administator;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Group;
+use Yajra\DataTables\Facades\DataTables;
 use App\Models\Section;
 use App\Models\Course;
 use App\Models\Teacher;
 use App\Models\Subject;
+use App\Models\Classroom;
 
 class CourseController extends Controller
 {
@@ -17,8 +18,16 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $Courses = Course::all();
-        return view('administator.cls.section.course',compact('courses'));
+        // $courses = Course::all();
+        // return view('administator.cls.section.course',compact('courses'));
+        if (request()->ajax()) {
+            return DataTables::eloquent(Course::query())
+                ->addIndexColumn()
+                ->addColumn('action', fn () => '')
+                ->toJson();
+        }
+
+        return view('administator.course.index');
     }
 
     /**
@@ -26,10 +35,12 @@ class CourseController extends Controller
      */
     public function create()
     {
-        $groups = Group::all();
+
         $teachers = Teacher::all();
+        $sections = Section::all();
         $subjects = Subject::all();
-        return view('administator.cls.section.course.form',compact('subjects','groups','teachers'));
+        $classes = Classroom::all();
+        return view('administator.course.form',compact('subjects','sections','teachers','classes'));
     }
     // public function create()
     // {
@@ -44,25 +55,25 @@ class CourseController extends Controller
 
         ]);
         $store = new Course();
-        $store->cls_id = 1;
-        $store->group_id = 1;
-        $store->section_id= 1;
-        $store->subject_id= $request->subject;
-        $store->teacher_id= $request->teacher;
-        $store->title = $request->subject;
+        $store->classroom_id = $request->class;
+        $store->section_id= $request->section;
+        $store->title= $request->title;
+        $store->subject_id= 1;
+        $store->teacher_id= 1;
         $store->save();
-        return redirect()->back();
-    //     // return response()->json([
-    //     //     'message' => 'Class group added successfully'
-    //     // ]);
+        $store->subjects()->sync($request->subjects);
+        return response()->json([
+            'message' => 'Course added successfully'
+        ]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Course $course)
     {
-        //
+        $classes = Classroom::all();
+        return view('administator.course.show',compact('course','classes'));
     }
 
     /**

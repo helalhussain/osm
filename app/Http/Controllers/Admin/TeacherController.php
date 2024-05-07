@@ -58,6 +58,7 @@ class TeacherController extends Controller
         $store->dob= $request->date;
         $store->image = file_upload($request->image, 'teacher');
         $store->password = bcrypt($request->password);
+
         $store->save();
         $store->subjects()->sync($request->subjects);
         // $store->subjects()->attach($request->subject);
@@ -91,12 +92,18 @@ class TeacherController extends Controller
             'name' => 'required',
 
         ]);
-        // dd($request->all());
+        if($request->image==null){
+
+        }else{
+            $image = file_upload($request->image, 'teacher');
+        }
         $teacher->update([
                 'name'=>$request->name,
                 'gender'=>$request->gender,
+                'dob'=>$request->date,
                 'phone'=>$request->phone,
-                'address'=>$request->address
+                'address'=>$request->address,
+                'image'  => $image
         ]);
         return response()->json(['message' => 'Teacher updated successfully']);
     }

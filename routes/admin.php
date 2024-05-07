@@ -2,21 +2,27 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Admin\CategoryController;
-
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\PasswordController;
 
 use App\Http\Controllers\Admin\{
     DashboardController,
     AdministatorController,
     ProfileController,
     TeacherController,
-    StudentController,
+    UserController,
     NoticeController,
     MessageController,
+    SubjectController,
+    SectionController,
+    ResultController,
+    CertificateController,
+    ChangePasswordController,
     SettingController,
 
+
 };
+
 /*
 |--------------------------------------------------------------------------
 | Admin Routes
@@ -30,14 +36,17 @@ use App\Http\Controllers\Admin\{
 Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
 
-
-Route::resource('category', CategoryController::class);
 Route::resource('administator', AdministatorController::class);
 Route::resource('teacher', TeacherController::class);
-Route::resource('student', StudentController::class);
+Route::resource('user', UserController::class);
 
 Route::resource('notice', NoticeController::class);
 Route::resource('message', MessageController::class);
+// Route::resource('subject', SubjectController::class);
+// Route::resource('section', SectionController::class);
+// Route::resource('result', ResultController::class);
+// Route::resource('certificate', CertificateController::class);
+
 
 
 Route::group(['prefix' => '', 'as' => 'setting.', 'controller' => SettingController::class], function () {
@@ -47,9 +56,9 @@ Route::group(['prefix' => '', 'as' => 'setting.', 'controller' => SettingControl
     Route::put('logo-icon', 'logoIconUpdate');
 });
 Route::singleton('profile', ProfileController::class);
-Route::get('/password',[ProfileController::class,'password'])->name('profile.passsword');
 
-
+Route::get('password',[ProfileController::class,'index'])->name('profile.index');
+Route::singleton('password', ChangePasswordController::class);
 
 
 Route::group(['prefix' => '', 'as' => 'setting.', 'controller' => SettingController::class], function () {

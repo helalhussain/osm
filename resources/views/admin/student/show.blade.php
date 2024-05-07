@@ -2,7 +2,7 @@
 
 @section('admin_content')
     <x-admin.page-title dashboard_title="Admin" title="Student" page_name="Show student">
-        <a href="{{ route('admin.student.index') }}" class="btn btn-success">Students</a>
+        <a href="{{ route('admin.user.index') }}" class="btn btn-success">Students</a>
     </x-admin.page-title>
     <div class="container-fluid">
 
@@ -13,8 +13,8 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-xl-5">
-                                    <!---Card Student-profile-image---->
+                                <div class="col-xl-4">
+                                    <!---Card profile-image---->
                                     <div class="card">
                                         <div class="card-body">
 
@@ -22,12 +22,12 @@
                                                 <div class="col-xl-12">
                                                     <div class="mb-2">
                                                         <img class="img-thumbnail" alt="200x200"
-                                                            src="{{ asset('admin') }}/assets/images/users/avatar-4.jpg"
+                                                            src="{{ uploaded_file($user->image) }}"
                                                             data-holder-rendered="true">
                                                     </div>
 
-                                            <h4 class="header-title">{{ $student->name }}</h4>
-                                            <p class="card-title-desc">{{ $student->email }}</p>
+                                                    <h4 class="header-title">Name : {{ $user->name }}</h4>
+                                                    <p class="card-title-desc"><strong>Email : {{ $user->email }} </strong>
 
                                                 </div>
 
@@ -35,51 +35,63 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!--End Card student-profile-image-->
+                                    <!--End Card profile-image-->
                                 </div>
-                                <div class="col-xl-7">
-                                    <div class="mt-4 mt-xl-3">
-                                        <h5 class="mt-1 mb-3">{{ $student->name }}</h5>
-                                        <h6 class="text-primary"><strong>ID : </strong>{{ $student->student_id }}</h6>
-                                        <div class="d-inline-flex">
-                                            <div class="text-muted me-3">
+                                <div class="col-xl-8">
 
-                                            </div>
-                                        </div>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="header-title">Student info</h4>
 
-                                        <h5 class="mt-2">0 <span
-                                                class="text-danger font-size-12 ms-2"></span></h5>
 
-                                        <hr class="my-4">
 
-                                        <div class="mt-4">
-                                            <h6>Features :</h6>
-
-                                            <div class="mt-4">
-                                                <p class="text-muted mb-2"><i
-                                                        class="mdi mdi-check-bold text-success me-2"></i>Various have
-                                                    evolved over years sometimes on purpose.</p>
-                                                <p class="text-muted mb-2"><i
-                                                        class="mdi mdi-check-bold text-success me-2"></i>Always free from
-                                                    repetition injected humour or words etc.</p>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="mt-4">
-                                            <form action="#" method="POST">
+                                            <form id="submit" action="{{ route('admin.user.update',$user->id) }}" method="POST" class="custom-validation" enctype="multipart/form-data">
                                                 @method('PUT')
                                                 @csrf
-                                                <input type="hidden" name="in_active_value" value="{{ $student->in_active }}" />
-                                                <button type="submit" class="btn {{ $student->in_active ? 'btn-warning' : 'btn-success' }} waves-effect waves-light mt-2">
-                                                    {{-- <i class="mdi mdi-cart me-2"></i> --}}
-                                                     {{ $student->in_active ? 'Disable' : 'Able' }}
-                                                </button>
+                                               <div class="row">
+                                                <x-admin.form-group label="name" class="mb-3" placeholder="Enter user name" :value="$user->name ?? ''"
+                                                    column="col-lg-6" /><br/>
+                                                <x-admin.form-group label="student_id" class="mb-3" readonly placeholder="Enter Student ID" :value="$user->student_id ?? ''"
+                                                    column="col-lg-6" /><br/>
+                                                    <x-admin.form-group label="gender" class="mb-3" :required="false" isType="select" class="select2"
+                                                    column="col-lg-6">
+                                                    <option value="{{ $user->gender ? $user->gender : '' }}">{{ $user->gender ? $user->gender : 'Select gender' }}</option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
+                                                    <option value="Other">Other</option>
+                                                </x-admin.form-group><br/>
+                                                {{-- <x-admin.form-group label="dob" placeholder="Enter user Date of birth" :value="$user->dob ?? ''"
+                                                    column="col-lg-6" /><br/> --}}
+
+                                                        <x-admin.form-group  label="date" type="date" class="mb-3" placeholder="Enter user Date of birth" :value="$user->dob ?? ''"
+                                                            column="col-lg-6" /><br/>
+                                                    <x-admin.form-group label="phone" placeholder="Enter user phone" :value="$user->phone ?? ''"
+                                                        column="col-lg-6" /><br/>
+
+                                             <x-admin.form-group label="address" placeholder="Enter user address" :value="$user->address ?? ''"
+                                            column="col-lg-6" /><br/>
+
+                                               </div><br/>
+                                               <x-admin.form-group label="image" for="image" class="mb-3" :required="false" type="file"
+                                               data-show-image="show_user_image" accept="image/*" column="col-lg-6" /><br>
+
+                                               <x-admin.form-group label="in_active" class="mb-3" :required="false" isType="select" class="select2"
+                                               column="col-lg-6">
+                                               <option value="{{ $user->in_active ? $user->in_active : '' }}">{{ $user->in_active ? $user->in_active : 'Select' }}</option>
+                                               <option value="active">Active</option>
+                                               <option value="deactive">Deactive</option>
+                                           </x-admin.form-group><br/>
+                                                        <button type="submit"
+                                                        class="btn btn-primary waves-effect waves-light me-1">
+                                                        Update
+                                                    </button>
+
+
                                             </form>
+                                            <!-- end form -->
                                         </div>
-
-
                                     </div>
+
                                 </div>
                             </div>
                             <!-- end row -->
@@ -94,11 +106,7 @@
         </div>
     </div>
     <!-- end row -->
-
-
-
     </div>
-
 
     </div> <!-- container-fluid -->
 @endsection

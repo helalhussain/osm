@@ -24,7 +24,7 @@
                     </div>
 
                     <div class="chat-leftsidebar-nav">
-                        <ul class="nav nav-pills nav-justified">
+                        {{-- <ul class="nav nav-pills nav-justified">
                             <li class="nav-item">
                                 <a href="#chat" data-bs-toggle="tab" aria-expanded="true" class="nav-link active">
                                     <span>Chat</span>
@@ -32,15 +32,15 @@
                             </li>
                             <li class="nav-item">
                                 <a href="#group" data-bs-toggle="tab" aria-expanded="false" class="nav-link">
-                                    {{-- <span>Group</span> --}}
+                                    <span>Group</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="#contact" data-bs-toggle="tab" aria-expanded="false" class="nav-link">
-                                    {{-- <span>Contacts</span> --}}
+                                    <span>Contacts</span>
                                 </a>
                             </li>
-                        </ul>
+                        </ul> --}}
 
 
                         <div class="tab-content py-4">
@@ -48,6 +48,7 @@
                                 <div>
                                     {{-- <h5 class="font-size-16 mb-3">Online</h5> --}}
                                     <ul class="list-unstyled chat-list">
+
                                         @foreach ($users as $user)
                                         <li class="active">
                                             <a href="{{ route('teacher.chat.show',$user->id) }}">
@@ -56,7 +57,9 @@
                                                         <i class="mdi mdi-circle text-success font-size-10"></i>
                                                     </div>
                                                     <div class="align-self-center me-3">
-                                                        <img src="{{ asset('admin') }}/assets/images/users/avatar-2.jpg" class="rounded-circle avatar-xs" alt="">
+
+                                                        {{-- <img src="{{ asset('admin') }}/assets/images/users/avatar-2.jpg" class="rounded-circle avatar-xs" alt=""> --}}
+                                                        <img src=" {{ uploaded_file($user->image) }}" class="rounded-circle avatar-xs" alt="">
                                                     </div>
 
                                                     <div class="media-body overflow-hidden">
@@ -68,28 +71,6 @@
                                             </a>
                                         </li>
                                         @endforeach
-
-                                        <li>
-                                            <a href="#">
-                                                <div class="media">
-                                                    <div class="align-self-center me-3">
-                                                        <i class="mdi mdi-circle text-success font-size-10"></i>
-                                                    </div>
-                                                    <div class="avatar-xs align-self-center me-3">
-                                                        <span class="avatar-title rounded-circle bg-soft-primary text-primary">
-                                                            K
-                                                        </span>
-                                                    </div>
-                                                    <div class="media-body overflow-hidden">
-                                                        <h5 class="text-truncate font-size-14 mb-1">Keith Gonzales</h5>
-                                                        <p class="text-truncate mb-0">This theme is awesome!</p>
-                                                    </div>
-                                                    <div class="font-size-11">24 min</div>
-                                                </div>
-                                            </a>
-                                        </li>
-
-
 
                                     </ul>
                                 </div>
@@ -418,7 +399,7 @@
                                         </div>
                                     </li>
 
-                                    <li class="list-inline-item">
+                                    {{-- <li class="list-inline-item">
                                         <div class="dropdown">
                                             <button class="btn nav-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i class="mdi mdi-dots-horizontal font-size-18"></i>
@@ -429,7 +410,7 @@
                                                 <a class="dropdown-item" href="#">Something else</a>
                                             </div>
                                         </div>
-                                    </li>
+                                    </li> --}}
 
                                 </ul>
                             </div>
@@ -567,7 +548,8 @@
                                     </div>
                                 </li>
 
-                                <li class="last-chat">
+                                @foreach ($messages as $message)
+                                <li class="last-chat" id="user-table">
                                     <div class="conversation-list">
 
 
@@ -597,19 +579,11 @@
                                                 </div>
 
 
-
-
-
-
-
-
-
-
                                     </div>
                                     </div>
                                 </li>
 
-                            @foreach ($messages as $message)
+
                             <li class="right">
                                 <div class="conversation-list">
 
@@ -651,15 +625,17 @@
 
                             @endforeach
 
+
                             </ul>
+
                         </div>
                         <div class="p-3 chat-input-section">
-                            <form action="{{ route('teacher.chat.store') }}" method="post">
+                            <form id="store" action="{{ route('teacher.chat.store') }}" method="post">
                                 @csrf
                                 <div class="row">
                                     <div class="col">
                                         <div class="position-relative">
-                                            <input type="hidden" name="user_id" id="user_id" value="{{ $user->id }}" class="form-control chat-input" placeholder="Enter Message...">
+                                            <input type="hidden" name="user_id" id="user_id" value="{{ $chat->id }}" class="form-control chat-input" placeholder="Enter Message...">
                                             <input type="text" name="message" id="message" class="form-control chat-input" placeholder="Enter Message...">
                                             {{-- <div class="chat-input-links">
                                                 <ul class="list-inline mb-0">
@@ -690,3 +666,64 @@
 </div> <!-- container-fluid -->
 
 @endsection
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<script>
+    $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+</script>
+<script>
+    $(document).ready(function() {
+        $('#store').click(function (e) {
+            e.preventDefault();
+            const url = $('#store').attr('action');
+            var data = jQuery('#store').serialize();
+
+            $.ajax({
+                url:url,
+                data:jQuery('#store').serialize(),
+                type:'post',
+                success:function(result){
+                    // alert('Student inserted');
+                }
+            });
+
+
+        });
+
+    });
+</script>
+
+<script>
+$(document).ready(function(){
+    $.ajax({
+        type:"GET",
+
+        url:"{{ route('teacher.chat.show',$chat->id) }}",
+        success:function(data){
+            console.log(data);
+            if(data.users.length >0){
+                for(let i=0;i<data.users.length;i++){
+                    $("#user-table").append(`
+                    <tr>
+                    <th>`+ (i+1) +`</th>
+                    <th>`+(data.users[i]['name'])+`</th>
+                    <th>`+(data.users[i]['email'])+`</th>
+                    </tr>
+                    `);
+                }
+            }else{
+                $("#userTable").append("<span>Data not Found </span>");
+            }
+
+        }.error:function(err){
+            console.log(err.responseText);
+        }
+    });
+})
+</script>

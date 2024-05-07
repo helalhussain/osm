@@ -35,6 +35,10 @@
                                 <li class="list-inline-item"><i class="ti ti-calendar"></i> Joined June 2023</li>
                             </ul>
                         </div>
+                        <a href="{{route('administator.password.show')}}" class="btn btn-primary" >
+                            <i class="ti ti-edit me-1"></i>
+                            Change password
+                        </a>
                         <a href="{{route('administator.profile.edit')}}" class="btn btn-primary" id="editBtn">
                             <i class="ti ti-edit me-1"></i>
                             Edit Your Account

@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
-use App\Models\Cls;
+use App\Models\Section;
+use App\Models\Classroom;
 
 class UserController extends Controller
 {
@@ -22,7 +23,7 @@ class UserController extends Controller
                 ->addColumn('action', fn () => '')
                 ->toJson();
         }
-        return view('administator.user.index');
+        return view('administator.student.index');
     }
 
     /**
@@ -30,10 +31,7 @@ class UserController extends Controller
      */
     public function create(User $user)
     {
-        // $clses = Cls::all();
 
-        $subjects = Subject::all();
-        return view('administator.student.form',compact('subjects'));
     }
 
     /**
@@ -41,30 +39,30 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'id' => 'required',
-            'name' => 'required',
-            'email'=>'required',
-            'password'=>'required|min:8',
-            'password_confirmation'=>'required|same:password'
+        // $request->validate([
+        //     'id' => 'required',
+        //     'name' => 'required',
+        //     'email'=>'required',
+        //     'password'=>'required|min:8',
+        //     'password_confirmation'=>'required|same:password'
 
-        ]);
+        // ]);
 
-        $store = new User();
-        $store->student_id = $request->id;
-        $store->name = $request->name;
-        $store->cls_id = $request->class;
-        $store->email = $request->email;
-        $store->phone = $request->phone;
-        $store->gender = $request->gender;
-        $store->dob= $request->date;
-        $store->address = $request->address;
-        $store->password = bcrypt($request->password);
-        $store->image = file_upload($request->image, 'student');
-        $store->save();
-        return response()->json([
-            'message' => 'Student added successfully'
-        ]);
+        // $store = new User();
+        // $store->student_id = $request->id;
+        // $store->name = $request->name;
+        // $store->cls_id = $request->class;
+        // $store->email = $request->email;
+        // $store->phone = $request->phone;
+        // $store->gender = $request->gender;
+        // $store->dob= $request->date;
+        // $store->address = $request->address;
+        // $store->password = bcrypt($request->password);
+        // $store->image = file_upload($request->image, 'student');
+        // $store->save();
+        // return response()->json([
+        //     'message' => 'Student added successfully'
+        // ]);
     }
 
     /**
@@ -72,9 +70,10 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('administator.user.show',compact('user'));
+        $classes = Classroom::all();
+        $sections = Section::all();
+        return view('administator.student.show',compact('user','classes','sections'));
     }
-
     /**
      * Show the form for editing the specified resource.
      */
@@ -86,9 +85,40 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+
+        ]);
+        if($request->image==null){
+            $user->update([
+                'name'=>$request->name,
+                'phone'=>$request->phone,
+                'gender'=>$request->gender,
+                'dob'=>$request->date,
+                'address'=>$request->address,
+                'section_id'=>$request->section,
+                'in_active'=>$request->active,
+        ]);
+        }else{
+            $user->update([
+                'name'=>$request->name,
+                'phone'=>$request->phone,
+                'gender'=>$request->gender,
+                'dob'=>$request->date,
+                'address'=>$request->address,
+                'classroom_id'=>$request->class,
+                'section_id'=>$request->section,
+                'in_active'=>$request->active,
+                'image' => file_upload($request->image, 'user'),
+        ]);
+
+        }
+
+
+
+        return response()->json(['message' => 'Student updated successfully']);
     }
 
     /**

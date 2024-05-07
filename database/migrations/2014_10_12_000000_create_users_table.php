@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('student_id')->nullable();
             $table->string('name');
-            // $table->foreignId('cls_id')->constrained('cls')->cascadeOnDelete();
-            $table->string('cls_id')->nullable();
+            $table->foreignId('classroom_id')->refers('id')->on('classroom')->OnDelete('cascade')->nullable();
+            $table->foreignId('section_id')->constrained('sections')->cascodeOnDelete();
             $table->string('email')->unique();
             $table->string('phone')->nullable();
             $table->string('gender')->nullable();
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('image')->nullable();
-            $table->boolean('in_active')->default(true);
+            $table->string('in_active')->default('deactive');
             $table->boolean('status')->default(true);
             // $table->enum('status', ['Panding', 'Accepted','Cancelled'])->default('Panding');
             $table->rememberToken();

@@ -7,7 +7,7 @@
     <a href="{{ route('teacher.content.create') }}" class="btn btn-success" id="addBtn">Add content</a>
 </x-admin.page-title>
 
-<x-admin.table title="content" :headers="['No', 'title','Description', 'Action']" />
+<x-admin.table title="content" :headers="['No', 'title', 'Action']" />
 
 @endsection
 
@@ -24,10 +24,6 @@
                     data: 'title',
                     name: 'title'
                 },
-                {
-                    data: 'description',
-                    name: 'description'
-                },
 
                 {
                     data: 'action',
@@ -35,6 +31,7 @@
                     searchable: false,
                     render: function(data, type, row) {
                         return `
+                        <a href="${route('teacher.content.show',row.id) }" class="btn btn-outline-success btn-sm" id="editBtn"><i class="fas fa-eye"></i></a>
                     <a href="${route('teacher.content.edit',row.id) }" class="btn btn-outline-secondary btn-sm" id="editBtn"><i class="fas fa-pencil-alt"></i></a>
                     <a href="${route('teacher.content.destroy',row.id) }" class="btn btn-outline-danger btn-sm" id="deleteBtn"><i class="fas fa-trash-alt"></i></a>
                     `;

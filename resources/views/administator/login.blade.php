@@ -93,10 +93,10 @@
                                                 type="submit">Log In</button>
                                         </div>
 
-                                        <div class="mt-4 text-center">
+                                        {{-- <div class="mt-4 text-center">
                                             <a href="" class="text-muted"><i class="mdi mdi-lock me-1"></i>
                                                 Forgot your password?</a>
-                                        </div>
+                                        </div> --}}
 
 
                                     </form>

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Cls;
+use App\Models\Classroom;
 use App\Models\Notice;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -29,8 +29,8 @@ class NoticeController extends Controller
      */
     public function create(Notice $notice)
     {
-        $clses = Cls::all();
-        return view('admin.notice.form',compact('clses'));
+        $classes = Classroom::all();
+        return view('admin.notice.form',compact('classes'));
     }
 
     /**
@@ -39,25 +39,37 @@ class NoticeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'class' => 'required',
             'title' => 'required',
         ]);
 
+        if($request->file==null){
+            $file = null;
+        }else{
+            $file = file_upload($request->file, 'notice');
+        }
+
         $store = new Notice();
+        $store->classroom_id = $request->class;
+        $store->admin_id = auth()->user()->id;
+        $store->user_type = "admin";
         $store->title = $request->title;
         $store->description = $request->description;
-
+        $store->file =  $file;
         $store->save();
         return response()->json([
             'message' => 'Notice added successfully'
         ]);
     }
 
+
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Notice $notice)
     {
-        //
+        $classes = Classroom::all();
+        return view('admin.notice.show',compact('notice','classes'));
     }
 
     /**
@@ -65,7 +77,8 @@ class NoticeController extends Controller
      */
     public function edit(Notice $notice)
     {
-        return view('admin.notice.form',compact('notice'));
+        $classes = Classroom::all();
+        return view('admin.notice.form',compact('notice','classes'));
     }
 
     /**
@@ -75,13 +88,31 @@ class NoticeController extends Controller
     public function update(Request $request,Notice $notice)
     {
 
+
         $request->validate([
-            'title' => 'required|max:150',
+            'class' => 'required',
+            'title' => 'required',
+
         ]);
-        $notice->update([
+        if($request->file==null){
+            $notice->update([
+                'classroom_id'=>$request->class,
                 'title'=>$request->title,
-                'description'=>$request->description
+                'description'=>$request->description,
+
+
         ]);
+        }else{
+            $notice->update([
+                'classroom_id'=>$request->class,
+                'title'=>$request->title,
+                'description'=>$request->description,
+                'file'=>file_upload($request->file, 'notice')
+
+        ]);
+
+        }
+
         return response()->json(['message' => 'Notice updated successfully']);
     }
 

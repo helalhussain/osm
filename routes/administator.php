@@ -8,9 +8,9 @@ use App\Http\Controllers\Administator\{
     ProfileController,
     SubjectController,
     TeacherController,
-    StudentController,
     UserController,
-    GroupController,
+    CertificateController,
+    ClassroomController,
     SectionController,
     NoticeController,
     ClsController,
@@ -18,6 +18,7 @@ use App\Http\Controllers\Administator\{
     ResultController,
     MessageController,
     MessageTeacherController,
+    ChangePasswordController,
 };
 /*
 |--------------------------------------------------------------------------
@@ -40,21 +41,27 @@ Route::resource('teacher', TeacherController::class);
 Route::post('/administitor/teacher/status', [TeacherController::class,'status'])
 ->name('teacher.status');
 
-Route::resource('student', StudentController::class);
-Route::post('student/in-active', [StudentController::class, 'inActive'])->name('student.in-active');
+Route::resource('user', UserController::class);
+
 Route::resource('notice', NoticeController::class);
 Route::resource('student-message', MessageController::class);
-Route::get('administator/student-message/send/',[ MessageController::class,'send'])
+Route::get('administator/student-message/send',[ MessageController::class,'send'])
 ->name('student-message.send');
 Route::resource('teacher-message', MessageTeacherController::class);
 Route::get('administator/teacher-message/send/',[ MessageController::class,'send'])
 ->name('teacher-message.send');
-Route::resource('group', GroupController::class);
-Route::resource('class/section', SectionController::class);
+
+Route::resource('classroom', ClassroomController::class);
+Route::resource('section', SectionController::class);
 Route::resource('class', ClsController::class);
-Route::resource('class/section/course', CourseController::class);
+Route::resource('course', CourseController::class);
 Route::get('administator\class',[ClsController::class,'ClsSection'])
 ->name('clsSection');
 
 Route::resource('result', ResultController::class);
+Route::resource('certificate', CertificateController::class);
+
+Route::singleton('password', ChangePasswordController::class);
+
+
 

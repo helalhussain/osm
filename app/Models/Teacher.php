@@ -46,9 +46,22 @@ class Teacher extends Authenticatable
     {
         return $this->belongsToMany(Subject::class);
     }
-  
+
+    public function chat()
+    {
+        return $this->hasOne(Chat::class);
+    }
+    public function course()
+    {
+        return $this->hasOne(Course::class);
+    }
+
     public function subject()
     {
         return $this->hasOne(Subject::class);
+    }
+    public function result()
+    {
+        return $this->hasOne(Result::class);
     }
 }

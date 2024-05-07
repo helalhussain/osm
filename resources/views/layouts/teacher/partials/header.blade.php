@@ -32,80 +32,54 @@
 
                 <div class="topbar-social-icon me-3 d-none d-md-block">
                     <ul class="list-inline title-tooltip m-0">
-                        <li class="list-inline-item">
-                            <a href="email-inbox.html" data-bs-toggle="tooltip" data-placement="top" title="Email">
-                             <i class="mdi mdi-email-outline"></i>
-                            </a>
-                        </li>
 
-                        <li class="list-inline-item">
+
+                        {{-- <li class="list-inline-item">
                             <a href="{{ route('teacher.chat.index') }}" data-bs-toggle="tooltip" data-placement="top" title="Chat">
                              <i class="mdi mdi-tooltip-outline"></i>
                             </a>
-                        </li>
+                        </li> --}}
 
-                        <li class="list-inline-item">
-                            <a href="calendar.html" data-bs-toggle="tooltip" data-placement="top" title="Calendar">
-                             <i class="mdi mdi-calendar"></i>
-                            </a>
-                        </li>
 
-                        <li class="list-inline-item">
-                            <a href="pages-invoice.html" data-bs-toggle="tooltip" data-placement="top" title="Printer">
-                             <i class="mdi mdi-printer"></i>
-                            </a>
-                        </li>
                     </ul>
                 </div>
 
             </div>
 
              <!-- Search input -->
-             <div class="search-wrap" id="search-wrap">
-                <div class="search-bar">
-                    <input class="search-input form-control" placeholder="Search" />
-                    <a href="#" class="close-search toggle-search" data-target="#search-wrap">
-                        <i class="mdi mdi-close-circle"></i>
-                    </a>
-                </div>
-            </div>
 
             <div class="d-flex">
-                <div class="dropdown d-none d-lg-inline-block">
-                    <button type="button" class="btn header-item toggle-search noti-icon waves-effect" data-target="#search-wrap">
-                        <i class="mdi mdi-magnify"></i>
-                    </button>
-                </div>
+
 
                 {{-- <div class="dropdown d-none d-md-block ms-2">
                     <button type="button" class="btn header-item waves-effect" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img class="me-2" src="assets/images/flags/us.jpg" alt="Header Language" height="16"> English <span class="mdi mdi-chevron-down"></span>
+                        <img class="me-2" src="{{ asset('admin') }}/assets/images/flags/us.jpg" alt="Header Language" height="16"> English <span class="mdi mdi-chevron-down"></span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
 
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <img src="assets/images/flags/germany.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> German </span>
+                            <img src="{{ asset('admin') }}/assets/images/flags/germany.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> German </span>
                         </a>
 
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <img src="assets/images/flags/italy.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> Italian </span>
+                            <img src="{{ asset('admin') }}/assets/images/flags/italy.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> Italian </span>
                         </a>
 
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <img src="assets/images/flags/french.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> French </span>
+                            <img src="{{ asset('admin') }}/assets/images/flags/french.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> French </span>
                         </a>
 
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <img src="assets/images/flags/spain.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> Spanish </span>
+                            <img src="{{ asset('admin') }}/assets/images/flags/spain.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> Spanish </span>
                         </a>
 
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <img src="assets/images/flags/russia.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> Russian </span>
+                            <img src="{{ asset('admin') }}/assets/images/flags/russia.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> Russian </span>
                         </a>
                     </div>
                 </div>
@@ -115,18 +89,10 @@
 
 
 
-                <div class="dropdown d-none d-lg-inline-block ms-1">
-                    <button type="button" class="btn header-item noti-icon waves-effect" data-toggle="fullscreen">
-                        <i class="mdi mdi-fullscreen"></i>
-                    </button>
-                </div>
+
 
                 <div class="dropdown d-inline-block">
-                    <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown"
-                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="mdi mdi-bell-outline bx-tada"></i>
-                        <span class="badge bg-danger rounded-pill">3</span>
-                    </button>
+
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
                         aria-labelledby="page-header-notifications-dropdown">
                         <div class="p-3">
@@ -158,7 +124,7 @@
                             </a>
                             <a href="" class="text-reset notification-item">
                                 <div class="media">
-                                    <img src="assets/images/users/avatar-3.jpg"
+                                    <img src="{{ asset('admin') }}/assets/images/users/avatar-3.jpg"
                                         class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                     <div class="media-body">
                                         <h6 class="mt-0 mb-1">{{ auth()->user()->name }}</h6>
@@ -188,7 +154,7 @@
 
                             <a href="" class="text-reset notification-item">
                                 <div class="media">
-                                    <img src="assets/images/users/avatar-4.jpg"
+                                    <img src="{{ asset('admin') }}/assets/images/users/avatar-4.jpg"
                                         class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                     <div class="media-body">
                                         <h6 class="mt-0 mb-1">Salena Layfield</h6>

@@ -1,4 +1,4 @@
-
+{{-- 
 @extends('layouts.administator.app')
 
 @section('administator_content')
@@ -33,9 +33,7 @@
                                             <x-admin.form-group label="class" class="mb-3" :required="false" isType="select" class="select2"
                                             column="col-lg-6">
                                             <option value="">Select Class</option>
-                                            {{-- @foreach ($subjects as $subject)
 
-                                            @endforeach --}}
                                         </x-admin.form-group>
 
                                     <x-admin.form-group label="gender" class="mb-3" :required="false" isType="select" class="select2"
@@ -69,8 +67,8 @@
                     </div>
                 </div>
             </div>
-            <!-- end row -->
+
 
         </div>
-    </div> <!-- container-fluid -->
-@endsection
+    </div>
+@endsection --}}

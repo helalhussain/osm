@@ -20,7 +20,7 @@
                         Compose
                     </a>
                     <div class="mail-list mt-4">
-                        <a href="{{ route('administator.teacher-message.index') }}" class="active"><i class="mdi mdi-email-outline me-2"></i> Inbox <span class="ms-1 float-end">(18)</span></a>
+                        <a href="{{ route('administator.teacher-message.index') }}" class="active"><i class="mdi mdi-email-outline me-2"></i> Inbox <span class="ms-1 float-end"></span></a>
                         <a href="{{ route('administator.teacher-message.index') }}"><i class="mdi mdi-email-check-outline me-2"></i>Sent</a>
 
                     </div>

@@ -46,8 +46,8 @@
                     searchable: false,
                     render: function(data, type, row) {
                         return `
-                    <a href="${route('teacher.student.show',row.id) }" class="btn btn-outline-success btn-sm" id=""><i class="fas fa-eye"></i></a>
-                    <a href="${route('teacher.student.destroy',row.id) }" class="btn btn-outline-danger btn-sm" id="deleteBtn"><i class="fas fa-trash-alt"></i></a>
+                    <a href="#" class="btn btn-outline-success btn-sm" id=""><i class="fas fa-eye"></i></a>
+
 
                     `;
 

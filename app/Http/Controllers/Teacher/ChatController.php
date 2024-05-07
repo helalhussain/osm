@@ -49,7 +49,8 @@ class ChatController extends Controller
     {
         $users = User::all();
         $chat = User::find($id);
-        $messages = Chat::all();
+        $messages = Chat::where('teacher_id','=',auth()->user()->id)
+        ->where('user_id','=',$chat->id)->get();
         return view('teacher.chat.show',compact('users','chat','messages'));
     }
 

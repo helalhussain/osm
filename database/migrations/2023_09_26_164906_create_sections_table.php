@@ -13,10 +13,7 @@ return new class extends Migration
     {
         Schema::create('sections', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('cls_id')->constrained('cls')->cascodeOnDelete();
-            $table->foreignId('group_id')->constrained('groups')->cascodeOnDelete();
             $table->string('title')->nullable();
-
             $table->timestamps();
         });
     }

@@ -12,14 +12,15 @@ class SettingController extends Controller
      * Display a listing of the resource.
      */
     public function index(){
-        
+
     }
     public function setting()
     {
 
            $timezones = json_decode(file_get_contents(resource_path('views/admin/includes/timezone.json')));
            $setting = Setting::first();
-           return view('admin.setting.general', compact('timezones','setting'));
+           $site= Setting::first();
+           return view('admin.setting.general', compact('timezones','site','setting'));
      }
 
      public function settingUpdate(Request $request)
@@ -28,14 +29,16 @@ class SettingController extends Controller
              'site_name'      => 'required|max:40',
              'currency_text'  => 'required|max:10',
              'curreny_symbol' => 'required|max:5',
-             'timezone'       => 'required|max:50'
+             'timezone'       => 'required|max:50',
+             'tution_fee'     => 'required',
          ]);
 
             Setting::query()->first()->update([
              'site_name'      => $request->site_name,
              'currency_text'  => $request->currency_text,
              'currency_symbol' => $request->curreny_symbol,
-             'timezone'       => $request->timezone
+             'timezone'       => $request->timezone,
+             'tution_fee'     => $request->tution_fee
          ]);
 
           return response()->json(['message' => 'General setting updated successfully']);

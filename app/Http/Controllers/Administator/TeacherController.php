@@ -46,21 +46,32 @@ class TeacherController extends Controller
             'password_confirmation'=>'required|same:password'
 
         ]);
+        if($request->image==null){
+            $store = new Teacher();
+            $store->name = $request->name;
+            $store->email = $request->email;
+            $store->phone = $request->phone;
+            $store->address = $request->address;
+            $store->dob= $request->date;
+            $store->password = bcrypt($request->password);
+            $store->save();
+            $store->subjects()->sync($request->subjects);
 
-        $store = new Teacher();
-        // $store->categories()->sync($request->category);
-        // $stores->regions()->attach($regions);
+        }else{
 
-        $store->name = $request->name;
-        $store->email = $request->email;
-        $store->phone = $request->phone;
-        $store->address = $request->address;
-        $store->dob= $request->date;
-        $store->image = file_upload($request->image, 'teacher');
-        $store->password = bcrypt($request->password);
-        $store->save();
-        $store->subjects()->sync($request->subjects);
-        // $store->subjects()->attach($request->subject);
+            $store = new Teacher();
+            $store->name = $request->name;
+            $store->email = $request->email;
+            $store->phone = $request->phone;
+            $store->address = $request->address;
+            $store->dob= $request->date;
+            $store->image = file_upload($request->image, 'teacher');
+            $store->password = bcrypt($request->password);
+            $store->save();
+            $store->subjects()->sync($request->subjects);
+
+        }
+
         return response()->json([
             'message' => 'Teacher added successfully'
         ]);
@@ -91,14 +102,27 @@ class TeacherController extends Controller
             'name' => 'required',
 
         ]);
-        // dd($request->all());
-        $teacher->update([
+        if($request->image==null){
+            $teacher->update([
                 'name'=>$request->name,
                 'gender'=>$request->gender,
                 'dob'=>$request->date,
                 'phone'=>$request->phone,
-                'address'=>$request->address
-        ]);
+                'address'=>$request->address,
+
+            ]);
+        }else{
+            $teacher->update([
+                'name'=>$request->name,
+                'gender'=>$request->gender,
+                'dob'=>$request->date,
+                'phone'=>$request->phone,
+                'address'=>$request->address,
+                'image'  => file_upload($request->image, 'teacher')
+            ]);
+
+        }
+
         return response()->json(['message' => 'Teacher updated successfully']);
     }
     public function status(Request $request, Teacher $teacher)

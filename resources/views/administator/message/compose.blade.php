@@ -20,8 +20,8 @@
                         Compose
                     </a>
                     <div class="mail-list mt-4">
-                        <a href="{{ route('administator.student-message.index') }}" class="active"><i class="mdi mdi-email-outline me-2"></i> Inbox <span class="ms-1 float-end">(18)</span></a>
-                        <a href="{{ route('administator.student-message.index') }}"><i class="mdi mdi-email-check-outline me-2"></i>Sent</a>
+                        <a href="{{ route('administator.student-message.index') }}" class=""><i class="mdi mdi-email-outline me-2"></i> Inbox <span class="ms-1 float-end">({{ $m_student_count->count() }})</span></a>
+                        <a href="{{ route('administator.student-message.send') }}"><i class="mdi mdi-email-check-outline me-2"></i>Sent <span class="ms-1 float-end">({{ $m_count->count() }})</span></a>
 
                     </div>
                 </div>
@@ -33,12 +33,12 @@
                     <div class="card">
                         <div class="card-body">
 
-                            <form id="submit" action="{{ route('administator.student-message.store') }}" method="POST" enctype="multipart/form-data">
+                            <form id="" action="{{ route('administator.student-message.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-3">
 
                                     {{-- <input type="email" class="form-control" placeholder="To"> --}}
-                                    <select name="email" id="email" class="form-control select2">
+                                    <select name="email" id="email" class="form-control select2" required>
                                         <option value="">Select Student</option>
                                         @foreach ($students as $student)
                                         <option value="{{ $student->id }}">{{ $student->email }}</option>
@@ -51,12 +51,13 @@
                                 </div>
                                 <div class="mb-3">
 
-                                        <textarea id="elm1" name="elm1"></textarea>
+                                        {{-- <textarea id="elm1" name="elm1"></textarea> --}}
+                                        <textarea id="description" name="description" class="form-control" required></textarea>
 
                                 </div>
 
 <button type="submit" class="btn btn-success">Submit</button>
-<input type="file" id="image" name="image" class="" placeholder="">
+<input type="file" id="file" name="file" class="" placeholder="" >
 
                             </form>
 

@@ -62,8 +62,9 @@
                                                 </x-admin.form-group><br/>
                                                 {{-- <x-admin.form-group label="dob" placeholder="Enter teacher Date of birth" :value="$teacher->dob ?? ''"
                                                     column="col-lg-6" /><br/> --}}
-                                                    <x-admin.form-group  label="date" type="date" class="mb-3" placeholder="Enter teacher Date of birth" :value="$teacher->dob ?? ''"
-                                                        column="col-lg-6" /><br/>
+
+                                                        <x-admin.form-group  label="date" type="date" class="mb-3" placeholder="Enter teacher Date of birth" :value="$teacher->dob ?? ''"
+                                                            column="col-lg-6" /><br/>
                                                     <x-admin.form-group label="phone" placeholder="Enter teacher phone" :value="$teacher->phone ?? ''"
                                                         column="col-lg-6" /><br/>
 
@@ -71,11 +72,13 @@
                                             column="col-lg-6" /><br/>
 
                                                </div><br/>
+                                               <x-admin.form-group label="image" for="image" class="mb-3" :required="false" type="file"
+                                               data-show-image="show_teacher_image" accept="image/*" column="col-lg-6" /><br>
 
 
                                                         <button type="submit"
                                                             class="btn btn-primary waves-effect waves-light me-1">
-                                                            Edit
+                                                            Update
                                                         </button>
 
 

@@ -65,6 +65,10 @@ class ProfileController extends Controller
 
         $teacher->update([
             'name'  => $request->name,
+            'dob'=>$request->date,
+            'phone'  => $request->phone,
+            'gender'  => $request->gender,
+            'address'  => $request->address,
             'image'  => $request->hasFile('image') ? file_upload($request->image, 'teacher', $teacher->image) : $teacher->image
         ]);
 

@@ -3,7 +3,7 @@
 
 @section('admin_content')
 <x-admin.page-title dashboard_title="Admin" title="Profile" page_name="My profile">
-
+    <a href="{{route('admin.profile.edit')}}" class="btn btn-success" id="addBtn">Update</a>
 </x-admin.page-title>
 <div class="row">
     <div class="col-12">
@@ -29,13 +29,16 @@
                                 <li class="list-inline-item"><i class="ti ti-calendar"></i> Joined June 2023</li>
                             </ul>
                         </div>
-                        <a href="{{route('admin.profile.edit')}}" class="btn btn-primary" id="editBtn">
+                        <a href="{{route('admin.password.show')}}" class="btn btn-primary">
                             <i class="ti ti-edit me-1"></i>
-                            Edit Your Account
+                            Edit Password
                         </a>
                     </div>
                 </div>
             </div>
+
+
+
         </div>
     </div>
 </div>

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Message;
 use App\Models\Teacher;
 use App\Models\Administator;
+
 class MessageController extends Controller
 {
     /**

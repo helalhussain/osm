@@ -13,11 +13,17 @@ return new class extends Migration
     {
         Schema::create('notices', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('cls_id')->constrained('cls')->cascodeOnDelete();
-            $table->string('title');
+            $table->foreignId('classroom_id')->refers('id')->on('classrooms')->onDelete('cascade');
+            $table->foreignId('course_id')->refers('id')->on('courses')->onDelete('cascade')->nullable();
+            $table->foreignId('admin_id')->refers('id')->on('admins')->onDelete('cascade')->nullable();
+            $table->foreignId('administator_id')->refers('id')->on('administators')->onDelete('cascade')->nullable();
+            $table->foreignId('teacher_id')->refers('id')->on('teachers')->onDelete('cascade')->nullable();
+            $table->string('user_type')->nullable();
+            $table->string('title')->nullable();
             $table->text('description')->nullable();
-            $table->string('details')->nullable();
-            $table->string('image');
+            $table->string('image')->nullable();
+            $table->string('file')->nullable();
+            // $table->string('dateline')->nullable();
             $table->timestamps();
         });
     }

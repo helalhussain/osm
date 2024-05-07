@@ -34,25 +34,7 @@
                                             <option value="{{ $subject->id }}">{{ $subject->name }}</option>
                                         @endforeach
                                     </x-admin.form-group><br/>
-                                    {{-- <div class="mb-3">
-                                        <label class="form-label">Subjects</label>
 
-                                        <select class="select2 form-control select2-multiple"
-                                            multiple="multiple" name="subject" id="subject" data-placeholder="Choose ...">
-                                            <option value="">Select Subject</option>
-                                            @foreach ($subjects as $subject)
-                                                <option value="{{ $subject->id }}">{{ $subject->name }}</option>
-                                            @endforeach
-
-                                        </select>
-                                    </div> --}}
-                                    {{-- <x-admin.form-group label="size" :required="false" isType="select"
-                                    class="select2 form-control select2-multiple" multiple="multiple"
-                                    data-placeholder="Select size ..." column="col-lg-6">
-                                    @foreach ($sizes as $size)
-                                        <option value="{{ $size->id }}">{{ $size->name }}</option>
-                                    @endforeach
-                                </x-admin.form-group> --}}
 
                                 <x-admin.form-group label="gender" class="mb-3" :required="false" isType="select" class="select2"
                                 column="col-lg-6">

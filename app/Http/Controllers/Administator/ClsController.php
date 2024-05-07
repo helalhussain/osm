@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Administator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
-use App\Models\Cls;
+
 use App\Models\Section;
 
 class ClsController extends Controller
@@ -45,7 +45,6 @@ class ClsController extends Controller
 // dd($request->all());
         $store = new Cls();
         $store->title = $request->title;
-        $store->description = $request->description;
         $store->save();
         return response()->json([
             'message' => 'Class added successfully'

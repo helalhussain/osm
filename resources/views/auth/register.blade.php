@@ -50,234 +50,387 @@
         </div>
     </form>
 </x-guest-layout> --}}
-<!DOCTYPE html>
+<!doctype html>
+<html lang="en">
 
-<html
-  lang="en"
-  class="light-style customizer-hide"
-  dir="ltr"
-  data-theme="theme-default"
-  data-assets-path="{{ asset('teacher') }}/assets/"
-  data-template="horizontal-menu-template"
->
-  <head>
+<head>
+
+
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
-    />
+    <title>Login page | Morvin - Admin & Dashboard Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesdesign" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
 
-    <title>Register Cover - Pages | Vuexy - Bootstrap Admin Template</title>
+    <!-- Bootstrap Css -->
+    <link href="{{ asset('admin') }}/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet"
+        type="text/css" />
+    <!-- Icons Css -->
+    <link href="{{ asset('admin') }}/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="{{ asset('admin') }}/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
 
-    <meta name="description" content="" />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('teacher') }}/assets/img/favicon/favicon.ico" />
+</head>
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-      rel="stylesheet"
-    />
+<style>
+    .bs-stepper .bs-stepper-content {
+        padding: 1.5rem 1.5rem;
+    }
 
-    <!-- Icons -->
-    <link rel="stylesheet" href="{{ asset('teacher') }}/assets/vendor/fonts/fontawesome.css" />
-    <link rel="stylesheet" href="{{ asset('teacher') }}/assets/vendor/fonts/tabler-icons.css" />
-    <link rel="stylesheet" href="{{ asset('teacher') }}/assets/vendor/fonts/flag-icons.css" />
+    .mx-auto {
+        margin-right: auto !important;
+        margin-left: auto !important;
+    }
 
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="{{ asset('teacher') }}/assets/vendor/css/rtl/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="{{ asset('teacher') }}/assets/vendor/css/rtl/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="{{ asset('teacher') }}/assets/css/demo.css" />
+    .w-px-700 {
+        width: 700px !important;
+    }
 
-    <!-- Vendors CSS -->
-    <link rel="stylesheet" href="{{ asset('teacher') }}/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-    <link rel="stylesheet" href="{{ asset('teacher') }}/assets/vendor/libs/node-waves/node-waves.css" />
-    <link rel="stylesheet" href="{{ asset('teacher') }}/assets/vendor/libs/typeahead-js/typeahead.css" />
-    <!-- Vendor -->
-    <link rel="stylesheet" href="{{ asset('teacher') }}/assets/vendor/libs/formvalidation/dist/css/formValidation.min.css" />
+    .light-style .bs-stepper:not(.wizard-modern) {
+        box-shadow: 0 0.25rem 1.125rem rgba(75, 70, 92, 0.1);
+    }
 
-    <!-- Page CSS -->
-    <!-- Page -->
-    <link rel="stylesheet" href="{{ asset('teacher') }}/assets/vendor/css/pages/page-auth.css" />
-    <!-- Helpers -->
-    <script src="{{ asset('teacher') }}/assets/vendor/js/helpers.js"></script>
+    .light-style .bs-stepper {
+        background-color: #fff;
+    }
 
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Template customizer: To hide customizer set displayCustomizer value false in config.js.  -->
-    <script src="{{ asset('teacher') }}/assets/vendor/js/template-customizer.js"></script>
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="{{ asset('teacher') }}/assets/js/config.js"></script>
-  </head>
+    .shadow-none {
+        box-shadow: none !important;
+    }
 
-  <body>
-    <!-- Content -->
+    .light-style .bs-stepper .bs-stepper-header {
+        border-bottom: 1px solid #dbdade;
+    }
 
-    <div class="authentication-wrapper authentication-cover authentication-bg">
-      <div class="authentication-inner row">
-        <!-- /Left Text -->
-        <div class="d-none d-lg-flex col-lg-7 p-0">
-          <div class="auth-cover-bg auth-cover-bg-color d-flex justify-content-center align-items-center">
-            <img
-              src="{{ asset('teacher') }}/assets/img/illustrations/auth-register-illustration-light.png"
-              alt="auth-register-cover"
-              class="img-fluid my-5 auth-illustration"
-              data-app-light-img="illustrations/auth-register-illustration-light.png"
-              data-app-dark-img="illustrations/auth-register-illustration-dark.png"
-            />
+    /* @media (max-width: 991.98px)
+.bs-stepper .bs-stepper-header {
+    flex-direction: column;
+    align-items: flex-start;
+} */
+    .bs-stepper .bs-stepper-header {
+        padding: 1.5rem 1.5rem;
+    }
 
-            <img
-              src="{{ asset('teacher') }}/assets/img/illustrations/bg-shape-image-light.png"
-              alt="auth-register-cover"
-              class="platform-bg"
-              data-app-light-img="illustrations/bg-shape-image-light.png"
-              data-app-dark-img="illustrations/bg-shape-image-dark.png"
-            />
-          </div>
-        </div>
-        <!-- /Left Text -->
+    .border-bottom-0 {
+        border-bottom: 0 !important;
+    }
 
-        <!-- Register -->
-        <div class="d-flex col-12 col-lg-5 align-items-center p-sm-5 p-4">
-          <div class="w-px-400 mx-auto">
-            <!-- Logo -->
-            <div class="app-brand mb-4">
-              <a href="index.html" class="app-brand-link gap-2">
-                <span class="app-brand-logo demo">
-                    {{-- {{ uploaded_file($logoIcon->logo) }} --}}
-                </span>
-              </a>
-            </div>
-            <!-- /Logo -->
-            <h3 class="mb-1 fw-bold">Registration</h3>
-            {{-- <p class="mb-4">Make your app management easy and fun!</p> --}}
+    /* @media (max-width: 520px)
+.bs-stepper-header {
+    margin: 0;
+}
+@media (max-width: 520px)
+.bs-stepper-header {
+    margin: 0 -10px;
+    text-align: center;
+} */
+    form {
+        display: block;
+        margin-top: 0em;
+    }
 
-            <form class="mb-3" method="POST" action="{{ route('register') }}">
-                @csrf
-              <div class="mb-3">
-                <label for="username" class="form-label">Full Name</label>
-                <input
-                  type="text"
-                  class="form-control @error('name')
-                    is-invalid
-                  @enderror"
-                  id="name"
-                  name="name"
-                  placeholder="Enter your Full Name"
+    .bs-stepper-header {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-align: center;
+        align-items: center;
+    }
 
-                />
-              </div>
-              <div class="mb-3">
-                <label for="student_id" class="form-label">Student ID</label>
-                <input
-                  type="text"
-                  class="form-control  @error('student_id')
-                  is-invalid
+    .bs-stepper {
+        border-radius: 0.375rem;
+    }
+
+    .custom-option {
+        padding-left: 0;
+        border: 1px solid #dbdade;
+        border-radius: 0.375rem;
+    }
+
+
+
+    .form-check {
+        display: block;
+        min-height: 1.378125rem;
+        padding-left: 1.7em;
+        margin-bottom: 0.125rem;
+    }
+
+    .custom-option-icon .custom-option-content {
+        text-align: center;
+        padding: 1.07em;
+    }
+
+    .custom-option .custom-option-content {
+        cursor: pointer;
+        width: 100%;
+    }
+
+    label {
+        display: inline-block;
+    }
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    .custom-option-icon .custom-option-body {
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    .justify-content-center {
+        justify-content: center !important;
+    }
+
+    .d-flex {
+        display: flex !important;
+    }
+</style>
+
+<body class="authentication-bg bg-dark">
+    <div class="home-center">
+        <div class="home-desc-center">
+
+            <div class="container mt-5">
+
+                <div class="home-btn">
+                    {{-- <a href="/" class="text-white router-link-active"><i
+                            class="fas fa-home h2"></i></a> --}}
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-md-8 col-lg-8 col-xl-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="px-2 py-3">
+
+
+                                    <div class="text-center">
+                                        <a href="index.html">
+                                            <img src="{{ uploaded_file($logoIcon->logo) }}" height="45"
+                                                alt="logo">
+                                        </a>
+
+                                        <h3 class="text-primary mb-2 mt-4 fw-bold">Student Register</h3>
+                                        <p class="text-muted"></p>
+                                    </div>
+
+                                    <form class="form-horizontal mt-4 pt-2" action="{{ route('register') }}"
+                                        method="POST">
+                                        @csrf
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <label for="username">Name</label>
+                                                    <input type="text"
+                                                        class="form-control @error('name') is-invalid
+
                 @enderror"
-                  id="student_id"
-                  name="student_id"
-                  placeholder="Enter your ID"
-                  autofocus
-                />
-              </div>
-              <div class="mb-3">
-                <label for="class" class="form-label">Class no</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="class"
-                  name="class"
-                  placeholder="Class no"
-                  autofocus
-                />
-              </div>
-              <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" />
-              </div>
-              <div class="mb-3 form-password-toggle">
-                <label class="form-label" for="password">Password</label>
-                <div class="input-group input-group-merge">
-                  <input
-                    type="password"
-                    id="password"
-                    class="form-control"
-                    name="password"
-                    placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                    aria-describedby="password"
-                  />
-                  <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
-                </div>
-              </div>
-              <div class="mb-3 form-password-toggle">
-                <label class="form-label" for="password">Confirm Password</label>
-                <div class="input-group input-group-merge">
-                  <input
-                    type="password"
-                    id="password"
-                    class="form-control"
-                    name="password"
-                    placeholder="Confirm Password"
-                    aria-describedby="password"
-                  />
-                  <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
-                </div>
-              </div>
+                                                        name="name" value="{{ old('name') }}" id="username"
+                                                        placeholder="Enter name" required>
+                                                    @error('name')
+                                                        <p class="text-danger">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <label for="username">Email</label>
+                                                    <input type="text"
+                                                        class="form-control @error('email') is-invalid
 
-              <div class="mb-3">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
-                  <label class="form-check-label" for="terms-conditions">
-                    I agree to
-                    <a href="javascript:void(0);">privacy policy & terms</a>
+                @enderror"
+                                                        name="email" value="{{ old('email') }}" id="username"
+                                                        placeholder="Enter email" required>
+                                                    @error('email')
+                                                        <p class="text-danger">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <label for="studentId">Student ID</label>
+                                                    <input type="text" name="studentId" id="studentId"
+                                                        class="form-control @error('studentId')
+                    is-invalid
+                @enderror"
+                                                        placeholder="Student ID" required>
+                                                    @error('studentId')
+                                                        <p class="text-danger">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <label for="class">Select class</label>
+                                                    <select name="class" id="class"
+                                                        class="form-control @error('class')
+    is-invalid
+@enderror"
+                                                        type="select" required>
+                                                        {{-- <option value="{{ $classes->classroom_id ?? '' }}">{{ $course->classroom->title ?? 'Select Class' }}</option> --}}
+                                                        <option value="">Select Class</option>
+                                                        @foreach ($classes as $class)
+                                                            <option value="{{ $class->id }}">{{ $class->title }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('class')
+                                                        <p class="text-danger">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <label for="userpassword">Password</label>
+                                                    <input type="password"
+                                                        class="form-control @error('password')
+                    is-invalid
+                @enderror"
+                                                        name="password" id="userpassword" placeholder="Enter password" required>
+                                                    @error('password')
+                                                        <p class="text-danger">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <label for="password_confirmation">Confirm Password</label>
+                                                    <input type="password"
+                                                        class="form-control @error('password_confirmation')
+                    is-invalid
+                @enderror"
+                                                        name="password_confirmation" id="password_confirmation"
+                                                        placeholder="Enter confirm password" required>
+                                                    @error('cpassword_confirmation')
+                                                        <p class="text-danger">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-----Payment------>
+                                        {{-- <div class="row">
+        <div id="billingLinksValidation" class="content">
+            <div class="content-header">
+              <h3 class="mb-1">Select Plan</h3>
+              <p>Select plan as per your requirement</p>
+            </div>
+
+            <div class="row gap-md-0 gap-3 my-4">
+                <div class="col-md">
+                    <div class="form-check custom-option custom-option-icon">
+                      <label class="form-check-label custom-option-content" for="enterpriseOption">
+                        <span class="custom-option-body">
+                          <span class="custom-option-title fs-4 mb-1">Enterprise</span><br>
+                          <small class="fs-6">Solution for enterprise & organizations</small>
+                          <span class="d-flex justify-content-center">
+                            <sup class="text-primary fs-6 lh-1 mt-3">{{ $logoIcon->currency_symbol }}</sup>
+                            <span class="fw-semibold fs-2 text-primary">{{ $logoIcon->tution_fee }}</span>
+                            <sub class="lh-1 fs-6 mt-auto mb-2 text-muted">/year</sub>
+                          </span>
+                        </span>
+                        <input
+                          name="customRadioIcon"
+                          class="form-check-input"
+                          type="radio"
+                          value="prem" checked
+                          id="enterpriseOption" name="option"
+                        />
+                      </label>
+                    </div>
+                  </div>
+              <div class="col-md">
+                <div class="form-check custom-option custom-option-icon">
+                  <label class="form-check-label custom-option-content" for="basicOption">
+                    <span class="custom-option-body">
+                      <span class="custom-option-title fs-4 mb-1">Basic</span><br>
+                      <small class="fs-6">A simple start for start ups & Students</small>
+                      <span class="d-flex justify-content-center">
+                        <sup class="text-primary fs-6 lh-1 mt-3">$</sup>
+                        <span class="fw-semibold fs-2 text-primary">0</span>
+                        <sub class="lh-1 fs-6 mt-auto mb-2 text-muted">/month</sub>
+                      </span>
+                    </span>
+                    <input
+                      name="customRadioIcon"
+                      class="form-check-input"
+                      type="radio"
+                      value="free"
+                      id="basicOption" name="option"
+                    />
                   </label>
-                </div>
-              </div>
-              <button class="btn btn-primary d-grid w-100">Sign up</button>
-            </form>
 
-            <p class="text-center">
-              <span>Already have an account?</span>
-              <a href="auth-login-cover.html">
-                <span>Sign in instead</span>
-              </a>
-            </p>
+                </div>
+
+              </div>
+
+
+            </div>
+
 
 
           </div>
+       </div> --}}
+                                        <!---end payment--->
+
+
+
+
+
+                                        <div>
+                                            <button class="btn btn-primary waves-effect waves-light"
+                                                type="submit">Register</button>
+                                                {{-- <a href="{{ route('stripe.checkout') }}" lass="btn btn-success">Checkout</a> --}}
+                                        </div>
+
+
+
+
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- <div class="mt-5 text-center text-white">
+                             <p>Don't have an account ?<a href="auth-register.html" class="fw-bold text-white">
+                                    Register</a> </p>
+                            <p>©
+                                <script>
+                                    document.write(new Date().getFullYear())
+                                </script> Morvin. Crafted with <i class="mdi mdi-heart text-danger"></i>
+                                by Themesdesign
+                            </p>
+                        </div> --}}
+                    </div>
+                </div>
+
+            </div>
+
+
         </div>
-        <!-- /Register -->
-      </div>
+        <!-- End Log In page -->
     </div>
 
-    <!-- / Content -->
+    <!-- JAVASCRIPT -->
+    <script src="{{ asset('admin') }}/assets/libs/jquery/jquery.min.js"></script>
+    <script src="{{ asset('admin') }}/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('admin') }}/assets/libs/metismenu/metisMenu.min.js"></script>
+    <script src="{{ asset('admin') }}/assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="{{ asset('admin') }}/assets/libs/node-waves/waves.min.js"></script>
 
-    <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
-    <script src="{{ asset('teacher') }}/assets/vendor/libs/jquery/jquery.js"></script>
-    <script src="{{ asset('teacher') }}/assets/vendor/libs/popper/popper.js"></script>
-    <script src="{{ asset('teacher') }}/assets/vendor/js/bootstrap.js"></script>
-    <script src="{{ asset('teacher') }}/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="{{ asset('teacher') }}/assets/vendor/libs/node-waves/node-waves.js"></script>
+    <script src="{{ asset('admin') }}/assets/js/app.js"></script>
 
-    <script src="{{ asset('teacher') }}/assets/vendor/libs/hammer/hammer.js"></script>
-    <script src="{{ asset('teacher') }}/assets/vendor/libs/i18n/i18n.js"></script>
-    <script src="{{ asset('teacher') }}/assets/vendor/libs/typeahead-js/typeahead.js"></script>
+</body>
 
-    <script src="{{ asset('teacher') }}/assets/vendor/js/menu.js"></script>
-    <!-- endbuild -->
-
-    <!-- Vendors JS -->
-    <script src="{{ asset('teacher') }}/assets/vendor/libs/formvalidation/dist/js/FormValidation.min.js"></script>
-    <script src="{{ asset('teacher') }}/assets/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js"></script>
-    <script src="{{ asset('teacher') }}/assets/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js"></script>
-
-    <!-- Main JS -->
-    <script src="{{ asset('teacher') }}/assets/js/main.js"></script>
-
-    <!-- Page JS -->
-    <script src="{{ asset('teacher') }}/assets/js/pages-auth.js"></script>
-  </body>
 </html>

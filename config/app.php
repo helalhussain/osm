@@ -169,6 +169,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        \Chatify\ChatifyServiceProvider::class,
+        // Square\Providers\SquareServiceProvider::class
     ])->toArray(),
 
     /*
@@ -185,6 +187,8 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+        'Chatify' => Chatify\Facades\ChatifyMessenger::class,
+        // 'Square' => Square\Facades\Square::class
     ])->toArray(),
 
 ];
