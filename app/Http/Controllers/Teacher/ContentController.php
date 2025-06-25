@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\Content;
 use App\Models\Classroom;
+use App\Models\Subject;
 use Yajra\DataTables\Facades\DataTables;
 
 
@@ -18,7 +19,7 @@ class ContentController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            return DataTables::eloquent(Content::query()->select('id','title','description')->where('teacher_id','=',auth()->user()->id))
+            return DataTables::eloquent(Content::query()->select('id','title','subject','description')->where('teacher_id','=',auth()->user()->id))
                 ->addIndexColumn()
                 ->addColumn('action', fn () => '')
                 ->toJson();
@@ -29,10 +30,30 @@ class ContentController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Content $content)
+    // $query = Student::query();
+    //     if($request->ajax()){
+    //        $students = $query->where('name','LIKE','%'.$request->name.'%')->get();
+    //     // $sutends = Student::white('id',5)->get();
+    //         return response()->json(['students'=>$students]);
+    //     }else{
+    //         $students = $query->get();
+    //         return view('student.index',compact('students'));
+    // $query->where(['category_id'=>$request->category])->get()
+    //     }
+    public function create(Request $request)
     {
-        $classrooms = Classroom::all();
-        return view('teacher.content.form',compact('classrooms'));
+        $query = Subject::query();
+        if($request->ajax()){
+            // $subjects = $query->where(['classroom_id'=>$request->class])->get();
+            $subjects = $query->get();
+            return response()->json(['subjects'=>$subjects]);
+        }else{
+            $courses = Course::all();
+            $classrooms = Classroom::all();
+            $subjects = Subject::all();
+            return view('teacher.content.form',compact('classrooms','courses','subjects'));
+        }
+
     }
 
     /**
@@ -41,20 +62,20 @@ class ContentController extends Controller
     public function store(Request $request,Content $content)
     {
         $request->validate([
-            'class' => 'required',
+
             'title' => 'required',
         ]);
 
         if($request->file==null){
             $store = new Content();
-            $store->classroom_id = $request->class;
+            $store->subject = $request->subject;
             $store->teacher_id = auth()->user()->id;
             $store->title = $request->title;
             $store->description = $request->description;
             $store->save();
         }else{
             $store = new Content();
-            $store->classroom_id = $request->class;
+            $store->subject = $request->subject;
             $store->teacher_id = auth()->user()->id;
             $store->title = $request->title;
             $store->description = $request->description;
@@ -62,10 +83,10 @@ class ContentController extends Controller
             $store->save();
 
         }
-
-        return response()->json([
-            'message' => 'Content added successfully'
-        ]);
+        return redirect()->route('teacher.content.index')->with('success','Success');
+        // return response()->json([
+        //     'message' => 'Content added successfully'
+        // ]);
     }
 
     /**
@@ -73,8 +94,9 @@ class ContentController extends Controller
      */
     public function show(Content $content)
     {
-        $classes = Classroom::all();
-        return view('teacher.content.show',compact('content'));
+
+        $subjects = Subject::all();
+        return view('teacher.content.show',compact('content','subjects'));
     }
 
     /**
@@ -83,7 +105,8 @@ class ContentController extends Controller
     public function edit(Content $content)
     {
         $classrooms = Classroom::all();
-        return view('teacher.content.form',compact('content','classrooms'));
+        $subjects = Subject::all();
+        return view('teacher.content.edit',compact('content','classrooms','subjects'));
     }
 
     /**
@@ -93,26 +116,28 @@ class ContentController extends Controller
     {
 
         $request->validate([
-            'class' => 'required',
+            // 'class' => 'required',
             'title' => 'required|max:150',
         ]);
         if($request->file==null){
             $content->update([
-                'classroom_id'=>$request->class,
+                'subject'=>$request->subject,
                 'title'=>$request->title,
                 'description'=>$request->description,
-                
+
         ]);
         }else{
             $content->update([
-                'classroom_id'=>$request->class,
+                // 'classroom_id'=>$request->class,
+                'subject'=>$request->subject,
                 'title'=>$request->title,
                 'description'=>$request->description,
                 'file'=>file_upload($request->file, 'content')
         ]);
         }
 
-        return response()->json(['message' => 'Content updated successfully']);
+        return redirect()->route('teacher.content.index');
+
     }
 
     /**

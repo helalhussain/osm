@@ -50,6 +50,10 @@ Route::middleware('guest')->group(function () {
                 ->name('register');
 
     Route::post('register', [RegisteredUserController::class, 'store']);
+    // Route::get('payment-success',[RegisteredUserController::class,'success'])->name('register_success');
+Route::get('success',[RegisteredUserController::class,'success'])->name('payment_success');
+Route::get('cancel',[RegisteredUserController::class,'cancel'])->name('payment_cancel');
+
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');

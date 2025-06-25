@@ -5,12 +5,12 @@
 
 
     <meta charset="utf-8" />
-    <title>{{ $site->site_name }} | Admin</title>
+    <title>{{ $site->site_name }} | Administrator</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesdesign" name="author" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="{{ uploaded_file($logoIcon->favicon) }}">
    <!--Ajax-------->
    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- plugin css -->
@@ -38,6 +38,11 @@
     <link href="{{ asset('admin') }}/assets/libs/spectrum-colorpicker2/spectrum.min.css" rel="stylesheet" type="text/css">
     <link href="{{ asset('admin') }}/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
     <!----End advance form--->
+        <!--------Text-editor bs-5--------->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+
+<!-----End Text-editor bs-5--------->
     @routes
 
 </head>

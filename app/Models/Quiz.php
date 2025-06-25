@@ -14,4 +14,8 @@ class Quiz extends Model
     {
         return $this->belongsTo(Classroom::class);
     }
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
 }

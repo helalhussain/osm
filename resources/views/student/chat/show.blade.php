@@ -17,338 +17,120 @@
 
 
                   <div class="p-4">
-                    <div class="search-box chat-search-box pb-4">
+                    {{-- <div class="search-box chat-search-box pb-2">
                         <div class="position-relative">
                             <input type="text" class="form-control" placeholder="Search...">
                             <i class="mdi mdi-magnify search-icon"></i>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="chat-leftsidebar-nav">
-                        {{-- <ul class="nav nav-pills nav-justified">
-                            <li class="nav-item">
+                        <ul class="nav nav-pills nav-justified">
+                            {{-- <li class="nav-item">
                                 <a href="#chat" data-bs-toggle="tab" aria-expanded="true" class="nav-link active">
                                     <span>Chat</span>
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="nav-item">
-                                <a href="#group" data-bs-toggle="tab" aria-expanded="false" class="nav-link">
-                                    <span>Group</span>
+                                <a href="#group" data-bs-toggle="tab" aria-expanded="false" class="nav-link active">
+                                    <span>Chats</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a href="#contact" data-bs-toggle="tab" aria-expanded="false" class="nav-link">
-                                    <span>Contacts</span>
+                                    <span>Students</span>
                                 </a>
-                            </li>
-                        </ul> --}}
+                            </li> --}}
+                        </ul>
 
 
-                        <div class="tab-content py-4">
+                        <div class="tab-content py-">
                             <div class="tab-pane show active" id="chat">
-                                <div>
-                                    {{-- <h5 class="font-size-16 mb-3">Online</h5> --}}
-                                    <ul class="list-unstyled chat-list">
 
-                                        @foreach ($teachers as $teacher)
+                            </div>
+                        </div>
+
+
+                        <div class="tab-content pb-">
+
+                            <div class="tab-pane show active" id="group">
+                               <div>
+                                    {{-- <h5 class="font-size-16 mb-3">Chats</h5> --}}
+                                    <ul class="list-unstyled chat-list">
+                                        @foreach ($chat_list as $list)
                                         <li class="active">
-                                            <a href="{{ route('chat.show',$teacher->id) }}">
+                                            <a href="{{ route('chat.show',$list->teacher_id) }}"
+                                                 class="{{ Request::is('teacher/chat*') ? '':'' }}">
                                                 <div class="media">
                                                     <div class="align-self-center me-3">
-                                                        <i class="mdi mdi-circle text-success font-size-10"></i>
+                                                        {{-- <i class="mdi mdi-circle text-success font-size-10"></i> --}}
                                                     </div>
                                                     <div class="align-self-center me-3">
+                                                        {{-- @if ($list->user->image==null)
+                                                        <img src="{{ asset('images/defult/user.png') }}" class="rounded-circle avatar-xs" alt="">
 
-                                                        {{-- <img src="{{ asset('admin') }}/assets/images/teachers/avatar-2.jpg" class="rounded-circle avatar-xs" alt=""> --}}
-                                                        <img src=" {{ uploaded_file($teacher->image) }}" class="rounded-circle avatar-xs" alt="">
+                                                        @else --}}
+                                                        <img src="{{ uploaded_file($list->teacher->image) }}" class="rounded-circle avatar-xs" alt="">
+                                                        {{-- @endif --}}
+
                                                     </div>
 
                                                     <div class="media-body overflow-hidden">
-                                                        <h5 class="text-truncate font-size-14 mb-1">{{ $teacher->name }}</h5>
-                                                        <p class="text-truncate mb-0"> {{ $teacher->email }}</p>
+                                                        <h5 class="text-truncate font-size-14 mb-1">{{ $list->teacher->name }}</h5>
+                                                        <p class="text-truncate mb-0"> {{ $list->teacher->email }}</p>
                                                     </div>
                                                     {{-- <div class="font-size-11">05 min</div> --}}
                                                 </div>
                                             </a>
                                         </li>
+
                                         @endforeach
+
+
 
                                     </ul>
                                 </div>
                             </div>
-                        </div>
+
+                            <div class="tab-pane" id="contact">
 
 
-                        <div class="tab-content pb-4">
-                            {{-- <div class="tab-pane show active">
-                                <div>
-                                    <h5 class="font-size-16 mb-3">Contact</h5>
+                          <div>
+                                    <h5 class="font-size-16 mb-3">All students</h5>
                                     <ul class="list-unstyled chat-list">
+                                    {{-- @foreach ($students as $student)
+                                    <li class="active">
+                                        <a href="{{ route('teacher.chat.show',$student->id) }}" class="{{  }}">
+                                            <div class="media">
+                                                <div class="align-self-center me-3">
+
+                                                </div>
+                                                <div class="align-self-center me-3">
+                                                    @if ($student->image==null)
+                                                    <img src="{{ asset('images/defult/user.png') }}" class="rounded-circle avatar-xs" alt="">
+
+                                                    @else
+                                                    <img src="{{ uploaded_file($student->image) }}" class="rounded-circle avatar-xs" alt="">
+                                                    @endif
+
+                                                </div>
+
+                                                <div class="media-body overflow-hidden">
+                                                    <h5 class="text-truncate font-size-14 mb-1">{{ $student->name }}</h5>
+                                                    <p class="text-truncate mb-0">ID: {{ $student->student_id }}</p>
+                                                </div>
+                                                <div class="font-size-11"></div>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    @endforeach --}}
 
 
-                                        <li>
-                                            <a href="#">
-                                                <div class="media">
-                                                    <div class="align-self-center me-3">
-                                                        <i class="mdi mdi-circle text-success font-size-10"></i>
-                                                    </div>
-                                                    <div class="align-self-center me-3">
-                                                        <img src="{{ asset('admin') }}/assets/images/users/avatar-3.jpg" class="rounded-circle avatar-xs" alt="">
-                                                    </div>
-                                                    <div class="media-body overflow-hidden">
-                                                        <h5 class="text-truncate font-size-14 mb-1">Adam Miller</h5>
-                                                        <p class="text-truncate mb-0">I've finished it! See you so</p>
-                                                    </div>
-                                                    <div class="font-size-11">12 min</div>
-                                                </div>
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <a href="#">
-                                                <div class="media">
-                                                    <div class="align-self-center me-3">
-                                                        <i class="mdi mdi-circle text-warning font-size-10"></i>
-                                                    </div>
-                                                    <div class="align-self-center me-3">
-                                                        <img src="{{ asset('admin') }}/assets/images/users/avatar-4.jpg" class="rounded-circle avatar-xs" alt="">
-                                                    </div>
-                                                    <div class="media-body overflow-hidden">
-                                                        <h5 class="text-truncate font-size-14 mb-1">Jose Vickery</h5>
-                                                        <p class="text-truncate mb-0">Nice to meet you</p>
-                                                    </div>
-                                                    <div class="font-size-11">1 hr</div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <div class="media">
-                                                    <div class="align-self-center me-3">
-                                                        <i class="mdi mdi-circle font-size-10"></i>
-                                                    </div>
-
-                                                    <div class="avatar-xs align-self-center me-3">
-                                                        <span class="avatar-title rounded-circle bg-soft-primary text-primary">
-                                                            M
-                                                        </span>
-                                                    </div>
-                                                    <div class="media-body overflow-hidden">
-                                                        <h5 class="text-truncate font-size-14 mb-1">Mitchel Givens</h5>
-                                                        <p class="text-truncate mb-0">Hey! there I'm available</p>
-                                                    </div>
-                                                    <div class="font-size-11">3 hrs</div>
-                                                </div>
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <a href="#">
-                                                <div class="media">
-                                                    <div class="align-self-center me-3">
-                                                        <i class="mdi mdi-circle text-success font-size-10"></i>
-                                                    </div>
-                                                    <div class="align-self-center me-3">
-                                                        <img src="{{ asset('admin') }}/assets/images/users/avatar-6.jpg" class="rounded-circle avatar-xs" alt="">
-                                                    </div>
-                                                    <div class="media-body overflow-hidden">
-                                                        <h5 class="text-truncate font-size-14 mb-1">Stephen Hadley</h5>
-                                                        <p class="text-truncate mb-0">I've finished it! See you so</p>
-                                                    </div>
-                                                    <div class="font-size-11">5hrs</div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <div class="media">
-                                                    <div class="align-self-center me-3">
-                                                        <i class="mdi mdi-circle text-success font-size-10"></i>
-                                                    </div>
-                                                    <div class="avatar-xs align-self-center me-3">
-                                                        <span class="avatar-title rounded-circle bg-soft-primary text-primary">
-                                                            K
-                                                        </span>
-                                                    </div>
-                                                    <div class="media-body overflow-hidden">
-                                                        <h5 class="text-truncate font-size-14 mb-1">Keith Gonzales</h5>
-                                                        <p class="text-truncate mb-0">This theme is awesome!</p>
-                                                    </div>
-                                                    <div class="font-size-11">24 min</div>
-                                                </div>
-                                            </a>
-                                        </li>
                                     </ul>
                                 </div>
-                            </div> --}}
 
-                            {{-- <div class="tab-pane" id="group">
-                                <h5 class="font-size-14 mb-3">Group</h5>
-                                <ul class="list-unstyled chat-list" >
-                                    <li>
-                                        <a href="#">
-                                            <div class="media align-items-center">
-                                                <div class="avatar-xs me-3">
-                                                    <span class="avatar-title rounded-circle bg-soft-primary text-primary">
-                                                        G
-                                                    </span>
-                                                </div>
-
-                                                <div class="media-body">
-                                                    <h5 class="font-size-14 mb-0">General</h5>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#">
-                                            <div class="media align-items-center">
-                                                <div class="avatar-xs me-3">
-                                                    <span class="avatar-title rounded-circle bg-soft-primary text-primary">
-                                                        R
-                                                    </span>
-                                                </div>
-
-                                                <div class="media-body">
-                                                    <h5 class="font-size-14 mb-0">Reporting</h5>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#">
-                                            <div class="media align-items-center">
-                                                <div class="avatar-xs me-3">
-                                                    <span class="avatar-title rounded-circle bg-soft-primary text-primary">
-                                                        M
-                                                    </span>
-                                                </div>
-
-                                                <div class="media-body">
-                                                    <h5 class="font-size-14 mb-0">Meeting</h5>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#">
-                                            <div class="media align-items-center">
-                                                <div class="avatar-xs me-3">
-                                                    <span class="avatar-title rounded-circle bg-soft-primary text-primary">
-                                                        A
-                                                    </span>
-                                                </div>
-
-                                                <div class="media-body">
-                                                    <h5 class="font-size-14 mb-0">Project A</h5>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#">
-                                            <div class="media align-items-center">
-                                                <div class="avatar-xs me-3">
-                                                    <span class="avatar-title rounded-circle bg-soft-primary text-primary">
-                                                        B
-                                                    </span>
-                                                </div>
-
-                                                <div class="media-body">
-                                                    <h5 class="font-size-14 mb-0">Project B</h5>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div> --}}
-
-                            {{-- <div class="tab-pane" id="contact">
-                                <h5 class="font-size-14 mb-3">Contact</h5>
-
-                                <div  data-simplebar style="max-height: 410px;">
-                                    <div>
-                                        <div class="avatar-xs mb-3">
-                                            <span class="avatar-title rounded-circle bg-soft-primary text-primary">
-                                                A
-                                            </span>
-                                        </div>
-
-                                        <ul class="list-unstyled chat-list">
-                                            <li>
-                                                <a href="#">
-                                                    <h5 class="font-size-14 mb-0">Adam Miller</h5>
-                                                </a>
-                                            </li>
-
-                                            <li>
-                                                <a href="#">
-                                                    <h5 class="font-size-14 mb-0">Alfonso Fisher</h5>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="mt-4">
-                                        <div class="avatar-xs mb-3">
-                                            <span class="avatar-title rounded-circle bg-soft-primary text-primary">
-                                                B
-                                            </span>
-                                        </div>
-
-                                        <ul class="list-unstyled chat-list">
-                                            <li>
-                                                <a href="#">
-                                                    <h5 class="font-size-14 mb-0">Bonnie Harney</h5>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="mt-4">
-                                        <div class="avatar-xs mb-3">
-                                            <span class="avatar-title rounded-circle bg-soft-primary text-primary">
-                                                C
-                                            </span>
-                                        </div>
-
-                                        <ul class="list-unstyled chat-list">
-                                            <li>
-                                                <a href="#">
-                                                    <h5 class="font-size-14 mb-0">Charles Brown</h5>
-                                                </a>
-                                                <a href="#">
-                                                    <h5 class="font-size-14 mb-0">Carmella Jones</h5>
-                                                </a>
-                                                <a href="#">
-                                                    <h5 class="font-size-14 mb-0">Carrie Williams</h5>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="mt-4">
-                                        <div class="avatar-xs mb-3">
-                                            <span class="avatar-title rounded-circle bg-soft-primary text-primary">
-                                                D
-                                            </span>
-                                        </div>
-
-                                        <ul class="list-unstyled chat-list">
-                                            <li>
-                                                <a href="#">
-                                                    <h5 class="font-size-14 mb-0">Dolores Minter</h5>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                            </div> --}}
+                            </div>
                         </div>
                     </div>
 
@@ -363,7 +145,7 @@
                         <div class="row">
                             <div class="col-md-4 col-9">
                                 <h5 class="font-size-15 mb-1 text-truncate">{{ $chat->name }}</h5>
-                                <p class="text-muted mb-0 text-truncate"><i class="mdi mdi-circle text-success align-middle me-1"></i> Active now</p>
+                                <p class="text-muted mb-0 text-truncate">{{ $chat->email }}</p>
                             </div>
                             <div class="col-md-8 col-3">
                                 <ul class="list-inline user-chat-nav text-end mb-0">
@@ -424,12 +206,12 @@
                             <ul class="list-unstyled" data-simplebar style="max-height: 600px;">
                                 <li>
                                     <div class="chat-day-title">
-                                        <span class="title">Today</span>
+                                        <span class="title">chat</span>
                                     </div>
                                 </li>
 
 
-                                <li>
+                                {{-- <li>
                                     <div class="conversation-list">
 
                                         <div class="media">
@@ -547,10 +329,10 @@
 
                                     </div>
                                     </div>
-                                </li>
+                                </li> --}}
 
                                 @foreach ($messages as $message)
-                                <li class="last-chat" id="user-table">
+                                {{-- <li class="last-chat" id="user-table">
                                     <div class="conversation-list">
 
 
@@ -582,7 +364,7 @@
 
                                     </div>
                                     </div>
-                                </li>
+                                </li> --}}
 
 
                             <li class="right">
@@ -606,18 +388,44 @@
                                                 </div>
                                             </div>
                                             <div class="ctext-wrap">
-                                                <div class="conversation-name">{{ auth()->user()->name  }}</div>
+                                                <div class="row">
+                                                    <div class="col-lg-10">
+                                                        @if ($message->chat_type=='student')
+                                                        <div class="conversation-name">{{ auth()->user()->name  }}</div>
+                                                        @else
+                                                        <div class="conversation-name">{{ $message->teacher->name  }}</div>
+                                                        @endif
+
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        @if ($message->chat_type=='student')
+                                                        <form action="{{ route('chat.destroy',$message->id) }}" method="post">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" style="border:none;"> <i class="fa fa-trash"></i></button>
+                                                        </form>
+                                                        @else
+
+                                                        @endif
+                                                    </div>
+                                                </div>
                                                 <p>
                                                     {{ $message->message }}
                                                 </p>
 
-                                                <p class="chat-time mb-0"><i class="bx bx-time-five align-middle me-1"></i> 10:07</p>
+                                                <p class="chat-time mb-0"><i class="bx bx-time-five align-middle me-1"></i>
+                                                     {{-- {{ $message->created_at->format("M-d") }} --}}
+                                                    </p>
                                             </div>
 
                                             </div>
 
 
-                                            <img src="{{ uploaded_file(auth()->user()->image) }}" class="rounded-circle avatar-xs" alt="">
+                                            @if ($message->chat_type=='teacher')
+                                           <img src="{{ uploaded_file($message->teacher->image) }}" class="rounded-circle avatar-xs" alt="">
+                                           @else
+                                           <img src="{{ uploaded_file(auth()->user()->image) }}" class="rounded-circle avatar-xs" alt="">
+                                           @endif
 
 
                                 </div>
@@ -631,13 +439,13 @@
 
                         </div>
                         <div class="p-3 chat-input-section">
-                            <form id="store" action="{{ route('chat.store') }}" method="post">
+                            <form id="stor" action="{{ route('chat.store') }}" method="post">
                                 @csrf
                                 <div class="row">
                                     <div class="col">
                                         <div class="position-relative">
                                             <input type="hidden" name="teacher_id" id="teacher_id" value="{{ $chat->id }}" class="form-control chat-input" placeholder="Enter Message...">
-                                            <input type="text" name="message" id="message" class="form-control chat-input" placeholder="Enter Message...">
+                                            <input type="text" name="message" id="message" class="form-control chat-input" placeholder="Enter Message..." required>
                                             {{-- <div class="chat-input-links">
                                                 <ul class="list-inline mb-0">
                                                     <li class="list-inline-item"><a href="#" data-bs-toggle="tooltip" data-placement="top" title="Emoji"><i class="mdi mdi-emoticon-happy-outline"></i></a></li>
@@ -665,7 +473,6 @@
 
 
 </div> <!-- container-fluid -->
-
 
 @endsection
 

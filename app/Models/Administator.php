@@ -4,7 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Database\Eloquent\Model;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Notifications\AdministatorResetPasswordNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -44,5 +44,9 @@ class Administator extends Authenticatable
      *
      * @var array<string, string>
      */
+    public function message()
+    {
+        return $this->hasOne(Message::class);
+    }
 
 }

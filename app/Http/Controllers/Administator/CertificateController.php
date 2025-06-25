@@ -57,7 +57,7 @@ class CertificateController extends Controller
         $store->title = $request->title;
         $store->description = $request->description;
         $store->file =  $file;
-        $store->request = 'requested';
+        $store->request = 'accepted';
         $store->save();
         return response()->json([
             'message' => 'Certificate added successfully'
@@ -95,7 +95,7 @@ class CertificateController extends Controller
                 'user_id'=>$request->email,
                 'title'=>$request->title,
                 'description'=>$request->description,
-                'request'=>$request->requested
+
             ]);
         }else{
             $certificate->update([
@@ -103,7 +103,7 @@ class CertificateController extends Controller
                 'title'=>$request->title,
                 'description'=>$request->description,
                 'file'=>file_upload($request->file, 'certificate'),
-                'request'=>$request->requested
+
             ]);
 
         }

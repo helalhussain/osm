@@ -41,9 +41,11 @@
                                 <span>Users</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{{ route('admin.admin.index') }}">Admin</a></li>
                                 <li><a href="{{ route('admin.administator.index') }}">Administator</a></li>
                                 <li><a href="{{ route('admin.teacher.index') }}">Teacher</a></li>
                                 <li><a href="{{ route('admin.user.index') }}">Student</a></li>
+                                {{-- <li><a href="{{ route('admin.payment.index') }}">Payment</a></li> --}}
                             </ul>
                         </li>
 

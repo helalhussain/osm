@@ -5,12 +5,12 @@
 
 
     <meta charset="utf-8" />
-    <title>Login page</title>
+    <title>Login page | Administrator</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesdesign" name="author" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="{{ uploaded_file($logoIcon->favicon) }}">
 
     <!-- Bootstrap Css -->
     <link href="{{ asset('admin') }}/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet"
@@ -44,7 +44,7 @@
 
                                     <div class="text-center">
                                         <a href="index.html">
-                                            <img src="{{ uploaded_file($logoIcon->logo) }}" height="45"
+                                            <img src="{{ uploaded_file($logoIcon->logo) }}" style="height: 60px;width:auto"
                                                 alt="logo">
                                         </a>
 
@@ -70,11 +70,15 @@
 
                                         <div class="mb-3">
                                             <label for="userpassword">Password</label>
-                                            <input type="password"
-                                                class="form-control @error('password')
-                                                is-invalid
-                                            @enderror"
-                                                name="password" id="userpassword" placeholder="Enter password">
+                                            <div class="input-group">
+                                                <input type="password" class="form-control login_password @error('password')
+                                            is-invalid
+                                        @enderror" name="password" id="userpassword" placeholder="Enter password" required>
+                                                <a class="input-group-text logineye"
+                                                    id="validationTooltipUsernamePrepend"><i
+                                                        class="fas fa-eye fa-eye-slash  eyesee"></i></a>
+
+                                            </div>
                                             @error('password')
                                                 <p class="text-danger">{{ $message }}</p>
                                             @enderror
@@ -137,3 +141,19 @@
 </body>
 
 </html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$('.logineye').click(function(){
+			$('.eyesee').toggleClass('fa-eye-slash');
+			var input = $('.login_password');
+			if(input.attr('type') == 'password'){
+				input.attr('type','text');
+			}else{
+				input.attr('type','password');
+			}
+
+		});
+
+	});
+	</script>

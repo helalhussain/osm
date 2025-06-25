@@ -15,11 +15,6 @@ class SendController extends Controller
      */
     public function index()
     {
-        $messages = Message::where('m_type','=','student')->paginate(9);
-        $m_count = Message::where('m_type','=','administator')->get();
-        $m_student_count = Message::where('m_type','=','student')->get();
-
-        return view('student.message.send',compact('messages','m_count','m_student_count'));
 
     }
     /**

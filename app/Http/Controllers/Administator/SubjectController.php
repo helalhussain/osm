@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\DB;
+use App\Models\Classroom;
 use App\Models\Subject;
 
 class SubjectController extends Controller
@@ -29,7 +30,8 @@ class SubjectController extends Controller
      */
     public function create(Subject $subject)
     {
-        return view('administator.subject.form');
+        $classrooms = Classroom::all();
+        return view('administator.subject.form',compact('classrooms'));
     }
 
     /**
@@ -39,14 +41,15 @@ class SubjectController extends Controller
     {
         $request->validate([
             'name' => 'required|unique:subjects',
-            'code'=>'required|unique:subjects',
 
         ]);
+
 
         $store = new Subject();
         $store->name = $request->name;
         $store->slug = generate_slug($request->name);
-        $store->code = $request->code;
+        // $store->fee = $request->fee;
+        // $store->discount = $request->discount;
         $store->save();
         return response()->json([
             'message' => 'Subject added successfully'
@@ -66,7 +69,8 @@ class SubjectController extends Controller
      */
     public function edit(Subject $subject)
     {
-        return view('administator.subject.form',compact('subject'));
+        $classrooms = Classroom::all();
+        return view('administator.subject.form',compact('subject','classrooms'));
     }
 
     /**
@@ -77,12 +81,12 @@ class SubjectController extends Controller
 
         $request->validate([
             'name' => 'required',
-            'code'=>'required'
         ]);
         $subject->update([
                 'name'=>$request->name,
                 'slug'=>generate_slug($request->name),
-                'code'=>$request->code
+                // 'fee'=>$request->fee,
+                // 'discount'=>$request->discount
         ]);
         return response()->json(['message' => 'Subject updated successfully']);
     }

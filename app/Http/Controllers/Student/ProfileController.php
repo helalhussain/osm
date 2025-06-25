@@ -14,14 +14,15 @@ class ProfileController extends Controller
      * Display a listing of the resource.
      */
     // public function index(){
-    //    
+    //
     //     return view('student.profile.show',compact('courses'));
     // }
 
      public function show()
      {
-
-         return view('student.profile.show');
+        $courses = Course::all();
+        //  return view('student.profile.show',compact('courses'));
+        return response()->json(['courses'=>$courses]);
      }
 
 

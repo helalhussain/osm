@@ -8,7 +8,7 @@
 </x-admin.page-title>
 
 
-<x-admin.table title="Subject" :headers="['No', 'Name', 'Code', 'Action']" />
+<x-admin.table title="Subject" :headers="['No', 'Name', 'Action']" />
 
 
 
@@ -27,10 +27,7 @@
                     data: 'name',
                     name: 'name'
                 },
-                {
-                    data: 'code',
-                    name: 'code'
-                },
+
                 {
                     data: 'action',
                     name: 'action',

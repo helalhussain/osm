@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use App\Models\Teacher;
 use App\Models\Quiz;
+use App\Models\Question;
 use App\Models\Classroom;
+use App\Models\Answer;
 
 class QuizController extends Controller
 {
@@ -16,8 +18,7 @@ class QuizController extends Controller
      */
     public function index()
     {
-        $quizzes = Quiz::where('classroom_id','=',auth()->user()->classroom_id)
-        ->get();
+        $quizzes = Quiz::all();
         return view('student.quiz.index',compact('quizzes'));
     }
 
@@ -43,7 +44,9 @@ class QuizController extends Controller
     public function show(Quiz $quiz)
     {
         $classes = Classroom::all();
-        return view('student.quiz.show',compact('quiz','classes'));
+        $questions = Question::Where('quiz_id','=',$quiz->id)->paginate(1);
+        $answers = Answer::all();
+        return view('student.quiz.show',compact('quiz','classes','questions','answers'));
     }
 
     /**

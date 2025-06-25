@@ -1,3 +1,19 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$('.logineye').click(function(){
+			$('.eyesee').toggleClass('fa-eye-slash');
+			var input = $('.login_password');
+			if(input.attr('type') == 'password'){
+				input.attr('type','text');
+			}else{
+				input.attr('type','password');
+			}
+
+		});
+
+	});
+	</script>
 
 
     <!-- JAVASCRIPT -->
@@ -71,7 +87,16 @@
 
  <script src="{{ asset('/admin') }}/assets/js/pages/form-advanced.init.js"></script>
  <!--End advance form--->
-
+<!---Text-Editor bs-5------>
+{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> --}}
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $(".your_summernote").summernote();
+        $('.dropdown-toggle').dropdown();
+    });
+</script>
+<!----End text-editor bs-5---->
 
 
  @stack('js')

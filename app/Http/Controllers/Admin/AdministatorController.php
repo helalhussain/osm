@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\Administator;
 use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
+use App\Notifications\AdministratorNotification;
+use Illuminate\Support\Facades\Notification;
+
 
 class AdministatorController extends Controller
 {
@@ -40,15 +43,24 @@ class AdministatorController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|unique:administators',
-            'password' =>'required|min:8',
+            'password' =>'required|min:8|max:30',
             'password_confirmation' => 'same:password'
         ]);
 
         $store = new Administator();
         $store->name = $request->name;
         $store->email = $request->email;
+        $store->employee_id = $request->employee_id;
+        $store->designation = $request->designation;
+        $store->joining = $request->joining;
+        $store->dob = $request->birthdate;
+        $store->gender = $request->gender;
+        $store->phone = $request->phone;
+        $store->address = $request->address;
         $store->password = bcrypt($request->password);
+        $store->image = $request->image;
         $store->save();
+        $store->notify(new AdministratorNotification($store->name,$store->email,$request->password));
         return response()->json([
             'message' => 'Administator added successfully'
         ]);
@@ -80,10 +92,35 @@ class AdministatorController extends Controller
             'email' =>'required|email',
 
         ]);
-        $administator->update([
+        if($request->image==null){
+            $administator->update([
                 'name'=>$request->name,
                 'email'=>$request->email,
-        ]);
+                   'employee_id' => $request->employee_id,
+                   'designation' => $request->designation,
+                   'joining' => $request->joining,
+                   'dob' => $request->birthdate,
+                   'gender' => $request->gender,
+                   'phone' => $request->phone,
+                   'address' => $request->address,
+
+            ]);
+        }
+        else{
+            $administator->update([
+                'name'=>$request->name,
+                'email'=>$request->email,
+                   'employee_id' => $request->employee_id,
+                   'designation' => $request->designation,
+                   'joining' => $request->joining,
+                   'dob' => $request->birthdate,
+                   'gender' => $request->gender,
+                   'phone' => $request->phone,
+                   'address' => $request->address,
+                   'image' => file_upload($request->image, 'administator'),
+            ]);
+        }
+
         return response()->json(['message' => 'Administator updated successfully']);
     }
 

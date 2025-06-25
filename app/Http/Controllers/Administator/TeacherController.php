@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use App\Models\Teacher;
 use App\Models\Subject;
+use App\Notifications\TeacherNotification;
+use Illuminate\Support\Facades\Notification;
 
 class TeacherController extends Controller
 {
@@ -41,8 +43,9 @@ class TeacherController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email'=>'required',
-            'password'=>'required|min:8',
+            'email'=>'required|unique:teachers',
+            'subjects'=>'required',
+            'password'=>'required|min:8|max:30',
             'password_confirmation'=>'required|same:password'
 
         ]);
@@ -50,9 +53,10 @@ class TeacherController extends Controller
             $store = new Teacher();
             $store->name = $request->name;
             $store->email = $request->email;
+            $store->gender = $request->gender;
             $store->phone = $request->phone;
             $store->address = $request->address;
-            $store->dob= $request->date;
+            $store->dob= $request->birthdate;
             $store->password = bcrypt($request->password);
             $store->save();
             $store->subjects()->sync($request->subjects);
@@ -62,6 +66,7 @@ class TeacherController extends Controller
             $store = new Teacher();
             $store->name = $request->name;
             $store->email = $request->email;
+            $store->gender = $request->gender;
             $store->phone = $request->phone;
             $store->address = $request->address;
             $store->dob= $request->date;
@@ -71,10 +76,11 @@ class TeacherController extends Controller
             $store->subjects()->sync($request->subjects);
 
         }
-
+        $store->notify(new TeacherNotification($store->name,$store->email,$request->password));
         return response()->json([
             'message' => 'Teacher added successfully'
         ]);
+        // return redirect()->route('administator.teacher.index');
     }
 
     /**
@@ -82,7 +88,8 @@ class TeacherController extends Controller
      */
     public function show(Teacher $teacher)
     {
-        return view('administator.teacher.show',compact('teacher'));
+        $subjects = Subject::all();
+        return view('administator.teacher.show',compact('teacher','subjects'));
     }
 
     /**
@@ -96,34 +103,40 @@ class TeacherController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Teacher $teacher)
+    public function update(Request $request,$id)
     {
         $request->validate([
             'name' => 'required',
 
         ]);
-        if($request->image==null){
-            $teacher->update([
-                'name'=>$request->name,
-                'gender'=>$request->gender,
-                'dob'=>$request->date,
-                'phone'=>$request->phone,
-                'address'=>$request->address,
 
-            ]);
+        if($request->image==null){
+            $store = Teacher::find($id);
+            $store->name = $request->name;
+            $store->email = $request->email;
+            $store->gender = $request->gender;
+            $store->phone = $request->phone;
+            $store->address = $request->address;
+            $store->dob= $request->date;
+            $store->save();
+            $store->subjects()->sync($request->subjects);
+
         }else{
-            $teacher->update([
-                'name'=>$request->name,
-                'gender'=>$request->gender,
-                'dob'=>$request->date,
-                'phone'=>$request->phone,
-                'address'=>$request->address,
-                'image'  => file_upload($request->image, 'teacher')
-            ]);
+
+            $store = Teacher::find($id);
+            $store->name = $request->name;
+            $store->email = $request->email;
+            $store->gender = $request->gender;
+            $store->phone = $request->phone;
+            $store->address = $request->address;
+            $store->dob= $request->date;
+            $store->image = file_upload($request->image, 'teacher');
+            $store->save();
+            $store->subjects()->sync($request->subjects);
 
         }
-
-        return response()->json(['message' => 'Teacher updated successfully']);
+        // return response()->json(['message' => 'Teacher updated successfully']);
+        return redirect()->route('administator.teacher.index');
     }
     public function status(Request $request, Teacher $teacher)
     {
@@ -131,7 +144,8 @@ class TeacherController extends Controller
         $teacher->update([
             'status'=>false
         ]);
-    return response()->json(['message' => 'Teacher status updated successfully']);
+        return redirect()->route('administator.teacher.index');
+    // return response()->json(['message' => 'Teacher status updated successfully']);
 
     }
 

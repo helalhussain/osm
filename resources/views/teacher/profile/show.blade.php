@@ -3,7 +3,7 @@
 
 @section('teacher_content')
 <x-admin.page-title dashboard_title="Teacher" title="Profile" page_name="My profile">
-    <a href="{{route('teacher.profile.edit')}}" class="btn btn-success"  id="editBtn">Edit profile</a>
+    <a href="{{ route('teacher.password.show') }}" class="btn btn-success">Edit Password</a>
 </x-admin.page-title>
 <div class="container-fluid">
 
@@ -105,7 +105,7 @@
                               <hr>
                               <div class="row">
                                 <div class="col-sm-12">
-                                  <a class="btn btn-info " href="{{ route('teacher.password.show') }}">Edit password</a>
+                                  <a class="btn btn-info " href="{{route('teacher.profile.edit')}}" id="editBtn">Edit Profile</a>
                                 </div>
                               </div>
                             </div>

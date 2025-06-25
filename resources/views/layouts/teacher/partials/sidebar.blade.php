@@ -29,7 +29,7 @@
 
                         <li>
                             <a href="{{ route('teacher.dashboard') }}" class="waves-effect">
-                                <i class="dripicons-home"></i><span class="badge rounded-pill bg-info float-end">3</span>
+                                {{-- <i class="dripicons-home"></i><span class="badge rounded-pill bg-info float-end">3</span> --}}
                                 <span>Dashboard</span>
                             </a>
                         </li>
@@ -52,12 +52,13 @@
                             <ul class="sub-menu" aria-expanded="false">
                                 <li><a href="{{ route('teacher.notice.index') }}">Notice</a></li>
                                 <li><a href="{{ route('teacher.content.index') }}">Content</a></li>
-                                <li><a href="{{ route('teacher.quiz.index') }}">Quiz</a></li>
+
                                 <li><a href="{{ route('teacher.result.index') }}">Result</a></li>
-                                <li><a href="{{ route('teacher.certificate.index') }}">Certificate</a></li>
+                                {{-- <li><a href="{{ route('teacher.certificate.index') }}">Certificate</a></li> --}}
 
                             </ul>
                         </li>
+
                              <li>
                             <a href="javascript: void(0);" class="has-arrow waves-effect">
                                 <i class="dripicons-message"></i>
@@ -67,16 +68,25 @@
                                 <li><a href="{{ route('teacher.zoom.index') }}">Meeting</a></li>
                             </ul>
                         </li>
-                        {{-- <li>
+                        <li>
                             <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                <i class="dripicons-home"></i>
+                                <span>Quiz</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+
+                                <li><a href="{{ route('teacher.quiz.index') }}">Quiz</a></li>
+                                <li><a href="{{ route('teacher.question.index') }}">Question</a></li>
+                                <li><a href="{{ route('teacher.answer.index') }}">Answer</a></li>
+
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="{{ route('teacher.message.index') }}" class="waves-effect">
                                 <i class="dripicons-message"></i>
                                 <span>Message</span>
                             </a>
-                            <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="{{ route('teacher.message.index') }}">Admininistator</a></li>
-                            </ul>
-                        </li> --}}
-
+                        </li>
                         <li>
                             <a href="{{ route('teacher.chat.index') }}" class="waves-effect">
                                 <i class="dripicons-message"></i>

@@ -20,8 +20,9 @@ class ResultController extends Controller
      */
     public function index()
     {
-        $results = Result::where('classroom_id','=',auth()->user()->classroom_id)
-        ->where('request','=','accepted')->get();
+        $results = Result::
+        // where('classroom_id','=',auth()->user()->classroom_id)
+        where('request','=','accepted')->get();
         return view('student.result.index',compact('results'));
     }
 

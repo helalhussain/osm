@@ -11,8 +11,11 @@ class Subject extends Model
 
 
     protected $fillable = [
+        'classroom_id',
         'name',
         'code',
+        'fee',
+        'discount',
         'status'
     ];
 
@@ -25,9 +28,17 @@ class Subject extends Model
     {
         return $this->belongsToMany(Teacher::class);
     }
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class);
+    }
     public function course()
     {
         return $this->belongsToMany(Course::class);
+    }
+    public function user()
+    {
+        return $this->belongsToMany(User::class);
     }
 
 }

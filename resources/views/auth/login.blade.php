@@ -52,12 +52,12 @@
 
 
     <meta charset="utf-8" />
-    <title>Login page | Morvin - Admin & Dashboard Template</title>
+    <title>Login page | Student</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesdesign" name="author" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="{{ uploaded_file($logoIcon->favicon) }}">
 
     <!-- Bootstrap Css -->
     <link href="{{ asset('admin') }}/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet"
@@ -78,8 +78,8 @@
             <div class="container mt-5">
 
                 <div class="home-btn">
-                    {{-- <a href="/" class="text-white router-link-active"><i
-                            class="fas fa-home h2"></i></a> --}}
+                    <a href="/" class="text-white router-link-active"><i
+                            class="fas fa-home h2 text-white"></i></a>
                  </div>
 
                 <div class="row justify-content-center">
@@ -91,7 +91,7 @@
 
                                     <div class="text-center">
                                         <a href="index.html">
-                                            <img src="{{ uploaded_file($logoIcon->logo) }}" height="45"
+                                            <img src="{{ uploaded_file($logoIcon->logo) }}" style="height: 60px;width:auto"
                                                 alt="logo">
                                         </a>
 
@@ -117,11 +117,15 @@
 
                                         <div class="mb-3">
                                             <label for="userpassword">Password</label>
-                                            <input type="password"
-                                                class="form-control @error('password')
-                                                is-invalid
-                                            @enderror"
-                                                name="password" id="userpassword" placeholder="Enter password">
+                                            <div class="input-group">
+                                                <input type="password" class="form-control login_password @error('password')
+                                            is-invalid
+                                        @enderror" name="password" id="userpassword" placeholder="Enter password" required>
+                                                <a class="input-group-text logineye"
+                                                    id="validationTooltipUsernamePrepend"><i
+                                                        class="fas fa-eye fa-eye-slash  eyesee"></i></a>
+
+                                            </div>
                                             @error('password')
                                                 <p class="text-danger">{{ $message }}</p>
                                             @enderror
@@ -140,10 +144,10 @@
                                                 type="submit">Log In</button>
                                         </div>
 
-                                        <div class="mt-4 text-center">
+                                        {{-- <div class="mt-4 text-center">
                                             <a href="{{ route('password.request') }}" class="text-muted"><i class="mdi mdi-lock me-1"></i>
                                                 Forgot your password?</a>
-                                        </div>
+                                        </div> --}}
 
 
                                     </form>
@@ -152,16 +156,16 @@
                             </div>
                         </div>
 
-                        {{-- <div class="mt-5 text-center text-white">
-                             <p>Don't have an account ?<a href="auth-register.html" class="fw-bold text-white">
+                        <div class="mt-5 text-center text-white">
+                             <p>Don't have an account ?<a href="{{ route('register') }}" class="fw-bold text-white">
                                     Register</a> </p>
-                            <p>©
+                            {{-- <p>©
                                 <script>
                                     document.write(new Date().getFullYear())
                                 </script> Morvin. Crafted with <i class="mdi mdi-heart text-danger"></i>
                                 by Themesdesign
-                            </p>
-                        </div> --}}
+                            </p> --}}
+                        </div>
                     </div>
                 </div>
 
@@ -184,3 +188,19 @@
 </body>
 
 </html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$('.logineye').click(function(){
+			$('.eyesee').toggleClass('fa-eye-slash');
+			var input = $('.login_password');
+			if(input.attr('type') == 'password'){
+				input.attr('type','text');
+			}else{
+				input.attr('type','password');
+			}
+
+		});
+
+	});
+	</script>

@@ -20,8 +20,8 @@
                         Compose
                     </a>
                     <div class="mail-list mt-4">
-                        <a href="{{ route('message.index') }}" class="{{ Request::is('message.index') ? '':'active'; }}"><i class="mdi mdi-email-outline me-2"></i> Inbox <span class="ms-1 float-end">({{ $m_count->count() }})</span></a>
-                        <a href="{{ route('send.index') }}" class="{{ Request::is('send.index') ? 'active':'' }}" ><i class="mdi mdi-email-check-outline me-2 "></i>Sent <span class="ms-1 float-end">({{ $m_student_count->count() }})</span></a>
+                        <a href="{{ route('message.index') }}" class="{{ Request::is('message.index') ? '':'active'; }}"><i class="mdi mdi-email-outline me-2"></i> Inbox <span class="ms-1 float-end">({{ $student_recieve->count() }})</span></a>
+                        <a href="{{ route('message.send') }}" class="{{ Request::is('message.send') ? 'active':'' }}" ><i class="mdi mdi-email-check-outline me-2 "></i>Sent <span class="ms-1 float-end">({{ $m_t_student->count() }})</span></a>
                     </div>
                 </div>
                 <!-- End Left sidebar -->
@@ -45,14 +45,23 @@
             <label for="chk19" class="toggle"></label>
         </div> --}}
 
-        <a href="{{ route('message.show',$message->id) }}" class="title">Administator</a>
+        <a href="{{ route('message.show',$message->id) }}" class="title">
+      
+            @if ($message->teach=='send')
+            {{ $message->teacher->name }}
+            @elseif ($message->administrator=='send')
+            {{ $message->administator->name }}
+            @endif
+        </a>
      <h6 class="" style="font-size:12px">
          <p style="margin-left:10px;" class="mt-3">{{ $message->created_at->format("M-d") }}</p>
         </h6>
 
     </div>
     <div class="col-mail col-mail-2">
-        <a href="{{ route('message.show',$message->id) }}" class="subject"> <span class="teaser">{{ $message->message }}</span>
+        <a href="{{ route('message.show',$message->id) }}" class="subject"> <span class="teaser">
+            {{ $message->message }}
+        </span>
         </a>
 
         <div class="date">

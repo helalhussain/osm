@@ -5,25 +5,25 @@
             <div class="d-flex">
 
                    <!-- LOGO -->
-             <div class="navbar-brand-box">
-                <a href="#" class="logo logo-dark">
-                    <span class="logo-sm">
-                        <img src="" alt="" height="28">
-                    </span>
-                    <span class="logo-lg">
-                        <img src="{{ uploaded_file($logoIcon->logo) }}" alt="" height="30">
-                    </span>
-                </a>
+                   <div class="navbar-brand-box">
+                    <a href="#" class="logo logo-dark">
+                        <span class="logo-sm">
+                            <img src="{{ uploaded_file($logoIcon->dark_logo) }}" alt="" style="height: 20px; width:auto">
+                        </span>
+                        <span class="logo-lg">
+                            <img src="{{ uploaded_file($logoIcon->logo) }}" alt="" style="height: 45px; width:auto">
+                        </span>
+                    </a>
 
-                <a href="#" class="logo logo-light">
-                    <span class="logo-sm">
-                        <img src="" alt="" height="28">
-                    </span>
-                    <span class="logo-lg">
-                        <img src="{{ uploaded_file($logoIcon->logo) }}" alt="" height="30">
-                    </span>
-                </a>
-            </div>
+                    <a href="#" class="logo logo-light">
+                        <span class="logo-sm">
+                            <img src="{{ uploaded_file($logoIcon->dark_logo) }}" alt="" style="height: 20px; width:auto">
+                        </span>
+                        <span class="logo-lg">
+                            <img src="{{ uploaded_file($logoIcon->logo) }}" alt="" style="height: 45px; width:auto">
+                        </span>
+                    </a>
+                </div>
 
                 <button type="button" class="btn btn-sm px-3 font-size-24 header-item waves-effect" id="vertical-menu-btn">
                     <i class="mdi mdi-menu"></i>
@@ -117,8 +117,8 @@
                     <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
                         <a class="dropdown-item" href="{{ route('administator.profile.show') }}"><i class="mdi mdi-account-circle-outline font-size-16 align-middle me-1"></i> Profile</a>
-                        <a class="dropdown-item d-block" href="#"><i class="mdi mdi-cog-outline font-size-16 align-middle me-1"></i> Settings</a>
-                        <div class="dropdown-divider"></div>
+                        {{-- <a class="dropdown-item d-block" href="#"><i class="mdi mdi-cog-outline font-size-16 align-middle me-1"></i> Settings</a> --}}
+                        {{-- <div class="dropdown-divider"></div> --}}
                         <form method="POST" action="{{ route('administator.logout') }}">
                             @csrf
                         <button type="submit" class="dropdown-item text-danger">
@@ -127,12 +127,12 @@
                     </div>
                 </div>
 
-                <div class="dropdown d-inline-block">
+                {{-- <div class="dropdown d-inline-block">
 
                     <button type="button" class="btn header-item noti-icon right-bar-toggle waves-effect">
                         <i class="mdi mdi-cog-outline font-size-20"></i>
                     </button>
-                </div>
+                </div> --}}
 
             </div>
         </div>

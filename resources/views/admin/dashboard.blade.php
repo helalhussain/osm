@@ -1,7 +1,7 @@
 @extends('layouts.admin.app')
 
 @section('admin_content')
-<x-admin.page-title dashboard_title="OSMS" title="Admin" page_name="Dashboard">
+<x-admin.page-title dashboard_title="Admin" title="Admin" page_name="Dashboard">
 
 </x-admin.page-title>
 

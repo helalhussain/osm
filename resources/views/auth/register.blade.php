@@ -50,6 +50,7 @@
         </div>
     </form>
 </x-guest-layout> --}}
+
 <!doctype html>
 <html lang="en">
 
@@ -57,12 +58,12 @@
 
 
     <meta charset="utf-8" />
-    <title>Login page | Morvin - Admin & Dashboard Template</title>
+    <title>Login page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesdesign" name="author" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="{{ uploaded_file($logoIcon->favicon) }}">
 
     <!-- Bootstrap Css -->
     <link href="{{ asset('admin') }}/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet"
@@ -75,139 +76,24 @@
 
 </head>
 
-<style>
-    .bs-stepper .bs-stepper-content {
-        padding: 1.5rem 1.5rem;
-    }
 
-    .mx-auto {
-        margin-right: auto !important;
-        margin-left: auto !important;
-    }
-
-    .w-px-700 {
-        width: 700px !important;
-    }
-
-    .light-style .bs-stepper:not(.wizard-modern) {
-        box-shadow: 0 0.25rem 1.125rem rgba(75, 70, 92, 0.1);
-    }
-
-    .light-style .bs-stepper {
-        background-color: #fff;
-    }
-
-    .shadow-none {
-        box-shadow: none !important;
-    }
-
-    .light-style .bs-stepper .bs-stepper-header {
-        border-bottom: 1px solid #dbdade;
-    }
-
-    /* @media (max-width: 991.98px)
-.bs-stepper .bs-stepper-header {
-    flex-direction: column;
-    align-items: flex-start;
-} */
-    .bs-stepper .bs-stepper-header {
-        padding: 1.5rem 1.5rem;
-    }
-
-    .border-bottom-0 {
-        border-bottom: 0 !important;
-    }
-
-    /* @media (max-width: 520px)
-.bs-stepper-header {
-    margin: 0;
-}
-@media (max-width: 520px)
-.bs-stepper-header {
-    margin: 0 -10px;
-    text-align: center;
-} */
-    form {
-        display: block;
-        margin-top: 0em;
-    }
-
-    .bs-stepper-header {
-        display: -ms-flexbox;
-        display: flex;
-        -ms-flex-align: center;
-        align-items: center;
-    }
-
-    .bs-stepper {
-        border-radius: 0.375rem;
-    }
-
-    .custom-option {
-        padding-left: 0;
-        border: 1px solid #dbdade;
-        border-radius: 0.375rem;
-    }
-
-
-
-    .form-check {
-        display: block;
-        min-height: 1.378125rem;
-        padding-left: 1.7em;
-        margin-bottom: 0.125rem;
-    }
-
-    .custom-option-icon .custom-option-content {
-        text-align: center;
-        padding: 1.07em;
-    }
-
-    .custom-option .custom-option-content {
-        cursor: pointer;
-        width: 100%;
-    }
-
-    label {
-        display: inline-block;
-    }
-
-    *,
-    *::before,
-    *::after {
-        box-sizing: border-box;
-    }
-
-    .custom-option-icon .custom-option-body {
-        display: block;
-        margin-bottom: 0.5rem;
-    }
-
-    .justify-content-center {
-        justify-content: center !important;
-    }
-
-    .d-flex {
-        display: flex !important;
-    }
-</style>
 
 <body class="authentication-bg bg-dark">
     <div class="home-center">
         <div class="home-desc-center">
 
-            <div class="container mt-5">
+            <div class="container mt">
 
                 <div class="home-btn">
-                    {{-- <a href="/" class="text-white router-link-active"><i
-                            class="fas fa-home h2"></i></a> --}}
+                    <a href="/" class="text-white router-link-active"><i
+                            class="fas fa-home h2 text-white"></i></a>
                 </div>
 
                 <div class="row justify-content-center">
                     <div class="col-md-8 col-lg-8 col-xl-8">
                         <div class="card">
                             <div class="card-body">
-                                <div class="px-2 py-3">
+                                <div class="px py-3">
 
 
                                     <div class="text-center">
@@ -216,12 +102,18 @@
                                                 alt="logo">
                                         </a>
 
-                                        <h3 class="text-primary mb-2 mt-4 fw-bold">Student Register</h3>
+                                        <h3 class="text-primary  fw-bold">Student Register</h3>
                                         <p class="text-muted"></p>
+<br/>
+                                        @if(Session::has('success'))
+<div class="alert alert-danger" role="alert">{{ Session::get('success') }}</div>
+@endif
+@if(Session::has('fail'))
+<div class="alert alert-danger" role="alert">{{ Session::get('fail') }}</div>
+@endif
                                     </div>
 
-                                    <form class="form-horizontal mt-4 pt-2" action="{{ route('register') }}"
-                                        method="POST">
+                                    <form class="form-horizontal" action="{{ route('register') }}" method="POST">
                                         @csrf
                                         <div class="row">
                                             <div class="col-lg-6">
@@ -253,51 +145,19 @@
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="mb-3">
-                                                    <label for="studentId">Student ID</label>
-                                                    <input type="text" name="studentId" id="studentId"
-                                                        class="form-control @error('studentId')
-                    is-invalid
-                @enderror"
-                                                        placeholder="Student ID" required>
-                                                    @error('studentId')
-                                                        <p class="text-danger">{{ $message }}</p>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="mb-3">
-                                                    <label for="class">Select class</label>
-                                                    <select name="class" id="class"
-                                                        class="form-control @error('class')
-    is-invalid
-@enderror"
-                                                        type="select" required>
-                                                        {{-- <option value="{{ $classes->classroom_id ?? '' }}">{{ $course->classroom->title ?? 'Select Class' }}</option> --}}
-                                                        <option value="">Select Class</option>
-                                                        @foreach ($classes as $class)
-                                                            <option value="{{ $class->id }}">{{ $class->title }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                    @error('class')
-                                                        <p class="text-danger">{{ $message }}</p>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label for="userpassword">Password</label>
-                                                    <input type="password"
-                                                        class="form-control @error('password')
-                    is-invalid
-                @enderror"
-                                                        name="password" id="userpassword" placeholder="Enter password" required>
+                                                    <div class="input-group">
+                                                        <input type="password"
+                                                            class="form-control login_password @error('password') is-invalid @enderror"
+                                                            name="password" id="userpassword"
+                                                            placeholder="Enter password" required>
+                                                        <a class="input-group-text logineye"
+                                                            id="validationTooltipUsernamePrepend"><i
+                                                                class="fas fa-eye fa-eye-slash  eyesee"></i></a>
+                                                    </div>
                                                     @error('password')
                                                         <p class="text-danger">{{ $message }}</p>
                                                     @enderror
@@ -306,95 +166,30 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label for="password_confirmation">Confirm Password</label>
-                                                    <input type="password"
-                                                        class="form-control @error('password_confirmation')
-                    is-invalid
-                @enderror"
-                                                        name="password_confirmation" id="password_confirmation"
-                                                        placeholder="Enter confirm password" required>
+                                                    <div class="input-group">
+                                                        <input type="password"
+                                                            class="form-control login_password @error('password_confirmation') is-invalid @enderror"
+                                                            name="password_confirmation" id="password_confirmation"
+                                                            placeholder="Enter confirm password" required>
+                                                        <a class="input-group-text logineye"
+                                                            id="validationTooltipUsernamePrepend"><i
+                                                                class="fas fa-eye fa-eye-slash  eyesee"></i></a>
+                                                    </div>
+
                                                     @error('cpassword_confirmation')
                                                         <p class="text-danger">{{ $message }}</p>
                                                     @enderror
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-----Payment------>
-                                        {{-- <div class="row">
-        <div id="billingLinksValidation" class="content">
-            <div class="content-header">
-              <h3 class="mb-1">Select Plan</h3>
-              <p>Select plan as per your requirement</p>
-            </div>
-
-            <div class="row gap-md-0 gap-3 my-4">
-                <div class="col-md">
-                    <div class="form-check custom-option custom-option-icon">
-                      <label class="form-check-label custom-option-content" for="enterpriseOption">
-                        <span class="custom-option-body">
-                          <span class="custom-option-title fs-4 mb-1">Enterprise</span><br>
-                          <small class="fs-6">Solution for enterprise & organizations</small>
-                          <span class="d-flex justify-content-center">
-                            <sup class="text-primary fs-6 lh-1 mt-3">{{ $logoIcon->currency_symbol }}</sup>
-                            <span class="fw-semibold fs-2 text-primary">{{ $logoIcon->tution_fee }}</span>
-                            <sub class="lh-1 fs-6 mt-auto mb-2 text-muted">/year</sub>
-                          </span>
-                        </span>
-                        <input
-                          name="customRadioIcon"
-                          class="form-check-input"
-                          type="radio"
-                          value="prem" checked
-                          id="enterpriseOption" name="option"
-                        />
-                      </label>
-                    </div>
-                  </div>
-              <div class="col-md">
-                <div class="form-check custom-option custom-option-icon">
-                  <label class="form-check-label custom-option-content" for="basicOption">
-                    <span class="custom-option-body">
-                      <span class="custom-option-title fs-4 mb-1">Basic</span><br>
-                      <small class="fs-6">A simple start for start ups & Students</small>
-                      <span class="d-flex justify-content-center">
-                        <sup class="text-primary fs-6 lh-1 mt-3">$</sup>
-                        <span class="fw-semibold fs-2 text-primary">0</span>
-                        <sub class="lh-1 fs-6 mt-auto mb-2 text-muted">/month</sub>
-                      </span>
-                    </span>
-                    <input
-                      name="customRadioIcon"
-                      class="form-check-input"
-                      type="radio"
-                      value="free"
-                      id="basicOption" name="option"
-                    />
-                  </label>
-
-                </div>
-
-              </div>
-
-
-            </div>
-
-
-
-          </div>
-       </div> --}}
-                                        <!---end payment--->
-
-
-
 
 
                                         <div>
+
+
+                                        </div>
                                             <button class="btn btn-primary waves-effect waves-light"
                                                 type="submit">Register</button>
-                                                {{-- <a href="{{ route('stripe.checkout') }}" lass="btn btn-success">Checkout</a> --}}
-                                        </div>
-
-
-
 
                                     </form>
 
@@ -402,16 +197,15 @@
                             </div>
                         </div>
 
-                        {{-- <div class="mt-5 text-center text-white">
-                             <p>Don't have an account ?<a href="auth-register.html" class="fw-bold text-white">
-                                    Register</a> </p>
-                            <p>©
-                                <script>
-                                    document.write(new Date().getFullYear())
-                                </script> Morvin. Crafted with <i class="mdi mdi-heart text-danger"></i>
-                                by Themesdesign
-                            </p>
-                        </div> --}}
+                        <div class="mt-5 text-center text-white">
+                          <p>  Already have an account ? <a href="{{ route('login') }}" class="fw-bold text-white"> Login </a></p>
+                           {{-- <p>©
+                               <script>
+                                   document.write(new Date().getFullYear())
+                               </script> Morvin. Crafted with <i class="mdi mdi-heart text-danger"></i>
+                               by Themesdesign
+                           </p> --}}
+                       </div>
                     </div>
                 </div>
 
@@ -434,3 +228,96 @@
 </body>
 
 </html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+</script>
+<script>
+    $(document).ready(function() {
+
+        $('#classroom').on('change', function(e) {
+            // e.preventDefault();
+            var title = $(this).val();
+
+            $.ajax({
+                url: "{{ route('register') }}",
+                type: 'GET',
+                data: {
+                    'title': title
+                },
+                success: function(data) {
+
+                    var courses = data.courses;
+                    var html = '';
+                    if (courses.length > 0) {
+                        for (let i = 0; i < courses.length; i++) {
+                            html += '<option > \
+                                ' + courses[i]['title'] + '\
+                                </option>';
+                        }
+                    } else {
+                        html += '<td>Not Course</td>';
+                    }
+                    $("#course").html(html);
+                }
+            });
+
+        });
+
+
+
+
+        $('#course').on('change', function(e) {
+            // e.preventDefault();
+            var title = $(this).val();
+
+            $.ajax({
+                url: "{{ route('register') }}",
+                type: 'GET',
+                data: {
+                    'title': title
+                },
+                success: function(data) {
+
+                    var courses = data.courses;
+                    var html = courses.title;
+                    alert(html);
+                    //    if(courses.length >0){
+
+                    //    }else{
+                    //     html +='<td>Not Course</td>';
+                    //    }
+                    $("#cost").html(html);
+                }
+            });
+
+        });
+
+    });
+</script>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.logineye').click(function() {
+            $('.eyesee').toggleClass('fa-eye-slash');
+            var input = $('.login_password');
+            if (input.attr('type') == 'password') {
+                input.attr('type', 'text');
+            } else {
+                input.attr('type', 'password');
+            }
+
+        });
+
+    });
+</script>

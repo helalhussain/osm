@@ -4,7 +4,7 @@
 @section('admin_content')
 
 <x-admin.page-title dashboard_title="Admin" title="Notice" page_name="All notice">
-    <a href="{{ route('admin.notice.create') }}" class="btn btn-success" id="addBtn">Add notice</a>
+    <a href="{{ route('admin.notice.create') }}" class="btn btn-success" id="">Add notice</a>
 </x-admin.page-title>
 <x-admin.table title="Notice" :headers="['No', 'title',  'Action']" />
 
@@ -24,7 +24,6 @@
                     name: 'title'
                 },
 
-
                 {
                     data: 'action',
                     name: 'action',
@@ -32,7 +31,7 @@
                     render: function(data, type, row) {
                         return `
                         <a href="${route('admin.notice.show',row.id) }" class="btn btn-outline-success btn-sm" id="editBtn"><i class="fas fa-eye"></i></a>
-                    <a href="${route('admin.notice.edit',row.id) }" class="btn btn-outline-secondary btn-sm" id="editBtn"><i class="fas fa-pencil-alt"></i></a>
+                    <a href="${route('admin.notice.edit',row.id) }" class="btn btn-outline-secondary btn-sm" id="editBt"><i class="fas fa-pencil-alt"></i></a>
                     <a href="${route('admin.notice.destroy',row.id) }" class="btn btn-outline-danger btn-sm" id="deleteBtn"><i class="fas fa-trash-alt"></i></a>
                     `;
 

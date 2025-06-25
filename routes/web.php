@@ -6,12 +6,16 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Student\ChatController;
 use App\Http\Controllers\Student\NoticeController;
+use App\Http\Controllers\Student\CourseController;
 use App\Http\Controllers\Student\MessageController;
 use App\Http\Controllers\Student\SendController;
 use App\Http\Controllers\Student\QuizController;
+use App\Http\Controllers\Student\QuestionController;
+use App\Http\Controllers\Student\AnswerController;
 use App\Http\Controllers\Student\ResultController;
 use App\Http\Controllers\Student\CertificateController;
 use App\Http\Controllers\Student\ContentController;
+use App\Http\Controllers\Student\TestController;
 
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\CheckoutController;
@@ -31,27 +35,40 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/storage-link',function(){
+    $tergetFoler = storage_path('app/public');
+    $linkFolder = $_SERVER['DOCUMENT_ROOT'] . '/storage';
+    symlink($tergetFoler,$linkFolder);
+});
 
-Route::get('/',[HomeController::class,'home'])->name('home.page');
 
 Route::middleware('auth')->group(function () {
     // Route::get('/account/password', [PasswordController::class, 'index'])->name('password.index');
     Route::put('/account/password', [PasswordController::class, 'update'])->name('password.update');
 
     Route::get('/account/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
-    Route::get('/account/notice/show/{id}',[DashboardController::class,'notice_show'])->name('notice.show');
+    Route::get('/account/notice/show/{id}',[DashboardController::class,'notice_show'])->name('notice.show')->middleware('inactive');
     Route::get('/account/dashboard/download/{file}',[DashboardController::class,'file_download'])
     ->name('file.download');
 
     Route::singleton('account/profile', ProfileController::class);
-    Route::resource('account/notice', NoticeController::class);
-    Route::resource('account/chat', ChatController::class);
-    Route::resource('account/message', MessageController::class);
-    Route::resource('account/send', SendController::class);
-    Route::resource('account/quiz', QuizController::class);
-    Route::resource('account/result', ResultController::class);
-    Route::resource('account/certificate', CertificateController::class);
-    Route::resource('account/content', ContentController::class);
+    Route::resource('account/notice', NoticeController::class)->middleware('inactive');
+    Route::resource('account/course', CourseController::class);
+    // Route::get('account/course',[CourseController::class,'show_fee'])->name('show_fee');
+
+    Route::resource('account/chat', ChatController::class)->middleware('inactive');
+    Route::resource('account/message', MessageController::class)->middleware('inactive');
+    Route::get('student/account/message/send',[ MessageController::class,'send'])->name('message.send')->middleware('inactive');
+    Route::get('student/message/send-show/{id}',[ MessageController::class,'send_show'])
+    ->name('message.send_show')->middleware('inactive');
+
+    Route::resource('account/quiz', QuizController::class)->middleware('inactive');
+    Route::resource('account/question', QuestionController::class)->middleware('inactive');
+    Route::resource('account/answer', AnswerController::class)->middleware('inactive');
+
+    Route::resource('account/result', ResultController::class)->middleware('inactive');
+    Route::resource('account/certificate', CertificateController::class)->middleware('inactive');
+    Route::resource('account/content', ContentController::class)->middleware('inactive');
 
     Route::get('/password', [ProfileController::class, 'password'])->name('profile.password');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -59,30 +76,14 @@ Route::middleware('auth')->group(function () {
     Route::get('singup/',[HomeController::class,'singup'])->name('singup.page');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route::get('/registration',[UserController::class,'create'])->name('registration');
-Route::post('registration',[UserController::class,'singup'])->name('registration.post');
 
+Route::get('/payment',[PaymentController::class,'showPaymentForm'])->name('showPaymentForm');
+Route::post('/process-payment',[PaymentController::class,'processPayment'])->name('processPayment');
+// Route::get('/process-payment', [PaymentController::class, 'processPayment'])->name('processPayment');
 
-// Stripe
-// Route::group(['prefix' => 'checkout', 'as' => '', 'controller' => CheckoutController::class], function () {
-//     Route::get('/checkout', 'checkout')->name('checkout');
-//     Route::post('/checkout', 'store')->name('checkout.store');
-// });
-
-// Route::get('stripe', [StripeController::class, 'stripe']);
-// Route::post('stripe', [StripeController::class, 'stripePost'])->name('stripe.post');
-// Route::get('stripe/checkout', [StripeController::class, 'checkout'])->name('stripe.checkout');
-// Route::get('stripe/checkout/success', [StripeController::class, 'stripeCheckoutSuccess'])
-// ->name('stripe.checkout.success');
-Route::controller(StripeController::class)->group(function(){
-    Route::get('stripe','stripe')->name('stripe.index');
-    Route::get('stripe','stripe')->name('stripe.index');
-    Route::get('stripe/checkout','stripeCheckout')->name('stripe.checkout');
-    Route::get('stripe/checkout/success','stripeCheckoutSuccess')->name('stripe.checkout.success');
-});
-Route::post('stripe', [StripeController::class, 'stripePost'])->name('stripe.post');
-// Route::get('payment', [PaymentController::class, 'index'])->name('payment.index');
-// Route::get('payment/{status}', [PaymentController::class, 'callback'])->name('payment.callback');
+Route::get('/',[HomeController::class,'home'])->name('home.page');
+Route::patch('course/{id}',[HomeController::class,'update'])->name('home.update');
+Route::get('course/{id}', [HomeController::class, 'course_details'])->name('course_details');
 
 
 require __DIR__.'/auth.php';

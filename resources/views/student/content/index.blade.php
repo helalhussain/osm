@@ -20,7 +20,7 @@
                         <tr>
                             <th>No</th>
                             <th>Title</th>
-                            <th>Class</th>
+                            {{-- <th>Class</th> --}}
                             <th>Date</th>
                             <th>Action</th>
                         </tr>
@@ -32,7 +32,7 @@
                 <tr>
                     <td>{{ $key+1 }}</td>
                     <td>{{ $content->title }}</td>
-                    <td>{{ $content->title }}</td>
+                    {{-- <td>{{ $content->title }}</td> --}}
 
                     <td>{{ $content->created_at->format("M-h-D") }}</td>
                     <td>

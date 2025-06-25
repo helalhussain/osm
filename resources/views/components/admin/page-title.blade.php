@@ -1,7 +1,7 @@
    @props([
     'dashboard_title'=>null,
     'title' =>null,
-        'page_name'=>null,
+    'page_name'=>null,
    ])
 
 <div class="page-content">
@@ -11,9 +11,9 @@
          <div class="row align-items-center">
              <div class="col-sm-6">
                  <div class="page-title">
-                     <h4>{{ $dashboard_title }}</h4>
+                     <h4>{{ $site->site_name }}</h4>
                          <ol class="breadcrumb m-0">
-                             <li class="breadcrumb-item"><a href="javascript: void(0);">OSMS</a></li>
+                             <li class="breadcrumb-item"><a href="javascript: void(0);">{{ $dashboard_title }}</a></li>
                              <li class="breadcrumb-item"><a href="javascript: void(0);">{{ $title }}</a></li>
                              <li class="breadcrumb-item active">{{ $page_name }}</li>
                          </ol>

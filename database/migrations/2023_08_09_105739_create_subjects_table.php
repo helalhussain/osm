@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('subjects', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->foreignId('classroom_id')->refers('id')->on('classrooms')->OnDelete('cascade');
             $table->string('slug')->unique();
-            $table->string('code')->nullable();
+            // $table->string('fee')->nullable();
+            // $table->string('discount')->nullable();
             $table->timestamps();
         });
     }

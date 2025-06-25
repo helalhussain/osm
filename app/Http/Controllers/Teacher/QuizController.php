@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Quiz;
 use App\Models\Classroom;
+use App\Models\Course;
+use App\Models\Subject;
 use App\Models\Teacher;
+use App\Models\Question;
 
 use Yajra\DataTables\Facades\DataTables;
 
@@ -18,7 +21,7 @@ class QuizController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            return DataTables::eloquent(Quiz::query()->select('id','title','quiz','description')->where('teacher_id','=',auth()->user()->id))
+            return DataTables::eloquent(Quiz::query()->select('id','title')->where('teacher_id','=',auth()->user()->id))
                 ->addIndexColumn()
                 ->addColumn('action', fn () => '')
                 ->toJson();
@@ -31,8 +34,9 @@ class QuizController extends Controller
      */
     public function create(Quiz $quiz)
     {
-        $classrooms = Classroom::all();
-        return view('teacher.quiz.form',compact('classrooms'));
+        $classes = Classroom::all();
+        $courses = Course::all();
+        return view('teacher.quiz.form',compact('classes','courses'));
     }
 
     /**
@@ -41,16 +45,21 @@ class QuizController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'class' => 'required',
-            'title' => 'required',
+            // 'class' => 'required',
+            // 'title' => 'required',
 
         ]);
             $store = new Quiz();
-            $store->classroom_id = $request->class;
+            // $store->classroom_id = $request->class;
+            $store->course_id = $request->course;
             $store->teacher_id = auth()->user()->id;
-            $store->title = $request->title;
-            $store->description = $request->description;
-            $store->quiz = $request->quiz;
+            $store->title =  $request->title;
+            $store->minute =  $request->time;
+            // $store->a = $request->a;
+            // $store->b = $request->b;
+            // $store->c = $request->c;
+            // $store->d = $request->d;
+            // $store->ans = $request->ans;
             // $store->file =  file_upload($request->file, 'quiz');;
             $store->save();
 
@@ -64,8 +73,12 @@ class QuizController extends Controller
      */
     public function show(Quiz $quiz)
     {
-        $classes = Classroom::all();
-        return view('teacher.quiz.show',compact('quiz','classes'));
+        $classrooms = Classroom::all();
+        $courses = Course::all();
+        $subjects = Subject::all();
+        $questions = Question::Where('quiz_id','=',$quiz->id)
+        ->Where('teacher_id','=',auth()->user()->id)->paginate(30);
+        return view('teacher.quiz.show',compact('quiz','classrooms','courses','subjects','questions'));
     }
 
     /**
@@ -73,8 +86,11 @@ class QuizController extends Controller
      */
     public function edit(Quiz $quiz)
     {
+
         $classrooms = Classroom::all();
-        return view('teacher.quiz.form',compact('quiz','classrooms'));
+        $courses = Course::all();
+
+        return view('teacher.quiz.form',compact('quiz','classrooms','courses'));
     }
 
     /**
@@ -84,19 +100,19 @@ class QuizController extends Controller
     {
 
         $request->validate([
-            'class' => 'required',
+            'course' => 'required',
             'title' => 'required',
 
         ]);
 
             $quiz->update([
-                'classroom_id'=>$request->class,
+                'course_id'=>$request->course,
                 'title'=>$request->title,
-                'description'=>$request->description,
-                'quiz'=>$request->quiz,
+                'minute'=>$request->time,
 
             ]);
 
+            
 
         return response()->json(['message' => 'Quiz updated successfully']);
     }

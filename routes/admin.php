@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Admin\{
     DashboardController,
     AdministatorController,
+    AdminController,
     ProfileController,
     TeacherController,
     UserController,
@@ -19,6 +20,7 @@ use App\Http\Controllers\Admin\{
     CertificateController,
     ChangePasswordController,
     SettingController,
+    PaymentController,
 
 
 };
@@ -36,12 +38,14 @@ use App\Http\Controllers\Admin\{
 Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
 
+Route::resource('admin', AdminController::class);
 Route::resource('administator', AdministatorController::class);
 Route::resource('teacher', TeacherController::class);
 Route::resource('user', UserController::class);
 
 Route::resource('notice', NoticeController::class);
 Route::resource('message', MessageController::class);
+Route::resource('payment', PaymentController::class);
 // Route::resource('subject', SubjectController::class);
 // Route::resource('section', SectionController::class);
 // Route::resource('result', ResultController::class);

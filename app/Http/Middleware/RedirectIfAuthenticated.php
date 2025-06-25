@@ -25,7 +25,7 @@ class RedirectIfAuthenticated
                 if(request()->is('admin*')){
                     return redirect(RouteServiceProvider::DASHBOARD);
                 }
-                elseif(request()->is('bdministator*'))
+                elseif(request()->is('administator*'))
                 {
                     return redirect(RouteServiceProvider::ADMINISTATOR_DASHBOARD);
                 }

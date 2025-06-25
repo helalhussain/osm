@@ -17,6 +17,6 @@ class Chat extends Model
     }
     public function teacher()
     {
-        return $this->belongsToMany(Teacher::class);
+        return $this->belongsTo(Teacher::class);
     }
 }

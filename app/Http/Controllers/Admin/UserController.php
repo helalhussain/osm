@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 use App\Models\User;
+use App\Models\Payment;
 
 class UserController extends Controller
 {
@@ -45,7 +46,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('admin.student.show',compact('user'));
+        $payments = Payment::all();
+        return view('admin.student.show',compact('user','payments'));
     }
 
     /**
@@ -97,7 +99,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-
+        $user->delete();
         return response()->json([
             'message' => 'Student deleted successful'
         ]);

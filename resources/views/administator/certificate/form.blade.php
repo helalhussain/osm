@@ -1,3 +1,5 @@
+
+
 <x-admin.modal
     enctype="multipart/form-data"
     :title="isset($certificate) ? 'Update certificate' : 'Add New Certificate'"
@@ -7,17 +9,13 @@
     @isset($certificate)
         @method('PUT')
     @endisset
-    <select name="email" id="email" class="form-control select2" required>
-        <option value="{{ $certificate->user_id }}">{{ $certificate->user->email }}</option>
-        {{-- @foreach ($students as $student)
+    <x-admin.form-group label="email" :required="false" isType="select" class="select2">
+        <option value="{{ $certificate->user_id ?? '' }}">{{ $certificate->user->email ?? 'Select Email' }}</option>
+        {{-- <option value="">Select Student</option> --}}
+        @foreach ($students as $student)
         <option value="{{ $student->id }}">{{ $student->email }}</option>
-        @endforeach --}}
-    </select>
-    <select name="requested" id="requested" class="form-control select2" required>
-        <option value="{{$certificate->request }}">{{ $certificate->request }}</option>
-        <option value="requested">Requested</option>
-        <option value="accepted">Accepted</option>
-    </select>
+        @endforeach
+    </x-admin.form-group>
     <x-admin.form-group label="title" placeholder="Enter Title" :value="$certificate->title ?? ''" />
         <x-admin.form-group label="description" placeholder="Description" :required="false" isType="textarea">
             {{ $certificate->description ?? ''}}
@@ -26,6 +24,8 @@
         data-show-image="show_category_image" />
 
 </x-admin.modal>
+
+
 
 {{--
 

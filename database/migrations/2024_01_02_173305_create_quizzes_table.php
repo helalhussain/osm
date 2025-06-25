@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('quizzes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('classroom_id')->refers('id')->on('classrooms')->onDelete('cascade');
-            $table->foreignId('teacher_id')->refers('id')->on('teachers')->onDelete('cascade');
-            $table->string('title');
-            $table->text('description')->nullable();
-            $table->text('quiz')->nullable();
-            $table->string('file')->nullable();
+
+            $table->string('teacher_id')->nullable();
+            $table->string('classroom_id')->nullable();
+            $table->string('course_id')->nullable();
+            $table->string('subject_id')->nullable();
+            $table->string('title')->nullable();
+            $table->text('minute')->nullable();
             $table->timestamps();
         });
     }

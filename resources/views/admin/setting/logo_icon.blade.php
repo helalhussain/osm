@@ -29,14 +29,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3">
-                    <div class="card">
-                        <img src="{{ uploaded_file($logoIcon->dark_logo) }}" class="card-img-top img-fluid img-thumbnail" alt="..." width="100">
-                        <div class="card-title">
-                            Logo For Dark Background
-                        </div>
-                    </div>
-                </div>
+
                 <div class="col-lg-3">
                     <div class="card">
                         <img src="{{ uploaded_file($logoIcon->favicon) }}" class="card-img-top" alt="..." height="150">
@@ -53,15 +46,20 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-3">
+                    <div class="card">
+                      {{--  <img src="{{ uploaded_file($logoIcon->dark_logo) }}" class="card-img-top img-fluid img-thumbnail" alt="..." width="100">
+                        <div class="card-title">
+                            Logo For Dark Background
+                        </div>--}}
+                    </div>
+                </div>
 
                         <div class="col-lg-3 mt-5">
                             <input type="file" name="logo" id="logo" data-show-image="logo" accept="image/*" class="form-control" />
                             <div class="invalid-feedback" id="logo"></div>
                         </div>
-                        <div class="col-lg-3 mt-5">
-                            <input type="file" name="dark_logo" id="dark_logo" data-show-image="dark_logo" accept="image/*" class="form-control" />
-                            <div class="invalid-feedback" id="dark_logo"></div>
-                        </div>
+
                         <div class="col-lg-3 mt-5">
                             <input type="file" name="favicon" id="favicon" data-show-image="favicon" accept="image/*" class="form-control" />
                             <div class="invalid-feedback" id="favicon"></div>
@@ -69,6 +67,10 @@
                         <div class="col-lg-3 mt-5">
                             <input type="file" name="default_image" id="default_image" data-show-image="default_image" accept="image/*" class="form-control" />
                             <div class="invalid-feedback" id="default_image"></div>
+                        </div>
+                        <div class="col-lg-3 mt-5">
+                            {{-- <input type="file" name="dark_logo" id="dark_logo" data-show-image="dark_logo" accept="image/*" class="form-control" /> --}}
+                            {{-- <div class="invalid-feedback" id="dark_logo"></div> --}}
                         </div>
                     </div>
                 {{-- @endforeach --}}

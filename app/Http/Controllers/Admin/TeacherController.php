@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use App\Models\Teacher;
 use App\Models\Subject;
+use App\Notifications\TeacherNotification;
+use Illuminate\Support\Facades\Notification;
 
 class TeacherController extends Controller
 {
@@ -40,39 +42,55 @@ class TeacherController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email'=>'required',
-            'password'=>'required|min:8',
+            'email'=>'required|unique:teachers',
+            'subjects'=>'required',
+            'password'=>'required|min:8|max:30',
             'password_confirmation'=>'required|same:password'
 
         ]);
+        if($request->image==null){
+            $store = new Teacher();
+            $store->name = $request->name;
+            $store->email = $request->email;
+            $store->gender = $request->gender;
+            $store->phone = $request->phone;
+            $store->address = $request->address;
+            $store->dob= $request->birthdate;
+            $store->password = bcrypt($request->password);
+            $store->save();
+            $store->subjects()->sync($request->subjects);
 
-        $store = new Teacher();
-        // $store->categories()->sync($request->category);
-        // $stores->regions()->attach($regions);
+        }else{
 
-        $store->name = $request->name;
-        $store->email = $request->email;
-        $store->gender = $request->gender;
-        $store->phone = $request->phone;
-        $store->address = $request->address;
-        $store->dob= $request->date;
-        $store->image = file_upload($request->image, 'teacher');
-        $store->password = bcrypt($request->password);
+            $store = new Teacher();
+            $store->name = $request->name;
+            $store->email = $request->email;
+            $store->gender = $request->gender;
+            $store->phone = $request->phone;
+            $store->address = $request->address;
+            $store->dob= $request->date;
+            $store->image = file_upload($request->image, 'teacher');
+            $store->password = bcrypt($request->password);
+            $store->save();
+            $store->subjects()->sync($request->subjects);
 
-        $store->save();
-        $store->subjects()->sync($request->subjects);
-        // $store->subjects()->attach($request->subject);
+        }
+        $store->notify(new TeacherNotification($store->name,$store->email,$request->password));
         return response()->json([
             'message' => 'Teacher added successfully'
         ]);
+        // return redirect()->route('admin.teacher.index');
+
     }
+
 
     /**
      * Display the specified resource.
      */
     public function show(Teacher $teacher)
     {
-        return view('admin.teacher.show',compact('teacher'));
+        $subjects = Subject::all();
+        return view('admin.teacher.show',compact('teacher','subjects'));
     }
 
     /**
@@ -86,26 +104,54 @@ class TeacherController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Teacher $teacher)
+    public function update(Request $request,$id)
     {
         $request->validate([
             'name' => 'required',
 
         ]);
+        // if($request->image==null){
+
+        // }else{
+        //     $image = file_upload($request->image, 'teacher');
+        // }
+        // $teacher->update([
+        //         'name'=>$request->name,
+        //         'gender'=>$request->gender,
+        //         'dob'=>$request->date,
+        //         'phone'=>$request->phone,
+        //         'address'=>$request->address,
+        //         'image'  => $image,
+
+        // ]);
+
         if($request->image==null){
+            $store = Teacher::find($id);
+            $store->name = $request->name;
+            $store->email = $request->email;
+            $store->gender = $request->gender;
+            $store->phone = $request->phone;
+            $store->address = $request->address;
+            $store->dob= $request->date;
+            $store->save();
+            $store->subjects()->sync($request->subjects);
 
         }else{
-            $image = file_upload($request->image, 'teacher');
+
+            $store = Teacher::find($id);
+            $store->name = $request->name;
+            $store->email = $request->email;
+            $store->gender = $request->gender;
+            $store->phone = $request->phone;
+            $store->address = $request->address;
+            $store->dob= $request->date;
+            $store->image = file_upload($request->image, 'teacher');
+            $store->save();
+            $store->subjects()->sync($request->subjects);
+
         }
-        $teacher->update([
-                'name'=>$request->name,
-                'gender'=>$request->gender,
-                'dob'=>$request->date,
-                'phone'=>$request->phone,
-                'address'=>$request->address,
-                'image'  => $image
-        ]);
-        return response()->json(['message' => 'Teacher updated successfully']);
+        // return response()->json(['message' => 'Teacher updated successfully']);
+        return redirect()->route('admin.teacher.index');
     }
 
 

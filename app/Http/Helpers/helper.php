@@ -77,6 +77,7 @@ if (!function_exists('delete_uploaded_file')) {
 }
 
 
+
 if (!function_exists('image_allowed_extensions')) {
 
     /**
@@ -89,3 +90,11 @@ if (!function_exists('image_allowed_extensions')) {
         return 'mimes:jpg,jpeg,png,svg,gif,bmp,webp';
     }
 }
+
+
+// if (!function_exists('isActiveRoute')) {
+//     function isActiveRoute($route, $output = 'active_chat')
+//     {
+//         return request()->routeIs($route) ? $output : '';
+//     }
+// }

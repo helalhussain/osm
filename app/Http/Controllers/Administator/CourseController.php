@@ -58,13 +58,14 @@ class CourseController extends Controller
         $store->classroom_id = $request->class;
         $store->section_id= $request->section;
         $store->title= $request->title;
-        $store->subject_id= 1;
-        $store->teacher_id= 1;
+        $store->fee= $request->fee;
+        $store->discount= $request->discount;
         $store->save();
         $store->subjects()->sync($request->subjects);
-        return response()->json([
-            'message' => 'Course added successfully'
-        ]);
+        // return response()->json([
+        //     'message' => 'Course added successfully'
+        // ]);
+        return redirect()->route('administator.course.index');
     }
 
     /**
@@ -79,17 +80,29 @@ class CourseController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Course $course)
     {
-        //
+        $teachers = Teacher::all();
+        $sections = Section::all();
+        $subjects = Subject::all();
+        $classes = Classroom::all();
+        return view('administator.course.edit',compact('course','classes','sections','teachers','subjects'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $store = Course::find($id);
+        $store->classroom_id = $request->class;
+        $store->section_id= $request->section;
+        $store->title= $request->title;
+        $store->fee= $request->fee;
+        $store->discount= $request->discount;
+        $store->save();
+        $store->subjects()->sync($request->subjects);
+        return redirect()->route('administator.course.index');
     }
 
     /**

@@ -5,14 +5,15 @@
 
 
     <meta charset="utf-8" />
-    <title>OSMS | Admin</title>
+    <title>OSMS | Student</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesdesign" name="author" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="{{ uploaded_file($logoIcon->favicon) }}">
    <!--Ajax-------->
    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <!-- plugin css -->
     <link href="{{ asset('admin') }}/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
 
@@ -48,7 +49,11 @@
      <link href="{{ asset('/admin') }}/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
      <!-- App Css-->
      <link href="{{ asset('/admin') }}/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+       <!--------Text-editor bs-5--------->
+       <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+       <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 
+       <!-----End Text-editor bs-5--------->
 
      @routes
 

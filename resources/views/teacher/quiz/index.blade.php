@@ -25,15 +25,17 @@
                     name: 'title'
                 },
 
-
                 {
                     data: 'action',
                     name: 'action',
                     searchable: false,
                     render: function(data, type, row) {
                         return `
-                        <a href="${route('teacher.quiz.show',row.id) }" class="btn btn-outline-success btn-sm" id="editBtn"><i class="fas fa-eye"></i></a>
-                    <a href="${route('teacher.quiz.edit',row.id) }" class="btn btn-outline-secondary btn-sm" id="editBtn"><i class="fas fa-pencil-alt"></i></a>
+                        <a href="${route('teacher.quiz.show',row.id) }" class="btn btn-outline-success btn-sm" id="">
+
+                            Question
+                            </a>
+<a href="${route('teacher.quiz.edit',row.id) }" class="btn btn-outline-secondary btn-sm" id="editBtn"><i class="fas fa-pencil-alt"></i></a>
                     <a href="${route('teacher.quiz.destroy',row.id) }" class="btn btn-outline-danger btn-sm" id="deleteBtn"><i class="fas fa-trash-alt"></i></a>
                     `;
 

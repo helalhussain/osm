@@ -8,6 +8,7 @@ use App\Models\Classroom;
 use App\Models\Notice;
 use Yajra\DataTables\Facades\DataTables;
 
+
 class NoticeController extends Controller
 {
     /**
@@ -31,6 +32,7 @@ class NoticeController extends Controller
     {
         $classes = Classroom::all();
         return view('admin.notice.form',compact('classes'));
+
     }
 
     /**
@@ -38,9 +40,11 @@ class NoticeController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'class' => 'required',
             'title' => 'required',
+            // 'description'=>'max:2048'
         ]);
 
         if($request->file==null){
@@ -57,9 +61,11 @@ class NoticeController extends Controller
         $store->description = $request->description;
         $store->file =  $file;
         $store->save();
-        return response()->json([
-            'message' => 'Notice added successfully'
-        ]);
+
+        return redirect()->route('admin.notice.index')->with('success','Success');
+        // return response()->json([
+        //     'message' => 'Notice added successfully'
+        // ]);
     }
 
 
@@ -78,7 +84,7 @@ class NoticeController extends Controller
     public function edit(Notice $notice)
     {
         $classes = Classroom::all();
-        return view('admin.notice.form',compact('notice','classes'));
+        return view('admin.notice.edit',compact('notice','classes'));
     }
 
     /**
@@ -92,6 +98,7 @@ class NoticeController extends Controller
         $request->validate([
             'class' => 'required',
             'title' => 'required',
+
 
         ]);
         if($request->file==null){
@@ -112,8 +119,8 @@ class NoticeController extends Controller
         ]);
 
         }
-
-        return response()->json(['message' => 'Notice updated successfully']);
+        return redirect()->route('admin.notice.index');
+        // return response()->json(['message' => 'Notice updated successfully']);
     }
 
     /**

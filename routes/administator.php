@@ -44,12 +44,17 @@ Route::post('/administitor/teacher/status', [TeacherController::class,'status'])
 Route::resource('user', UserController::class);
 
 Route::resource('notice', NoticeController::class);
-Route::resource('student-message', MessageController::class);
-Route::get('administator/student-message/send',[ MessageController::class,'send'])
-->name('student-message.send');
-Route::resource('teacher-message', MessageTeacherController::class);
-Route::get('administator/teacher-message/send/',[ MessageController::class,'send'])
-->name('teacher-message.send');
+Route::resource('message', MessageController::class);
+
+Route::get('administator/message/send',[ MessageController::class,'send'])
+->name('message.send');
+Route::get('administator/message/send-show/{id}',[ MessageController::class,'send_show'])
+->name('message.send_show');
+
+// Route::resource('teacher-message', MessageTeacherController::class);
+
+// Route::get('administator/teacher-message/send/',[ MessageController::class,'send'])
+// ->name('teacher-message.send');
 
 Route::resource('classroom', ClassroomController::class);
 Route::resource('section', SectionController::class);

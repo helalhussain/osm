@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Nikolag\Square\Traits\HasCustomers;
 
+//implements MustVerifyEmail
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -42,6 +43,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Classroom::class);
     }
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
     public function certificate()
     {
         return $this->hasOne(Certificate::class);
@@ -54,8 +59,21 @@ class User extends Authenticatable
     {
         return $this->hasOne(Message::class);
     }
+    public function payment()
+    {
+        return $this->hasOne(Payment::class);
+    }
     public function chat()
     {
         return $this->hasOne(Chat::class);
+    }
+    public function answer()
+    {
+        return $this->hasOne(Answer::class);
+    }
+    
+    public function subjects()
+    {
+        return $this->belongsToMany(Subject::class);
     }
 }

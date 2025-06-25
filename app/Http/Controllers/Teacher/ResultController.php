@@ -39,6 +39,7 @@ class ResultController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'class' => 'required',
             'title' => 'required',
@@ -48,6 +49,7 @@ class ResultController extends Controller
             $store = new Result();
             $store->classroom_id = $request->class;
             $store->teacher_id = auth()->user()->id;
+            // $store->administator_id = 1;
             $store->title = $request->title;
             $store->description = $request->description;
 
@@ -57,6 +59,7 @@ class ResultController extends Controller
             $store = new Result();
             $store->classroom_id = $request->class;
             $store->teacher_id = auth()->user()->id;
+            // $store->administator_id = 1;
             $store->title = $request->title;
             $store->description = $request->description;
             $store->file =  file_upload($request->file, 'result');

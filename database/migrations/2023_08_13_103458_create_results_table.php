@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('classroom_id')->refers('id')->on('classrooms')->onDelete('cascade');
             $table->foreignId('teacher_id')->refers('id')->on('teachers')->onDelete('cascade');
-            $table->foreignId('administator_id')->refers('id')->on('administators')->onDelete('cascade');
+            // $table->foreignId('administator_id')->refers('id')->on('administators')->onDelete('cascade');
             $table->string('title');
             $table->text('description')->nullable();
             $table->string('file')->nullable();

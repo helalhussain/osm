@@ -26,7 +26,7 @@
                             <ul class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2">
                                 <li class="list-inline-item"><i class="ti ti-user-plus"></i> {{ auth()->user()->name }}</li>
                                 <li class="list-inline-item"><i class="ti ti-mail"></i> {{ auth()->user()->email }}</li>
-                                <li class="list-inline-item"><i class="ti ti-calendar"></i> Joined June 2023</li>
+                                <li class="list-inline-item"><i class="ti ti-calendar"></i> Joined 2025</li>
                             </ul>
                         </div>
                         <a href="{{route('admin.password.show')}}" class="btn btn-primary">

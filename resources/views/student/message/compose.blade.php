@@ -20,8 +20,8 @@
                         Compose
                     </a>
                     <div class="mail-list mt-4">
-                        <a href="{{ route('message.index') }}" class="{{ Request::is('message.index') ? '':'active'; }}"><i class="mdi mdi-email-outline me-2"></i> Inbox <span class="ms-1 float-end">({{ $m_count->count() }})</span></a>
-                        <a href="{{ route('send.index') }}" class="{{ Request::is('send.index') ? 'active':'' }}" ><i class="mdi mdi-email-check-outline me-2 "></i>Sent <span class="ms-1 float-end">({{ $m_student_count->count() }})</span></a>
+                        <a href="{{ route('message.index') }}" class="{{ Request::is('message.index') ? '':'active'; }}"><i class="mdi mdi-email-outline me-2"></i> Inbox <span class="ms-1 float-end">({{ $student_recieve->count() }})</span></a>
+                        <a href="{{ route('message.send') }}" class="{{ Request::is('message.send') ? 'active':'' }}" ><i class="mdi mdi-email-check-outline me-2 "></i>Sent <span class="ms-1 float-end">({{ $student_send->count() }})</span></a>
                     </div>
                 </div>
                 <!-- End Left sidebar -->
@@ -34,15 +34,33 @@
 
                             <form action="{{ route('message.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
-                                <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
 
-                                    {{-- <input type="email" class="form-control" placeholder="To"> --}}
-                                    <select name="email" id="email" class="form-control select2" required>
-                                        <option value="">Select Administator</option>
-                                        @foreach ($administators as $administator)
-                                        <option value="{{ $administator->id }}">{{ $administator->email }}</option>
-                                        @endforeach
-                                    </select>
+                                            {{-- <input type="email" class="form-control" placeholder="To"> --}}
+                                            <select name="teacher_email" id="teacher_email" class="form-control select2">
+                                                <option value="">Select Teacher</option>
+                                                @foreach ($teachers as $teacher)
+                                                <option value="{{ $teacher->id }}">{{ $teacher->email }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+
+                                            {{-- <input type="email" class="form-control" placeholder="To"> --}}
+                                            <select name="administrator_email" id="administrator_email" class="form-control select2" >
+                                                <option value="">Select Administator</option>
+                                                @foreach ($administators as $administator)
+                                                <option value="{{ $administator->id }}">{{ $administator->email }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+
+                                    </div>
                                 </div>
 
                                 <div class="mb-3">
@@ -51,8 +69,15 @@
                                 <div class="mb-3">
 
                                         {{-- <textarea id="elm1" name="elm1"></textarea> --}}
-                                        <textarea id="message" name="message" class="form-control" required></textarea>
-
+                                        {{-- <textarea id="message" name="message" class="form-control" required></textarea> --}}
+                                        <div><br/>
+                                            <textarea  class="form-control your_summernote" name="description" rows="5" placeholder="Type here">
+                                                {{-- {!!  $notice->message !!} --}}
+                                            </textarea>
+                                        @error('description')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                        </div>
                                 </div>
 
 <button type="submit" class="btn btn-success">Submit</button>

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Message;
 use App\Models\Administator;
+use App\Models\Teacher;
 
 class MessageController extends Controller
 {
@@ -15,11 +16,12 @@ class MessageController extends Controller
      */
     public function index()
     {
-        $messages = Message::where('m_type','=','student')->paginate(9);
-        $m_count = Message::where('m_type','=','administator')->get();
-        $m_student_count = Message::where('m_type','=','student')->get();
+        $recieve_message = Message::where('administrator','=','recieve')->get();
+        $messages = Message::where('administrator','=','recieve')->paginate(9);
 
-        return view('administator.message.index',compact('messages','m_count','m_student_count'));
+        $t_m_administrator = Message::where('administator_id','=',auth()->user()->id)
+        ->where('administrator','=','send')->where('m_type','=','administator')->get();
+        return view('administator.message.index',compact('messages','t_m_administrator','recieve_message'));
     }
 
 
@@ -29,9 +31,13 @@ class MessageController extends Controller
     public function create()
     {
         $students = User::all();
-        $m_count = Message::where('m_type','=','administator')->get();
-        $m_student_count = Message::where('m_type','=','student')->get();
-        return view('administator.message.compose',compact('students','m_count','m_student_count'));
+        $teachers = Teacher::all();
+        $recieve_message = Message::where('administrator','=','recieve')->get();
+        $t_m_administrator = Message::where('administator_id','=',auth()->user()->id)
+        ->where('administrator','=','send')->where('m_type','=','administator')->get();
+
+        $m_student_count = Message::where('administrator','=','recieve')->get();
+        return view('administator.message.compose',compact('students','teachers','recieve_message','t_m_administrator','m_student_count'));
     }
 
 
@@ -40,39 +46,88 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
-            'email'=>'required',
-            'description'=>'required'
+
+
         ]);
+
         if($request->file==null){
             $file = null;
         }else{
             $file = file_upload($request->file, 'message');
         }
 
-        $store = new Message();
-        $store->user_id = $request->email;
-        $store->administator_id = auth()->user()->id;
-        $store->subject= $request->subject;
-        $store->message = $request->description;
-        $store->file = $file;
-        $store->m_type = 'administator';
-        $store->save();
+        if($request->student_email == null){
+            $store = new Message();
+            $store->user_id = 0;
+            $store->administator_id = auth()->user()->id;
+            $store->teacher_id = $request->teacher_email;
+            $store->subject= $request->subject;
+            $store->message = $request->description;
+            $store->file = $file;
+            $store->administrator = 'send';
+            $store->teach = 'recieve';
+            $store->student = 0;
+            $store->m_type = 'administator';
+            $store->save();
+
+
+        }elseif($request->teacher_email == null){
+            $store = new Message();
+            $store->user_id = $request->student_email;
+            $store->administator_id = auth()->user()->id;
+            $store->teacher_id = 0;
+            $store->subject= $request->subject;
+            $store->message = $request->description;
+            $store->file = $file;
+            $store->administrator = 'send';
+            $store->teach = 0;
+            $store->student = 'recieve';
+            $store->m_type = 'administator';
+            $store->save();
+        }elseif($request->student_email != null and $request->teacher_email != null){
+            $store = new Message();
+            $store->user_id = $request->student_email;
+            $store->administator_id = auth()->user()->id;
+            $store->teacher_id = $request->teacher_email;
+            $store->subject= $request->subject;
+            $store->message = $request->description;
+            $store->file = $file;
+            $store->administrator = 'send';
+            $store->teach = 'recieve';
+            $store->student = 'recieve';
+            $store->m_type = 'administator';
+            $store->save();
+        }
+
+        else{
+            return response()->json([
+                'message' => 'You did not mantion any student or teacher'
+                 ]);
+            // return redirect()->route('administator.student-message.send');
+        }
+        return redirect()->route('administator.message.send');
         // return response()->json([
         //     'message' => 'Message send successfully'
         // ]);
-        return redirect()->route('administator.student-message.send');
-
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Message $student_message)
+    public function show(Message $message)
     {
-        $m_administator_count = Message::where('m_type','=','administator')->get();
-        $m_count = Message::where('m_type','=','student')->get();
-        return view('administator.message.show',compact('student_message','m_count','m_administator_count'));
+        $t_m_administrator = Message::where('administator_id','=',auth()->user()->id)
+        ->where('administrator','=','send')->where('m_type','=','administator')->get();
+
+        $recieve_message = Message::where('administrator','=','recieve')->get();
+        $messages = Message::where('administrator','=','send')
+        ->where('m_type','=','administator')
+        ->where('administator_id','=',auth()->user()->id)->paginate(9);
+        $recieve_messages = Message::Where('administrator','=','revieve')->get();
+
+        return view('administator.message.show',compact('message','recieve_message','t_m_administrator','messages','recieve_messages'));
     }
 
     /**
@@ -94,19 +149,43 @@ class MessageController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Message $student_message)
+    // public function destroy(Message $student_message)
+    // {
+    //     $delete = $student_message->Delete();
+    //     return redirect()->back();
+    // }
+    public function destroy(Message $message)
     {
-        $delete = $student_message->Delete();
+        $delete = $message->Delete();
         return redirect()->back();
     }
 
 
+
     public function send()
     {
-        $messages = Message::where('m_type','=','administator')->paginate(9);
-        $m_count = Message::where('m_type','=','administator')->get();
-        $m_student_count = Message::where('m_type','=','student')->get();
+        $messages = Message::where('administrator','=','send')
+        ->where('m_type','=','administator')
+        ->where('administator_id','=',auth()->user()->id)->paginate(9);
 
-        return view('administator.message.send',compact('messages','m_count','m_student_count'));
+        $recieve_message = Message::where('administrator','=','recieve')->get();
+        $t_m_administrator = Message::where('administator_id','=',auth()->user()->id)
+        ->where('administrator','=','send')->where('m_type','=','administator')->get();
+
+
+        return view('administator.message.send',compact('messages','recieve_message','t_m_administrator'));
+    }
+
+    public function send_show($id){
+        $t_m_administrator = Message::where('administator_id','=',auth()->user()->id)
+        ->where('administrator','=','send')->where('m_type','=','administator')->get();
+
+        $recieve_message = Message::where('administrator','=','recieve')->get();
+        $messages = Message::where('administrator','=','send')
+        ->where('m_type','=','administator')
+        ->where('administator_id','=',auth()->user()->id)->paginate(9);
+        $message = Message::find($id);
+
+        return view('administator.message.send_show',compact('message','recieve_message','t_m_administrator','messages'));
     }
 }

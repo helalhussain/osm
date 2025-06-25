@@ -21,12 +21,28 @@
                             <div class="col-md-4 mb-3">
                               <div class="card">
                                 <div class="card-body">
+
+
                                   <div class="d-flex flex-column align-items-center text-center">
                                     <img src="{{ uploaded_file(auth()->user()->image) }}" alt="" class="rounded-circle img-thumbnail" width="150" style="height:150px">
                                     <div class="mt-3">
                                       <h4>  {{ auth()->user()->name }}</h4>
                                       <p class="text-secondary mb-1">  {{ auth()->user()->email }}</p>
                                       <p class="text-muted font-size-sm">
+
+                                        @if(Session::has('success'))
+                                        <div class="alert alert-success" role="alert">
+                                            {{Session::get('success')}}
+                                        </div>
+                                        {{-- <span class="text-danger">  </span> --}}
+                                        @endif
+                                        @if(Session::has('fail'))
+                                        <span class="text-danger"> {{Session::get('fail')}} </span>
+                                    @endif
+                                    <br/>
+                                    <p class="text-secondary">
+                                       <strong>Subjects</strong> {{ auth()->user()->course->subjects->pluck('name')->implode(', ') }}</p>
+                                    </p>
                                       {{-- @foreach ($courses as $course)
     @if($course->classroom_id == auth()->user()->classroom_id && $course->section_id == auth()->user()->section_id)
     {{ $course->subjects->pluck('name')->implode(', ') }}
@@ -83,7 +99,7 @@
                                       {{ auth()->user()->student_id }}
                                     </div>
                                   </div>
-                                  <hr>
+                                  {{-- <hr>
                                   <div class="row">
                                     <div class="col-sm-3">
                                       <h6 class="mb-0">Class</h6>
@@ -91,7 +107,7 @@
                                     <div class="col-sm-9 text-secondary">
                                       {{ auth()->user()->classroom->title }}
                                     </div>
-                                  </div>
+                                  </div> --}}
                                   <hr>
                                   <div class="row">
                                     <div class="col-sm-3">
@@ -202,5 +218,8 @@
 </div>
 <!---Continer-fluied---->
 @endsection
+
+
+
 
 

@@ -34,3 +34,19 @@
         </div>
     </body>
 </html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$('.logineye').click(function(){
+			$('.eyesee').toggleClass('fa-eye-slash');
+			var input = $('.login_password');
+			if(input.attr('type') == 'password'){
+				input.attr('type','text');
+			}else{
+				input.attr('type','password');
+			}
+
+		});
+
+	});
+	</script>

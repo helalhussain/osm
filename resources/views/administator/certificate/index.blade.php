@@ -4,11 +4,11 @@
 @section('administator_content')
 
 <x-admin.page-title dashboard_title="Administator" title="Certificate" page_name="All certificate">
-    {{-- <a href="{{ route('administator.certificate.create') }}" class="btn btn-success" id="addBtn">Add Certificate</a> --}}
+    <a href="{{ route('administator.certificate.create') }}" class="btn btn-success" id="addBtn">Add Certificate</a>
 </x-admin.page-title>
 
 
-<x-admin.table title="Certificate" :headers="['No', 'Title','request', 'Action']" />
+<x-admin.table title="Certificate" :headers="['No', 'Title', 'Action']" />
 
 @endsection
 
@@ -25,10 +25,10 @@
                     data: 'title',
                     name: 'title'
                 },
-                {
-                    data: 'request',
-                    name: 'request'
-                },
+                // {
+                //     data: 'request',
+                //     name: 'request'
+                // },
 
                 {
                     data: 'action',

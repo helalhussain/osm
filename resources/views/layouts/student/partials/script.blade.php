@@ -98,10 +98,27 @@
 
     <script src="{{ asset('/admin') }}/assets/js/pages/dashboard.init.js"></script>
 
+    <!---Text-Editor bs-5------>
+{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> --}}
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $(".your_summernote").summernote();
+        $('.dropdown-toggle').dropdown();
+    });
+</script>
+<!----End text-editor bs-5---->
 
     <script src="{{ asset('/admin') }}/assets/js/app.js"></script>
     @stack('js')
 
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+        });
+    </script>
 </body>
 
 </html>

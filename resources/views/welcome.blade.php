@@ -60,11 +60,15 @@
 
                 <div class="topbar-social-icon me-3 d-none d-md-block">
                     <ul class="list-inline title-tooltip m-0">
-                        {{-- <li class="list-inline-item">
-                            <a href="email-inbox.html" data-toggle="tooltip" data-placement="top" title="Email">
-                             <i class="mdi mdi-email-outline"></i>
-                            </a>
-                        </li> --}}
+                     @if (auth()->user()==null)
+
+                     @else
+                     <li class="list-inline-item">
+                        <a href="{{ route('dashboard') }}" data-toggle="tooltip" data-placement="top" title="Email">
+                        <strong> Dashboard</strong>
+                        </a>
+                    </li>
+                     @endif
 
 
                     </ul>
@@ -82,64 +86,62 @@
 
 
 
-                {{-- <div class="dropdown d-none d-md-block ms-2">
-                    <button type="button" class="btn header-item waves-effect" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img class="me-2" src="{{ asset('/admin') }}/assets/images/flags/us.jpg" alt="Header Language" height="16"> English <span class="mdi mdi-chevron-down"></span>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end">
 
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <img src="{{ asset('/admin') }}/assets/images/flags/germany.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> German </span>
-                        </a>
+@if (auth()->user()==null)
+<div class="dropdown d-inline-block">
+    <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
+        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        {{-- <img class="rounded-circle header-profile-user" src="{{ asset('/admin') }}/assets/images/users/avatar-7.jpg"
+            alt="Header Avatar"> --}}
+            {{-- <i class="mdi-account-circle"></i> --}}
+        <span class="d-none d-xl-inline-block ms-1">Auth</span>
+        <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+    </button>
+    <div class="dropdown-menu dropdown-menu-end">
+        <!-- item-->
+        <a class="dropdown-item" href="{{ route('login') }}"> Login</a>
 
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <img src="{{ asset('/admin') }}/assets/images/flags/italy.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> Italian </span>
-                        </a>
+        <a class="dropdown-item text-danger" href="{{ route('register') }}">Register</a>
+    </div>
+</div>
+@else
+<div class="dropdown d-inline-block">
 
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <img src="{{ asset('/admin') }}/assets/images/flags/french.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> French </span>
-                        </a>
+    <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
+    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    @if(auth()->user()->image !="")
+    <img class="rounded-circle header-profile-user" src="{{ uploaded_file(auth()->user()->image) }}"
+    alt="Header Avatar">
+    @else
+    <img class="rounded-circle header-profile-user" src="{{ asset('images/defult/user.png') }}"
+    alt="Header Avatar">
+    @endif
+    <span class="d-none d-xl-inline-block ms-1">{{ auth()->user()->name }}</span>
+    <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+</button>
+    <div class="dropdown-menu dropdown-menu-end">
+        <!-- item-->
+        <a class="dropdown-item" href="{{ route('profile.show') }}"><i class="mdi mdi-account-circle-outline font-size-16 align-middle me-1"></i> Profile</a>
+        {{-- <a class="dropdown-item d-block" href="#"><span class="badge badge-success float-end">11</span><i class="mdi mdi-cog-outline font-size-16 align-middle me-1"></i> Settings</a> --}}
 
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <img src="{{ asset('/admin') }}/assets/images/flags/spain.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> Spanish </span>
-                        </a>
+        <div class="dropdown-divider"></div>
 
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <img src="{{ asset('/admin') }}/assets/images/flags/russia.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> Russian </span>
-                        </a>
-                    </div>
-                </div>
- --}}
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+        <button type="submit" class="dropdown-item text-danger" href="#"><i class="mdi mdi-power font-size-16 align-middle me-1 text-danger"></i> Logout</button>
+        </form>
+    </div>
+</div>
+
+@endif
 
 
 
-                <div class="dropdown d-inline-block">
-                    <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
-                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{-- <img class="rounded-circle header-profile-user" src="{{ asset('/admin') }}/assets/images/users/avatar-7.jpg"
-                            alt="Header Avatar"> --}}
-                            <i class="mdi-account-circle"></i>
-                        <span class="d-none d-xl-inline-block ms-1">Auth</span>
-                        <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end">
-                        <!-- item-->
-                        <a class="dropdown-item" href="{{ route('login') }}"> Login</a>
-
-                        <a class="dropdown-item text-danger" href="{{ route('register') }}">Register</a>
-                    </div>
-                </div>
-
-                <div class="dropdown d-inline-block">
+                {{-- <div class="dropdown d-inline-block">
                     <button type="button" class="btn header-item noti-icon right-bar-toggle waves-effect">
                         <i class="mdi mdi-cog-outline font-size-20"></i>
                     </button>
-                </div>
+                </div> --}}
 
             </div>
         </div>
@@ -150,9 +152,83 @@
     <br>
     <br>
     <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="page-content-wrapper">
+        <!---Row star--->
+        <div class="row">
 
+
+
+             <div class="col-lg-12">
+                         <div class="row">
+
+          @foreach ($courses as $course)
+         <!-----Col Start----------->
+
+                         <div class="col-xl-4 col-sm-6">
+                             <form action="#" >
+                                 @csrf
+                             <div class="card">
+                                <div class="card-body">
+                                 {{-- <input type="hidden" value="{{ $course->subjects->sum('fee') }}" name="fee"> --}}
+                                 <input type="hidden" value="{{ $course->fee }}" name="fee">
+                                 <input type="hidden" value="{{ $course->id }}" name="course_id">
+                                 <input type="hidden" value="{{ $course->title }}" name="course">
+                                 <input type="hidden" value="{{ $course->section->id }}" name="section_id">
+                                 <input type="hidden" value="{{ $course->classroom->id }}" name="classroom_id">
+                                 <input type="hidden" value="{{ $course->classroom->title }}" name="classroom">
+                                 <div class="product-img">
+                                     {{-- <div class="product-ribbon  bg-primary">
+                                         25% Off
+                                     </div> --}}
+
+                                     {{-- <img src="assets/images/product/img-7.png" alt="" class="img-fluid mx-auto d-block"> --}}
+                                 </div>
+
+                                 <div class="text-cente">
+
+                                     <a href="" class="text-dark">
+                                         <h5 class="font-size-18">{{ $course->title }}</h5>
+                                     </a>
+                                     <div class="mt-2">
+                                         <strong>Class :</strong>   {{ $course->classroom->title }}</p>
+                                     </div>
+                                     <div class="mt-2">
+                                         <strong>Section :</strong>   {{ $course->section->title }}</p>
+                                     </div>
+                                     <div class="mt-2">
+                                      <strong>Subject :</strong>   {{ $course->subjects->pluck('name')->implode(', ') }}</p>
+                                     </div>
+
+                                     <h4 class="mt-2">${{ $course->fee }}<span class="font-size-14 text-muted me-2">
+                                         {{-- <del>$240</del> --}}
+                                     </span></h4>
+
+                                     <div class="mt-2">
+                                         <a href="{{ route('course_details',$course->id) }}" class="btn btn-success">Purches now</a>
+                                     </div>
+
+                                 </div>
+                                </div>
+                             </div>
+                         </form>
+                         </div>
+
+                      <!-------Col ENd-------->
+          @endforeach
+
+             </div>
+
+          </div>
+
+     </div>
+     <!-- end row -->
 
 </div>
+
 
         <!-- ============================================================== -->
         <!-- Start right Content here -->
@@ -163,54 +239,6 @@
     </div>
     <!-- END layout-wrapper -->
 
-    <!-- Right Sidebar -->
-    <div class="right-bar">
-        <div data-simplebar class="h-100">
-            <div class="rightbar-title d-flex align-items-center px-3 py-4">
-
-                <h5 class="m-0 me-2">Settings</h5>
-
-                <a href="javascript:void(0);" class="right-bar-toggle ms-auto">
-                    <i class="mdi mdi-close noti-icon"></i>
-                </a>
-            </div>
-
-            <!-- Settings -->
-            <hr class="mt-0" />
-            <h6 class="text-center mb-0">Choose Layouts</h6>
-
-            <div class="p-4">
-                <div class="mb-2">
-                    <img src="{{ asset('/admin') }}/assets/images/layouts/layout-1.jpg" class="img-fluid img-thumbnail" alt="layout-1">
-                </div>
-
-                <div class="form-check form-switch mb-3">
-                    <input class="form-check-input theme-choice" type="checkbox" id="light-mode-switch" checked>
-                    <label class="form-check-label" for="light-mode-switch">Light Mode</label>
-                </div>
-
-                <div class="mb-2">
-                    <img src="{{ asset('/admin') }}/assets/images/layouts/layout-2.jpg" class="img-fluid img-thumbnail" alt="layout-2">
-                </div>
-                <div class="form-check form-switch mb-3">
-                    <input class="form-check-input theme-choice" type="checkbox" id="dark-mode-switch" data-bsStyle="{{ asset('/admin') }}/assets/css/bootstrap-dark.min.css" data-appStyle="{{ asset('/admin') }}/assets/css/app-dark.min.css">
-                    <label class="form-check-label" for="dark-mode-switch">Dark Mode</label>
-                </div>
-
-                <div class="mb-2">
-                    <img src="{{ asset('/admin') }}/assets/images/layouts/layout-3.jpg" class="img-fluid img-thumbnail" alt="layout-3">
-                </div>
-                <div class="form-check form-switch mb-5">
-                    <input class="form-check-input theme-choice" type="checkbox" id="rtl-mode-switch" data-appStyle="{{ asset('/admin') }}/assets/css/app-rtl.min.css">
-                    <label class="form-check-label" for="rtl-mode-switch">RTL Mode</label>
-                </div>
-
-
-            </div>
-
-        </div> <!-- end slimscroll-menu-->
-    </div>
-    <!-- /Right-bar -->
 
     <!-- Right bar overlay-->
     <div class="rightbar-overlay"></div>

@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Chat;
+use App\Models\Subject;
+use Illuminate\Support\Facades\DB;
+
 
 
 class ChatController extends Controller
@@ -13,10 +16,32 @@ class ChatController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $chats = User::all();
-        return view('teacher.chat.index',compact('chats'));
+        // $students = DB::table('users')->orderBy('id', 'desc')->get();
+
+        // $chat_list = Chat::select('user_id', DB::raw('COUNT(*) as id'))
+        // ->orderBy('id', 'desc')->groupBy('user_id')->get();
+        // $subjects= Subject::all();
+
+
+        $query = User::query();
+        if($request->ajax()){
+            
+            $users = $query->get();
+            return response()->json(['users'=>$users]);
+        }else{
+            $students = DB::table('users')->orderBy('id', 'desc')->get();
+
+            $chat_list = Chat::select('user_id', DB::raw('COUNT(*) as id'))
+            ->orderBy('id', 'desc')->groupBy('user_id')->get();
+            $subjects= Subject::all();
+
+            return view('teacher.chat.index',compact('students','chat_list','subjects'));
+        }
+
+
+        // return view('teacher.chat.index',compact('students','chat_list','subjects'));
     }
 
     /**
@@ -47,11 +72,24 @@ class ChatController extends Controller
      */
     public function show($id)
     {
-        $users = User::all();
+        $students = DB::table('users')
+        ->orderBy('id', 'desc')->get();
+
+        // $chat_list = Chat::select('user_id', DB::raw('COUNT(*) as id'))
+        // ->groupBy('user_id')
+        // ->orderBy('id', 'asc')
+        // ->get();
+        $chat_list = Chat::select('user_id', DB::raw('COUNT(*) as id'))
+        ->orderBy('id', 'desc')
+                 ->groupBy('user_id')
+                 ->get();
+
+        // $users = User::all();
         $chat = User::find($id);
         $messages = Chat::where('teacher_id','=',auth()->user()->id)
         ->where('user_id','=',$chat->id)->get();
-        return view('teacher.chat.show',compact('users','chat','messages'));
+        return view('teacher.chat.show',compact('chat','messages','students','chat_list'));
+
     }
 
     /**
@@ -73,8 +111,14 @@ class ChatController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Chat $chat)
     {
-        //
+        $delete =$chat->delete();
+        if($delete){
+            return redirect()->back();
+        }else{
+            return redirect()->back();
+            // return redirect('my-account/product');
+        }
     }
 }

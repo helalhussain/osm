@@ -3,8 +3,8 @@
 
 @section('administator_content')
 
-<x-admin.page-title dashboard_title="Administator" title="Student Message" page_name="All send">
-    <a href="{{ route('administator.student-message.create') }}" class="btn btn-success" >Add message</a>
+<x-admin.page-title dashboard_title="Administator" title="Message" page_name="All send">
+    <a href="{{ route('administator.message.create') }}" class="btn btn-success" >Add message</a>
 </x-admin.page-title>
 
 
@@ -16,12 +16,12 @@
             <div class="col-12">
                 <!-- Left sidebar -->
                 <div class="email-leftbar card">
-                    <a href="{{ route('administator.student-message.create') }}" class="btn btn-danger btn-block waves-effect waves-light">
+                    <a href="{{ route('administator.message.create') }}" class="btn btn-danger btn-block waves-effect waves-light">
                         Compose
                     </a>
                     <div class="mail-list mt-4">
-                        <a href="{{ route('administator.student-message.index') }}" class="{{ Request::is('administator.student-message.index') ? 'active':'' }}"><i class="mdi mdi-email-outline me-2"></i> Inbox <span class="ms-1 float-end"></span></a>
-                        <a href="{{ route('administator.student-message.send') }}" class="{{ Request::is('administator.student-message.send') ? '':'active' }}"><i class="mdi mdi-email-check-outline me-2"></i>Sent <span class="ms-1 float-end"></span></a>
+                        <a href="{{ route('administator.message.index') }}" class="{{ Request::is('administator.message.index') ? 'active':'' }}"><i class="mdi mdi-email-outline me-2"></i> Inbox <span class="ms-1 float-end">({{ $recieve_message->count() }})</span></a>
+                        <a href="{{ route('administator.message.send') }}" class="{{ Request::is('administator.message.send') ? '':'active' }}"><i class="mdi mdi-email-check-outline me-2"></i>Sent <span class="ms-1 float-end">({{ $t_m_administrator->count() }})</span></a>
                     </div>
                 </div>
                 <!-- End Left sidebar -->
@@ -48,23 +48,40 @@
             <label for="chk19" class="toggle"></label>
         </div> --}}
 
-        <a href="{{ route('administator.student-message.show',$message->id) }}" class="title">{{ $message->user->name }}</a>
+        <a href="{{ route('administator.message.send_show',$message->id) }}" class="title">
+            @if($message->teach=='recieve' and $message->student=='recieve')
+            {{ $message->teacher->name }}, {{ $message->user->name }}
+            @elseif ($message->student=='recieve' and $message->teach=='0')
+            {{ $message->user->name }}
+            @elseif ($message->teach=='recieve' and $message->student=='0')
+            {{ $message->teacher->name }}
+            @endif
+        </a>
      <h6 class="" style="font-size:12px">
          <p style="margin-left:10px;" class="mt-3">{{ $message->created_at->format("M-d") }}</p>
         </h6>
 
     </div>
     <div class="col-mail col-mail-2">
-        <a href="{{ route('administator.student-message.show',$message->id) }}" class="subject"> <span class="teaser">{{ $message->message }}</span>
+        <a href="{{ route('administator.message.show',$message->id) }}" class="subject"> <span class="teaser">{{ $message->message }}</span>
         </a>
 
         <div class="date">
 
 
-            <form action="{{ route('administator.student-message.destroy',$message->id) }}" method="POST">
+            {{-- <form action="{{ route('administator.message.destroy',$message->id) }}" method="POST">
                 @csrf
             @method('DELETE')
                 <button type="submit" style="border:none;background:none
+                ">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+              </form> --}}
+
+              <form action="{{ route('administator.message.destroy',$message->id) }}" method="POST">
+                @csrf
+            @method('DELETE')
+                <button type="submit" href="{{ route('message.destroy',$message->id) }}" style="border:none;background:none
                 ">
                     <i class="fas fa-trash-alt"></i>
                 </button>

@@ -152,7 +152,7 @@
                                     <div class="" style="">
                                         {{-- <div class="progress-bar progress-bar bg-success" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="80">
                                         </div> --}}
-                                        <a href="{{ route('admin.teacher.index') }}" class="btn btn-success">Show</a>
+                                        <a href="{{ route('administator.teacher.index') }}" class="btn btn-success">Show</a>
                                     </div>
                                 </div>
                             </div>
@@ -161,7 +161,7 @@
 
                     </div>
                     <div class="col-xl-3 col-md-4">
-                        <div class="card">
+                        {{-- <div class="card">
                             <div class="card-body">
                                 <div class="text-center">
                                     <p class="font-size-16">Administator</p>
@@ -173,12 +173,12 @@
                                     <h5 class="font-size-22">{{ count($administator) }}</h5>
 
                                     <div class="" style="h">
-                                        <a href="{{ route('admin.administator.index') }}" class="btn btn-success">Show</a>
+                                        <a href="{{ route('administator.teacher.index') }}" class="btn btn-success">Show</a>
 
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
 
                     </div>

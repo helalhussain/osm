@@ -8,19 +8,19 @@
              <div class="navbar-brand-box">
                 <a href="#" class="logo logo-dark">
                     <span class="logo-sm">
-                        <img src="{{ uploaded_file($logoIcon->dark_logo) }}" alt="" height="28">
+                        <img src="{{ uploaded_file($logoIcon->dark_logo) }}" alt="" style="height: 20px; width:auto">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ uploaded_file($logoIcon->logo) }}" alt="" height="30">
+                        <img src="{{ uploaded_file($logoIcon->logo) }}" alt="" style="height: 45px; width:auto">
                     </span>
                 </a>
 
                 <a href="#" class="logo logo-light">
                     <span class="logo-sm">
-                        <img src="{{ uploaded_file($logoIcon->dark_logo) }}" alt="" height="28">
+                        <img src="{{ uploaded_file($logoIcon->dark_logo) }}" alt="" style="height: 20px; width:auto">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ uploaded_file($logoIcon->logo) }}" alt="" height="30">
+                        <img src="{{ uploaded_file($logoIcon->logo) }}" alt="" style="height: 45px; width:auto">
                     </span>
                 </a>
             </div>
@@ -126,9 +126,9 @@
 
                 <div class="dropdown d-inline-block">
 
-                    <button type="button" class="btn header-item noti-icon right-bar-toggle waves-effect">
+                    {{-- <button type="button" class="btn header-item noti-icon right-bar-toggle waves-effect">
                         <i class="mdi mdi-cog-outline font-size-20"></i>
-                    </button>
+                    </button> --}}
                 </div>
 
             </div>

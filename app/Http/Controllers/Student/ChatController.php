@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Chat;
 use App\Models\Teacher;
+use Illuminate\Support\Facades\DB;
 
 class ChatController extends Controller
 {
@@ -15,12 +16,16 @@ class ChatController extends Controller
      */
     public function index()
     {
-        // $chats = User::all();
-        // return view('teacher.chat.index',compact('chats'));
-        $chats = Teacher::all();
-        // $chats = Chat::all();
-        $teachers = Teacher::all();
-        return  view('student.chat.index',compact('chats','teachers'));
+        $teachers = DB::table('teachers')
+        ->orderBy('id', 'desc')->get();
+
+        $chat_list = Chat::select('teacher_id', DB::raw('COUNT(*) as id'))
+        ->orderBy('id', 'desc')
+                 ->groupBy('teacher_id')
+                 ->get();
+
+        return view('student.chat.index',compact('teachers','chat_list'));
+        // return  view('student.chat.index',compact('chats','teachers'));
     }
 
     /**
@@ -67,7 +72,22 @@ class ChatController extends Controller
         $chat = Teacher::find($id);
         $messages = Chat::where('user_id','=',auth()->user()->id)
         ->where('teacher_id','=',$chat->id)->get();
-        return view('student.chat.show',compact('teachers','chat','messages'));
+
+        $students = DB::table('teachers')
+        ->orderBy('id', 'desc')->get();
+
+        $chat_list = Chat::select('teacher_id', DB::raw('COUNT(*) as id'))
+        ->orderBy('id', 'desc')
+                 ->groupBy('teacher_id')
+                 ->get();
+
+        // $users = User::all();
+        $chat = Teacher::find($id);
+        $messages = Chat::where('user_id','=',auth()->user()->id)
+        ->where('teacher_id','=',$chat->id)->get();
+        return view('student.chat.show',compact('chat','teachers','messages','students','chat_list'));
+
+        // return view('student.chat.show',compact('teachers','chat','messages'));
     }
 
     /**
@@ -89,8 +109,14 @@ class ChatController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Chat $chat)
     {
-        //
+        $delete =$chat->delete();
+        if($delete){
+            return redirect()->back();
+        }else{
+            return redirect()->back();
+            // return redirect('my-account/product');
+        }
     }
 }

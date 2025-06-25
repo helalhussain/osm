@@ -79,6 +79,16 @@
 <!-- init js -->
 <script src="{{ asset('/admin') }}/assets/js/pages/form-editor.init.js"></script>
 
+<!---Text-Editor bs-5------>
+{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> --}}
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $(".your_summernote").summernote();
+        $('.dropdown-toggle').dropdown();
+    });
+</script>
+<!----End text-editor bs-5---->
 <!---Composer--------->
  @stack('js')
 

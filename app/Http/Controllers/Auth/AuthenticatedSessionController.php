@@ -81,11 +81,16 @@ class AuthenticatedSessionController extends Controller
         if(request()->is('administator*')){
             Auth::guard('administator')->logout();
         }
+
         elseif(request()->is('admin*')){
             Auth::guard('admin')->logout();
-        }elseif(request()->is('teacher*')){
+        }
+
+        elseif(request()->is('teacher*')){
             Auth::guard('teacher')->logout();
-        }else{
+        }
+        
+        else{
             Auth::guard('web')->logout();
         }
             $request->session()->invalidate();

@@ -64,8 +64,8 @@ class ChangePasswordController extends Controller
         // $request->administator()->update([
         //     'password' => Hash::make($validated['password']),
         // ]);
-
-        return back()->with('status', 'password-updated');
+        return redirect()->route('admin.profile.show');
+        // return back()->with('status', 'password-updated');
     }
 
     /**

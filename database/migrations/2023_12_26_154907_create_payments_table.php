@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             // $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('classroom_id')->nullable();
+            $table->unsignedBigInteger('course_id')->nullable();
             $table->decimal('amount')->nullable();
             $table->decimal('charge')->default(0);
             $table->decimal('grand_total')->nullable();

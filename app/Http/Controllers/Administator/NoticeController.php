@@ -57,9 +57,8 @@ class NoticeController extends Controller
         $store->description = $request->description;
         $store->file =  $file;
         $store->save();
-        return response()->json([
-            'message' => 'Notice added successfully'
-        ]);
+
+        return redirect()->route('administator.notice.index')->with('success','Success');
     }
 
     /**
@@ -77,7 +76,7 @@ class NoticeController extends Controller
     public function edit(Notice $notice)
     {
         $classes =Classroom::all();
-        return view('administator.notice.form',compact('notice','classes'));
+        return view('administator.notice.edit',compact('notice','classes'));
     }
 
     /**
@@ -85,24 +84,28 @@ class NoticeController extends Controller
      */
     public function update(Request $request, Notice $notice)
     {
+
         $request->validate([
             'class' => 'required',
             'title' => 'required',
 
         ]);
         if($request->file==null){
-            $file = null;
+            $notice->update([
+                'classroom_id'=>$request->class,
+                'title'=>$request->title,
+                'description'=>$request->description
+        ]);
         }else{
-            $file = file_upload($request->file, 'notice');
-        }
-        $notice->update([
-            'classroom_id'=>$request->class,
-            'title'=>$request->title,
-            'description'=>$request->description,
-            'file'=>$file
+            $notice->update([
+                'classroom_id'=>$request->class,
+                'title'=>$request->title,
+                'description'=>$request->description,
+                'file'=>file_upload($request->file, 'notice')
+        ]);
 
-    ]);
-        return response()->json(['message' => 'Notice updated successfully']);
+        }
+        return redirect()->route('administator.notice.index');
     }
 
     /**

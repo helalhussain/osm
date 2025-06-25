@@ -60,3 +60,4 @@
         });
     </script>
 @endpush
+{{-- <a href="${route('admin.user.destroy',row.id) }" class="btn btn-outline-danger btn-sm" id="deleteBtn"><i class="fas fa-trash-alt"></i></a> --}}

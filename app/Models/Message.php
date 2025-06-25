@@ -15,4 +15,13 @@ class Message extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function teacher()
+    {
+        return $this->belongsTo(Teacher::class);
+    }
+    public function administator()
+    {
+        return $this->belongsTo(Administator::class);
+    }
 }

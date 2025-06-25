@@ -5,8 +5,15 @@
                     <div class="collapse navbar-collapse" id="topnav-menu-content">
                         <ul class="navbar-nav">
                             <li class="nav-item">
+                                <a class="nav-link" href="/">
+                                    {{-- <i class="dripicons-home me-2"></i> --}}
+                                     Home
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('dashboard') }}">
-                                    <i class="dripicons-home me-2"></i> Dashboard
+                                    {{-- <i class="dripicons-home me-2"></i> --}}
+                                     Dashboard
                                 </a>
                             </li>
 
@@ -14,11 +21,12 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-apps" role="button"
                                 >
-                                    <i class="dripicons-archive me-2"></i> Apps <div class="arrow-down"></div>
+                                    {{-- <i class="dripicons-archive me-2"></i> --}}
+                                     Massage <div class="arrow-down"></div>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="topnav-apps">
 
-                                    <a href="#" class="dropdown-item">Chat</a>
+                                    <a href="{{ route('chat.index') }}" class="dropdown-item">Chat</a>
                                     <a href="{{ route('message.index') }}" class="dropdown-item">Message</a>
 
 
@@ -30,12 +38,13 @@
                                     </div>
                                 </div>
                             </li>
-                            {{-- <li class="nav-item">
-                                <a class="nav-link" href="{{ route('notice.index') }}">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('course.index') }}">
 
-                                    <i class="dripicons-bell me-2"></i> Notice
+                                    {{-- <i class="dripicons-bell me-2"></i> --}}
+                                     Course
                                 </a>
-                            </li> --}}
+                            </li>
 
 
 

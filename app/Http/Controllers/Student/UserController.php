@@ -8,14 +8,13 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
-use App\Models\Cls;
+use App\Models\Course;
 
 class UserController extends Controller
 {
 
-    public function create(){
-        $classes = Cls::all();
-        return view('registration',compact('classes'));
+    public function show_course(){
+
     }
 
     public function singup(Request $request)

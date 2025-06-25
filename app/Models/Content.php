@@ -15,4 +15,12 @@ class Content extends Model
     {
         return $this->belongsTo(Classroom::class);
     }
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
+    public function subject()
+    {
+        return $this->belongsTo(Subject::class);
+    }
 }

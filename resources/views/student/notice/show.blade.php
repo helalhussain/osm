@@ -31,7 +31,7 @@
                                         {{ $notice->title }}
                                     </h4>
                                     <p class="text-muted mb-2">
-                                        {{ $notice->description }}
+                                        {!! $notice->description !!}
                                     </p>
                                     @if($notice->file != "")
                                         <div class="row pt-2">
@@ -39,13 +39,14 @@
                                                 <div class="cards"><hr />
                                                     <p class="email-attachment-title mb-2">Attachments</p>
                                                     <div class="cursor-pointer">
-                                                        <i class="ti ti-file"></i>
+
                                                         <a
                                                             href="{{ uploaded_file($notice->file) }}"
                                                             download
                                                             class="align-middle ms-1"
                                                         >
-                                                            {{ $notice->file }}
+                                                        <p class="btn btn-light border border-secondary border-1 rounded-pill" >Download <i class="mdi mdi-download ms-2"></i></p>
+
                                                         </a>
                                                     </div>
                                                     {{-- <img class="card-img-top img-fluid" src="{{ uploaded_file($notice->image) }}" alt="Card image cap"> --}}

@@ -1,6 +1,11 @@
 <div id="layout-wrapper">
 
 
+
+
+
+
+
 <header id="page-topbar">
     <div class="navbar-header">
         <div class="d-flex">
@@ -215,7 +220,7 @@
                 <div class="dropdown-menu dropdown-menu-end">
                     <!-- item-->
                     <a class="dropdown-item" href="{{ route('profile.show') }}"><i class="mdi mdi-account-circle-outline font-size-16 align-middle me-1"></i> Profile</a>
-                    <a class="dropdown-item d-block" href="#"><span class="badge badge-success float-end">11</span><i class="mdi mdi-cog-outline font-size-16 align-middle me-1"></i> Settings</a>
+                    {{-- <a class="dropdown-item d-block" href="#"><span class="badge badge-success float-end">11</span><i class="mdi mdi-cog-outline font-size-16 align-middle me-1"></i> Settings</a> --}}
 
                     <div class="dropdown-divider"></div>
 
@@ -226,11 +231,11 @@
                 </div>
             </div>
 
-            <div class="dropdown d-inline-block">
+            {{-- <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item noti-icon right-bar-toggle waves-effect">
                     <i class="mdi mdi-cog-outline font-size-20"></i>
                 </button>
-            </div>
+            </div> --}}
 
         </div>
     </div>

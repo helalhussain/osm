@@ -16,7 +16,7 @@
                         </div>
                         <div class="user-info">
                             <h5 class="mt-3 font-size-16 text-white">{{ auth()->user()->name }}</h5>
-                            <span class="font-size-13 text-white-50">Administrator</span>
+                            <span class="font-size-13 text-white-50">{{ auth()->user()->email }}</span>
                         </div>
                     </div>
                 </div>
@@ -60,7 +60,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="{{ route('administator.student-message.index') }}" class="waves-effect">
+                            <a href="{{ route('administator.message.index') }}" class="waves-effect">
                                 <i class="dripicons-message"></i>
 
                                 <span>Message</span>

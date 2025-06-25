@@ -20,8 +20,8 @@
                         Compose
                     </a>
                     <div class="mail-list mt-4">
-                        <a href="{{ route('message.index') }}" class=""><i class="mdi mdi-email-outline me-2"></i> Inbox <span class="ms-1 float-end">({{ $m_count->count() }})</span></a>
-                        <a href="{{ route('send.index') }}" class="active" ><i class="mdi mdi-email-check-outline me-2 "></i>Sent <span class="ms-1 float-end">({{ $m_student_count->count() }})</span></a>
+                        <a href="{{ route('message.index') }}" ><i class="mdi mdi-email-outline me-2"></i> Inbox <span class="ms-1 float-end">({{ $student_recieve->count() }})</span></a>
+                        <a href="{{ route('message.send') }}" class="text-danger" ><i class="mdi mdi-email-check-outline me-2 "></i>Sent <span class="ms-1 float-end">({{ $m_t_student->count() }})</span></a>
                     </div>
                 </div>
                 <!-- End Left sidebar -->
@@ -46,7 +46,26 @@
             <label for="chk19" class="toggle"></label>
         </div> --}}
 
-        <a href="{{ route('message.show',$message->id) }}" class="title">Administator</a>
+        <a href="{{ route('message.send_show',$message->id) }}" class="title">
+
+
+            @if($message->administrator=='0' and $message->teach=='recieve')
+            {{ $message->teacher->name }}
+            @elseif ($message->teach=='0' and $message->administrator=='recieve')
+            {{ $message->administator->name }}
+            @elseif ($message->teach=='recieve' and $message->administrator=='recieve')
+            {{ $message->teacher->name }},{{ $message->administator->name }}
+            @endif
+
+            {{-- @if($message->administrator=='0' and $message->student=='recieve')
+            {{ $message->user->name }}
+            @elseif ($message->student=='0' and $message->administrator=='recieve')
+            {{ $message->administator->name }}
+            @elseif ($message->student=='recieve' and $message->administrator=='recieve')
+            {{ $message->user->name }},{{ $message->administator->name }}
+            @endif --}}
+
+        </a>
      <h6 class="" style="font-size:12px">
          <p style="margin-left:10px;" class="mt-3">{{ $message->created_at->format("M-d") }}</p>
         </h6>

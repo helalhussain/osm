@@ -16,6 +16,9 @@ return new class extends Migration
             $table->foreignId('classroom_id')->constrained('classrooms')->cascodeOnDelete();
             $table->foreignId('section_id')->constrained('sections')->cascodeOnDelete();
             $table->string('title')->nullable();
+            // $table->string('slug')->unique();
+            $table->string('fee')->nullable();
+            $table->string('discount')->nullable();
             // $table->foreignId('subject_id')->constrained('subjects')->cascodeOnDelete();
             // $table->foreignId('teacher_id')->constrained('teachers')->cascodeOnDelete();
             $table->timestamps();

@@ -13,12 +13,16 @@ return new class extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('administator_id')->constrained('administators')->cascadeOnDelete();
+            $table->foreignId('user_id')->nullable();
+            $table->foreignId('administator_id')->nullable();
+            $table->foreignId('teacher_id')->nullable();
             $table->string('subject')->nullable();
-            $table->text('message')->nullable();
+            $table->longText('message')->nullable();
             $table->string('image')->nullable();
             $table->string('file')->nullable();
+            $table->string('administrator')->nullable();
+            $table->string('teach')->nullable();
+            $table->string('student')->nullable();
             $table->string('m_type')->nullable();
             $table->timestamps();
         });

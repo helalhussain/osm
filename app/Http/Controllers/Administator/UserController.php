@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Section;
 use App\Models\Classroom;
+use App\Models\Payment;
 
 class UserController extends Controller
 {
@@ -72,7 +73,8 @@ class UserController extends Controller
     {
         $classes = Classroom::all();
         $sections = Section::all();
-        return view('administator.student.show',compact('user','classes','sections'));
+        $payments = Payment::orderBy('id', 'DESC')->get();
+        return view('administator.student.show',compact('user','payments','classes','sections'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -98,6 +100,7 @@ class UserController extends Controller
                 'gender'=>$request->gender,
                 'dob'=>$request->date,
                 'address'=>$request->address,
+                'classroom_id'=>$request->class,
                 'section_id'=>$request->section,
                 'in_active'=>$request->active,
         ]);

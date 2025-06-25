@@ -20,7 +20,8 @@
                         <tr>
                             <th>No</th>
                             <th>Title</th>
-                            <th>Class</th>
+
+                            <th>Time(minute)</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -31,12 +32,12 @@
                 <tr>
                     <td>{{ $key+1 }}</td>
                     <td>{{ $quiz->title }}</td>
-                    <td>{{ $quiz->classroom->title }}</td>
-
-
-                    <td>{{ $quiz->created_at->format("M-h-D") }}</td>
+                    <td>{{ $quiz->minute }} Minutes</td>
                     <td>
-                        <a href="{{ $quiz->quiz }}" class="btn btn-outline-success btn-sm" ><i class="fas fa-eye"></i></a>
+                        <a href="{{ route('quiz.show',$quiz->id) }}" class="btn btn-outline-success btn-sm" >
+                            {{-- <i class="fas fa-eye"></i> --}}
+                            Open quiz
+                        </a>
                     </td>
                 </tr>
                 @endforeach

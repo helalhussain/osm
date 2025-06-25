@@ -13,16 +13,7 @@ class Teacher extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $fillable =[
-        'name',
-        'phone',
-        'address',
-        'gender',
-        'dob',
-        'password',
-        'image',
-        'status'
-    ];
+    protected $guarded = ['id'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -64,4 +55,10 @@ class Teacher extends Authenticatable
     {
         return $this->hasOne(Result::class);
     }
+
+    public function message()
+    {
+        return $this->hasOne(Message::class);
+    }
+ 
 }
